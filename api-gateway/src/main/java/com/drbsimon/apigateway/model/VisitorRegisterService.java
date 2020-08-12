@@ -35,7 +35,6 @@ public class VisitorRegisterService {
                 .firstname(userCredentials.getFirstname())
                 .lastname(userCredentials.getLastname())
                 .email(userCredentials.getEmail())
-                .gender(userCredentials.getGender())
                 .roles(Collections.singletonList(Role.ROLE_USER))
                 .build();
         visitorRepository.save(newVisitor);
