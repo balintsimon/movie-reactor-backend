@@ -2,6 +2,7 @@ package com.drbsimon.apigateway;
 
 import com.drbsimon.apigateway.entity.Visitor;
 import com.drbsimon.apigateway.model.Gender;
+import com.drbsimon.apigateway.model.Role;
 import com.drbsimon.apigateway.repository.VisitorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -96,7 +97,7 @@ public class ApiGatewayApplication {
                     .firstname("Klari")
                     .lastname("Tolnai")
                     .gender(Gender.GENERAL)
-                    .roles(Arrays.asList("ROLE_ADMIN", "ROLE_USER"))
+                    .roles(Arrays.asList(Role.ROLE_ADMIN, Role.ROLE_USER))
                     .build();
             repository.save(admin);
 
@@ -107,7 +108,7 @@ public class ApiGatewayApplication {
                     .firstname("Dani")
                     .lastname("Kovats D.")
                     .gender(Gender.MAN)
-                    .roles(Collections.singletonList("ROLE_USER"))
+                    .roles(Collections.singletonList(Role.ROLE_USER))
                     .build();
             repository.save(user);
         };
