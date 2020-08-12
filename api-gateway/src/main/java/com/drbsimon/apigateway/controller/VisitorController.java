@@ -1,11 +1,12 @@
-package com.codecool.moviereactorapplication.controller;
+package com.drbsimon.apigateway.controller;
 
-import com.codecool.moviereactorapplication.entity.Visitor;
-import com.codecool.moviereactorapplication.repository.VisitorRepository;
-import com.codecool.moviereactorapplication.security.CustomUserDetailsService;
+import com.drbsimon.apigateway.entity.Visitor;
+import com.drbsimon.apigateway.repository.VisitorRepository;
+import com.drbsimon.apigateway.security.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -15,14 +16,21 @@ import java.util.List;
 public class VisitorController {
 
     private final CustomUserDetailsService customUserDetailsService;
+    private final VisitorRepository visitorRepository;
 
-    private final VisitorRepository allVisitors;
-
-    @GetMapping("/users")
+    // TODO: remap on frontend from "/users" to "/user"
+    @GetMapping("/user")
     public List<Visitor> getAllUsers() {
-        return allVisitors.findAll();
+        return visitorRepository.findAll();
     }
 
+    @GetMapping("/user/{id}")
+    public Visitor getUserById(@PathVariable("id") Long id) {
+        return visitorRepository.getById(id);
+    }
+
+    // Method inherited from old design
+    // TODO: check if method is needed at all => JWT has all the details on front-end!
     @GetMapping("/me")
     public String currentUser(){
         String username = customUserDetailsService.findLoggedInUsername();
