@@ -1,18 +1,19 @@
-package com.codecool.moviereactorapplication.pet.controller;
+package com.drbsimon.apigateway.controller;
 
 import com.drbsimon.apigateway.entity.Visitor;
 import com.drbsimon.apigateway.model.Gender;
 import com.drbsimon.apigateway.model.UserCredentials;
-import com.codecool.moviereactorapplication.pet.repository.VisitorRepository;
+import com.drbsimon.apigateway.repository.VisitorRepository;
 import com.drbsimon.apigateway.security.DataValidatorService;
 import com.drbsimon.apigateway.security.JwtTokenServices;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,21 +23,14 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "${main.route}")
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
+@Slf4j
 public class AuthController {
-    private final VisitorRepository allVisitors;
+    private final VisitorRepository visitorRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenServices jwtTokenServices;
     private final DataValidatorService dataValidator;
     private final PasswordEncoder passwordEncoder;
-
-    // TODO: rearrange to one line
-    public AuthController(AuthenticationManager authenticationManager, JwtTokenServices jwtTokenServices, VisitorRepository visitors, VisitorRepository allVisitors, DataValidatorService dataValidator) {
-        this.authenticationManager = authenticationManager;
-        this.jwtTokenServices = jwtTokenServices;
-        this.allVisitors = allVisitors;
-        this.dataValidator = dataValidator;
-        passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
 
     // TODO: rearrange to one line
     @PostMapping("/login")
@@ -49,7 +43,7 @@ public class AuthController {
             List<String> roles = authentication.getAuthorities().stream()
                     .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
             String token = jwtTokenServices.createToken(username, roles);
-            String gender = allVisitors.getGenderByUsername(username).getGender().toString();
+            String gender = visitorRepository.getGenderByUsername(username).getGender().toString();
             model.put("correct", true);
             model.put("username", username);
             model.put("roles", roles);
@@ -76,7 +70,7 @@ public class AuthController {
         Map<Object, Object> model = new HashMap<>();
         List<String> errorList = new ArrayList<>();
 
-        if (allVisitors.findByUsername(username).isPresent()) {
+        if (visitorRepository.findByUsername(username).isPresent()) {
             model.put("correct", false);
             model.put("msg", "Username already exists! Please choose a different username!");
             return ResponseEntity.ok(model);
@@ -134,7 +128,7 @@ public class AuthController {
                 .gender(gender)
                 .roles(Collections.singletonList("ROLE_USER"))
                 .build();
-        allVisitors.save(newVisitor);
+        visitorRepository.save(newVisitor);
 
         List<String> roles = Collections.singletonList("ROLE_USER");
         String token = jwtTokenServices.createToken(username, roles);

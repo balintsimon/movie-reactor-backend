@@ -38,8 +38,8 @@ public class Visitor {
     @Column(nullable = false)
     private String email;
 
-//    @Column(nullable = false)
-//    private Gender gender;
+    @Column(nullable = false)
+    private Gender gender;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
