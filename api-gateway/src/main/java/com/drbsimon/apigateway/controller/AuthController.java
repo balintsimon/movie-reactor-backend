@@ -3,22 +3,19 @@ package com.drbsimon.apigateway.controller;
 import com.drbsimon.apigateway.entity.Visitor;
 import com.drbsimon.apigateway.model.Gender;
 import com.drbsimon.apigateway.model.UserCredentials;
+import com.drbsimon.apigateway.model.VisitorLoginService;
 import com.drbsimon.apigateway.repository.VisitorRepository;
 import com.drbsimon.apigateway.security.DataValidatorService;
 import com.drbsimon.apigateway.security.JwtTokenServices;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "${main.route}")
 @RestController
@@ -27,34 +24,14 @@ import java.util.stream.Collectors;
 @Slf4j
 public class AuthController {
     private final VisitorRepository visitorRepository;
-    private final AuthenticationManager authenticationManager;
     private final JwtTokenServices jwtTokenServices;
     private final DataValidatorService dataValidator;
     private final PasswordEncoder passwordEncoder;
+    private final VisitorLoginService visitorLoginService;
 
-    // TODO: rearrange to one line
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody UserCredentials userCredentials) {
-        Map<Object, Object> model = new HashMap<>();
-        try {
-            String username = userCredentials.getUsername();
-            String password = userCredentials.getPassword();
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-            List<String> roles = authentication.getAuthorities().stream()
-                    .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-            String token = jwtTokenServices.createToken(username, roles);
-            String gender = visitorRepository.getGenderByUsername(username).getGender().toString();
-            model.put("correct", true);
-            model.put("username", username);
-            model.put("roles", roles);
-            model.put("token", token);
-            model.put("gender", gender);
-            return ResponseEntity.ok(model);
-        } catch (AuthenticationException e) {
-            model.put("correct", false);
-            model.put("msg", "Username or/and password is not correct!");
-            return ResponseEntity.ok(model);
-        }
+        return visitorLoginService.loginUser(userCredentials);
     }
 
     // TODO: rearrange to one line
