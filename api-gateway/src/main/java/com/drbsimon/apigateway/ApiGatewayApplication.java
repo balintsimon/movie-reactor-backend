@@ -1,6 +1,10 @@
 package com.drbsimon.apigateway;
 
+import com.drbsimon.apigateway.entity.Visitor;
+import com.drbsimon.apigateway.model.Gender;
+import com.drbsimon.apigateway.repository.VisitorRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -9,6 +13,7 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.client.RestTemplate;
@@ -21,6 +26,8 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @SpringBootApplication
@@ -30,6 +37,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ApiGatewayApplication {
     private final ZuulProperties zuulProperties;
+    private final VisitorRepository repository;
+    private final PasswordEncoder passwordEncoder;
 
     public static void main(String[] args) {
         SpringApplication.run(ApiGatewayApplication.class, args);
@@ -74,5 +83,33 @@ public class ApiGatewayApplication {
     @Bean
     public PasswordEncoder getEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+    @Bean
+    @Profile("production")
+    public CommandLineRunner init() {
+        return args -> {
+            Visitor admin = Visitor.builder()
+                    .username("admin")
+                    .password(passwordEncoder.encode("admin"))
+                    .email("admin@gmail.com")
+                    .firstname("Klari")
+                    .lastname("Tolnai")
+                    .gender(Gender.GENERAL)
+                    .roles(Arrays.asList("ROLE_ADMIN", "ROLE_USER"))
+                    .build();
+            repository.save(admin);
+
+            Visitor user = Visitor.builder()
+                    .username("user")
+                    .password(passwordEncoder.encode("user"))
+                    .email("user@gmail.com")
+                    .firstname("Dani")
+                    .lastname("Kovats D.")
+                    .gender(Gender.MAN)
+                    .roles(Collections.singletonList("ROLE_USER"))
+                    .build();
+            repository.save(user);
+        };
     }
 }
