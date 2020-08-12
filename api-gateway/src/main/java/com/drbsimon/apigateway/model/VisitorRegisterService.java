@@ -61,7 +61,6 @@ public class VisitorRegisterService {
         String firstname = userCredentials.getFirstname();
         String lastname = userCredentials.getLastname();
         String email = userCredentials.getEmail();
-        Gender gender = userCredentials.getGender();
         List<String> errorList = new ArrayList<>();
 
         if (visitorRepository.findByUsername(username).isPresent()) {
@@ -96,9 +95,6 @@ public class VisitorRegisterService {
             return failedRegisterMessage("Not valid email!");
         }
 
-        if (!dataValidator.isValidGender(gender, errorList)) {
-            return failedRegisterMessage("Not a vaild gender!");
-        }
         return null;
     }
 

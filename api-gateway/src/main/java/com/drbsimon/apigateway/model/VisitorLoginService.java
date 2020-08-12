@@ -50,11 +50,8 @@ public class VisitorLoginService {
                 .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
 
         String token = jwtTokenServices.createToken(username, roles);
-        String gender = visitorRepository.getGenderByUsername(username).getGender().toString();
 
-        return validLoginMessage(
-                new ValidMessageFields(true, username, roles, token, gender)
-        );
+        return validLoginMessage(new ValidMessageFields(true, username, roles, token));
     }
 
     private ResponseEntity validLoginMessage(ValidMessageFields validMessageFields) {
@@ -63,7 +60,6 @@ public class VisitorLoginService {
         responseEntityBody.put("username", validMessageFields.getUsername());
         responseEntityBody.put("roles", validMessageFields.getRoles());
         responseEntityBody.put("token", validMessageFields.getToken());
-        responseEntityBody.put("gender", validMessageFields.getGender());
         return ResponseEntity.ok(responseEntityBody);
     }
 
@@ -81,6 +77,5 @@ public class VisitorLoginService {
         private String username;
         private List<String> roles;
         private String token;
-        private String gender;
     }
 }

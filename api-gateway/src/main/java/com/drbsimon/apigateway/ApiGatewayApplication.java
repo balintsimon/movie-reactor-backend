@@ -96,7 +96,6 @@ public class ApiGatewayApplication {
                     .email("admin@gmail.com")
                     .firstname("Klari")
                     .lastname("Tolnai")
-                    .gender(Gender.GENERAL)
                     .roles(Arrays.asList(Role.ROLE_ADMIN, Role.ROLE_USER))
                     .build();
             repository.save(admin);
@@ -107,7 +106,6 @@ public class ApiGatewayApplication {
                     .email("user@gmail.com")
                     .firstname("Dani")
                     .lastname("Kovats D.")
-                    .gender(Gender.MAN)
                     .roles(Collections.singletonList(Role.ROLE_USER))
                     .build();
             repository.save(user);

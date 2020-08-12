@@ -1,9 +1,7 @@
 package com.drbsimon.apigateway.security;
 
-import com.drbsimon.apigateway.model.Gender;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -92,12 +90,4 @@ public class DataValidatorService {
         }
         return valid;
     }
-
-    public boolean isValidGender(Gender gender, List<String> errorList) {
-        errorList.clear();
-        List<Gender> genders = Arrays.asList(Gender.GENERAL, Gender.WOMAN, Gender.MAN);
-        return genders.contains(gender);
-    }
-
 }
-
