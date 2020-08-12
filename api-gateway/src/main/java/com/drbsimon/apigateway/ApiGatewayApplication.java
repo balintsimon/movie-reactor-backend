@@ -39,7 +39,6 @@ import java.util.List;
 public class ApiGatewayApplication {
     private final ZuulProperties zuulProperties;
     private final VisitorRepository repository;
-    private final PasswordEncoder passwordEncoder;
 
     public static void main(String[] args) {
         SpringApplication.run(ApiGatewayApplication.class, args);
@@ -90,6 +89,7 @@ public class ApiGatewayApplication {
     @Profile("production")
     public CommandLineRunner init() {
         return args -> {
+            PasswordEncoder passwordEncoder = getEncoder();
             Visitor admin = Visitor.builder()
                     .username("admin")
                     .password(passwordEncoder.encode("admin"))
