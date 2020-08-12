@@ -30,7 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         Visitor visitor = visitors.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Username: " + username + " not found"));
         return new User(visitor.getUsername(), visitor.getPassword(),
-                visitor.getRoles().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
+                visitor.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.toString())).collect(Collectors.toList()));
     }
 
     public String findLoggedInUsername() {

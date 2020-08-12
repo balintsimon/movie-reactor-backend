@@ -1,7 +1,7 @@
 package com.drbsimon.apigateway;
 
 import com.drbsimon.apigateway.entity.Visitor;
-import com.drbsimon.apigateway.model.Gender;
+import com.drbsimon.apigateway.model.Role;
 import com.drbsimon.apigateway.repository.VisitorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -38,7 +38,6 @@ import java.util.List;
 public class ApiGatewayApplication {
     private final ZuulProperties zuulProperties;
     private final VisitorRepository repository;
-    private final PasswordEncoder passwordEncoder;
 
     public static void main(String[] args) {
         SpringApplication.run(ApiGatewayApplication.class, args);
@@ -89,14 +88,14 @@ public class ApiGatewayApplication {
     @Profile("production")
     public CommandLineRunner init() {
         return args -> {
+            PasswordEncoder passwordEncoder = getEncoder();
             Visitor admin = Visitor.builder()
                     .username("admin")
                     .password(passwordEncoder.encode("admin"))
                     .email("admin@gmail.com")
                     .firstname("Klari")
                     .lastname("Tolnai")
-                    .gender(Gender.GENERAL)
-                    .roles(Arrays.asList("ROLE_ADMIN", "ROLE_USER"))
+                    .roles(Arrays.asList(Role.ROLE_ADMIN, Role.ROLE_USER))
                     .build();
             repository.save(admin);
 
@@ -106,8 +105,7 @@ public class ApiGatewayApplication {
                     .email("user@gmail.com")
                     .firstname("Dani")
                     .lastname("Kovats D.")
-                    .gender(Gender.MAN)
-                    .roles(Collections.singletonList("ROLE_USER"))
+                    .roles(Collections.singletonList(Role.ROLE_USER))
                     .build();
             repository.save(user);
         };
