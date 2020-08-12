@@ -25,39 +25,37 @@ public class VisitorRegisterService {
     private final VisitorLoginService visitorLoginService;
 
     public ResponseEntity registerUser(UserCredentials userCredentials) {
-        String username = userCredentials.getUsername();
-        String password = userCredentials.getPassword();
-        String firstname = userCredentials.getFirstname();
-        String lastname = userCredentials.getLastname();
-        String email = userCredentials.getEmail();
-        Gender gender = userCredentials.getGender();
 
-        Map<Object, Object> model = new HashMap<>();
-
-        ResponseEntity failedRegisterMessage = validateRegistryData(userCredentials);
-        if (failedRegisterMessage != null) return failedRegisterMessage;
+        ResponseEntity failedRegistrationMessage = checkRegistrationForError(userCredentials);
+        if (failedRegistrationMessage != null) return failedRegistrationMessage;
 
         Visitor newVisitor = Visitor.builder()
-                .username(username)
-                .password(passwordEncoder.encode(password))
-                .firstname(firstname)
-                .lastname(lastname)
-                .email(email)
-                .gender(gender)
+                .username(userCredentials.getUsername())
+                .password(passwordEncoder.encode(userCredentials.getPassword()))
+                .firstname(userCredentials.getFirstname())
+                .lastname(userCredentials.getLastname())
+                .email(userCredentials.getEmail())
+                .gender(userCredentials.getGender())
                 .roles(Collections.singletonList(Role.ROLE_USER))
                 .build();
         visitorRepository.save(newVisitor);
-
-        List<String> roles = Collections.singletonList(Role.ROLE_USER.toString());
-        String token = jwtTokenServices.createToken(username, roles);
-        model.put("correct", true);
-        model.put("username", username);
-        model.put("roles", roles);
-        model.put("token", token);
-        return ResponseEntity.ok(model);
+        return successfulRegistrationResponse(newVisitor.getUsername(), newVisitor.getRoles());
     }
 
-    private ResponseEntity validateRegistryData(UserCredentials userCredentials) {
+    private ResponseEntity successfulRegistrationResponse(String username, List<Role> roles) {
+        Map<String, Object> responseMessage = new HashMap<>();
+
+        String token = jwtTokenServices.createToken(username, Collections.singletonList(roles.stream().toString()));
+        responseMessage.put("correct", true);
+        responseMessage.put("username", username);
+        responseMessage.put("roles", roles);
+        responseMessage.put("token", token);
+        return ResponseEntity.ok(responseMessage);
+    }
+
+    // TODO: check if validation could generate error messages instead of registration service.
+    // TODO: check if possible to modify to collect all possible errors in one message.
+    public ResponseEntity checkRegistrationForError(UserCredentials userCredentials) {
         String username = userCredentials.getUsername();
         String password = userCredentials.getPassword();
         String firstname = userCredentials.getFirstname();
