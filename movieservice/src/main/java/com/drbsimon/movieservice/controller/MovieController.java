@@ -3,8 +3,10 @@ package com.drbsimon.movieservice.controller;
 import com.drbsimon.movieservice.entity.Movie;
 import com.drbsimon.movieservice.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.AlgorithmConstraints;
 import java.util.List;
 
 @CrossOrigin
@@ -26,7 +28,7 @@ public class MovieController {
     }
 
     @GetMapping("/movie/{id}")
-    public Movie getMovieById(@RequestParam("id") Long id) {
+    public Movie getMovieById(@PathVariable("id") Long id) {
         return movieRepository.getById(id);
     }
 }
