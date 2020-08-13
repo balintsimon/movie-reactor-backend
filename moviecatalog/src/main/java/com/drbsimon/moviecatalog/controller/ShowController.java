@@ -52,6 +52,6 @@ public class ShowController {
     // TODO: check if id may travel in request body
     @DeleteMapping("/show/movie/{showId}")
     public void deleteShowByMovieId(@PathVariable("showId") Long movieId) {
-        showRepository.deleteByMovieId(movieId);
+        showRepository.deleteAllByMovieId(movieId);
     }
 }

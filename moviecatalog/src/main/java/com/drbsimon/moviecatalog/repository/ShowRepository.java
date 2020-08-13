@@ -10,7 +10,7 @@ public interface ShowRepository extends JpaRepository<Show, Long> {
 
     List<Show> findAll();
 
-    void deleteByMovieId(Long movieId);
+    void deleteAllByMovieId(Long movieId);
 
     void deleteById(Long id);
 }
