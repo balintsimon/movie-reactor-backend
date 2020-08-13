@@ -1,7 +1,9 @@
 package com.drbsimon.moviecatalog;
 
 import com.drbsimon.moviecatalog.entity.Show;
+import com.drbsimon.moviecatalog.model.Movie;
 import com.drbsimon.moviecatalog.repository.ShowRepository;
+import com.drbsimon.moviecatalog.service.MovieServiceCaller;
 import com.drbsimon.moviecatalog.service.RoomServiceCaller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -29,6 +31,7 @@ import java.time.LocalTime;
 public class MoviecatalogApplication {
     private final ShowRepository showRepository;
     private final RoomServiceCaller roomServiceCaller;
+    private final MovieServiceCaller movieServiceCaller;
 
     public static void main(String[] args) {
         SpringApplication.run(MoviecatalogApplication.class, args);
@@ -57,16 +60,16 @@ public class MoviecatalogApplication {
             LocalDate fromDate = LocalDate.now();
             for (int i = 0; i < 7; i++) {
                 LocalTime startingTime = LocalTime.of(12, 0);
-//                for (Movie movie : movieRepository.findAll()) {
+                for (Movie movie : movieServiceCaller.getAllShows()) {
                     Show currentShow = Show.builder()
-//                            .movieId(movie.getId())
+                            .movieId(movie.getId())
                             .startingDate(fromDate)
                             .startingTime(startingTime)
                             .roomId(roomServiceCaller.getAllRooms().get(0).getId())
                             .build();
                     showRepository.save(currentShow);
                     startingTime = startingTime.plusHours(2);
-//                }
+                }
                 fromDate = fromDate.plusDays(1);
             }
         };
