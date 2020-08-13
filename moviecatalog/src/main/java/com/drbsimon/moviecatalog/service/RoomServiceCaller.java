@@ -2,6 +2,8 @@ package com.drbsimon.moviecatalog.service;
 
 import com.drbsimon.moviecatalog.model.Room;
 import com.drbsimon.moviecatalog.repository.ShowRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,11 +14,12 @@ import java.util.List;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class RoomServiceCaller {
-    private final RestTemplate restTemplate;
+    private RestTemplate restTemplate;
 
-    @Value("http://cinema/cinema")
+    @Value("${cinema.url}")
     private String cinemaBaseUrl;
 
     public List<Room> getAllRooms() {
