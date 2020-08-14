@@ -25,5 +25,11 @@
       <jdbc-driver>org.h2.Driver</jdbc-driver>
       <jdbc-url>jdbc:h2:~/cc_git/pet/movie-reactor-backend/movieservice/cinema;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="booking" uuid="11c125e0-7824-4143-a171-767c74b74290">
+      <driver-ref>h2.unified</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:~/cc_git/pet/movie-reactor-backend/movieservice/booking</jdbc-url>
+    </data-source>
   </component>
 </project>
