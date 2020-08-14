@@ -8,6 +8,8 @@ import java.util.List;
 
 @Repository
 public interface SeatRepository extends JpaRepository<Seat, Long> {
+    List<Seat> findAll();
+
     List<Seat> getSeatsByRoomId(Long id);
 
     Seat getById(Long id);
