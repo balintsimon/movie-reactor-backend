@@ -19,5 +19,11 @@
       <jdbc-driver>org.h2.Driver</jdbc-driver>
       <jdbc-url>jdbc:h2:~/cc_git/pet/movie-reactor-backend/moviecatalog/movie_catalog;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="cinema" uuid="7592fd31-51df-4e7e-817c-924f48bb4d45">
+      <driver-ref>h2.unified</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:~/cc_git/pet/movie-reactor-backend/movieservice/cinema;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE</jdbc-url>
+    </data-source>
   </component>
 </project>

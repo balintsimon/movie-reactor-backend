@@ -40,6 +40,7 @@ public class Visitor {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
+    @Enumerated(EnumType.STRING)
     private List<Role> roles = new ArrayList<>();
 
     @ElementCollection

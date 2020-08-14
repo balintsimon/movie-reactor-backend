@@ -7,14 +7,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="api-gateway" />
-        <module name="eureka" />
         <module name="movieservice" />
         <module name="moviecatalog" />
+        <module name="api-gateway" />
+        <module name="cinema" />
+        <module name="eureka" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="api-gateway" target="11" />
+      <module name="cinema" target="11" />
       <module name="eureka" target="11" />
       <module name="moviecatalog" target="11" />
       <module name="movieservice" target="11" />
@@ -23,6 +25,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="api-gateway" options="-parameters" />
+      <module name="cinema" options="-parameters" />
       <module name="eureka" options="-parameters" />
       <module name="moviecatalog" options="-parameters" />
       <module name="movieservice" options="-parameters" />
