@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/api-gateway/api-gateway.iml" filepath="$PROJECT_DIR$/api-gateway/api-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cinema/cinema.iml" filepath="$PROJECT_DIR$/cinema/cinema.iml" />
       <module fileurl="file://$PROJECT_DIR$/eureka/eureka.iml" filepath="$PROJECT_DIR$/eureka/eureka.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/movie-reactor-backend.iml" filepath="$PROJECT_DIR$/.idea/movie-reactor-backend.iml" />
       <module fileurl="file://$PROJECT_DIR$/moviecatalog/moviecatalog.iml" filepath="$PROJECT_DIR$/moviecatalog/moviecatalog.iml" />
