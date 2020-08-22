@@ -1,6 +1,8 @@
 package com.drbsimon.apigateway.controller;
 
 import com.drbsimon.apigateway.entity.Visitor;
+import com.drbsimon.apigateway.model.VisitorListWrapper;
+import com.drbsimon.apigateway.repository.VisitorManager;
 import com.drbsimon.apigateway.repository.VisitorRepository;
 import com.drbsimon.apigateway.security.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
@@ -14,28 +16,24 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController()
 public class VisitorController {
-
-    private final CustomUserDetailsService customUserDetailsService;
-    private final VisitorRepository visitorRepository;
+    private final VisitorManager visitorManager;
 
     // TODO: remap on frontend from "/users" to "/user"
     @GetMapping("/user")
-    public List<Visitor> getAllUsers() {
-        return visitorRepository.findAll();
+    public VisitorListWrapper getAllUsers() {
+        return visitorManager.getAllVisitors();
     }
 
     @GetMapping("/user/{id}")
     public Visitor getUserById(@PathVariable("id") Long id) {
-        return visitorRepository.getById(id);
+        return visitorManager.getVisitorById(id);
     }
 
     // Method inherited from old design
     // TODO: check if method is needed at all => JWT has all the details on front-end!
     @GetMapping("/me")
-    public String currentUser(){
-        String username = customUserDetailsService.findLoggedInUsername();
-        UserDetails visitor = customUserDetailsService.loadUserByUsername(username);
-        return username + "\n" + visitor.getAuthorities();
+    public String getCurrentUserName(){
+        return visitorManager.getCurrentUserName();
     }
 
 }
