@@ -14,6 +14,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Builder
 @Component
+//TODO: rename class to something more useful
 public class SeatReservedWithDetails {
     // TODO: needed for admin on frontend only; should be reworked
     // TODO: check frontend information - rewrite to send only necessary data
