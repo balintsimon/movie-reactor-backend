@@ -1,6 +1,5 @@
-package com.drbsimon.apigateway.model;
+package com.drbsimon.booking.model;
 
-import com.drbsimon.apigateway.entity.Visitor;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 

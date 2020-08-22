@@ -1,4 +1,4 @@
-package com.drbsimon.apigateway.model;
+package com.drbsimon.booking.model;
 
 public enum Role {
     ROLE_ADMIN, ROLE_USER
