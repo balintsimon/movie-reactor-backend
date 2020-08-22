@@ -17,5 +17,6 @@ public class Room {
     private String name;
     private Integer numberOfRows;
     private Integer numberOfSeatsPerRow;
+    private Integer capacity;
     private List<Seat> seats;
 }

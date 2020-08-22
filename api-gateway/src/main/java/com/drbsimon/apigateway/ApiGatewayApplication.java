@@ -95,7 +95,7 @@ public class ApiGatewayApplication {
                     .email("admin@gmail.com")
                     .firstname("Klari")
                     .lastname("Tolnai")
-                    .roles(Arrays.asList(Role.ROLE_ADMIN, Role.ROLE_USER))
+                    .roles(Arrays.asList(Role.ROLE_ADMIN))
                     .build();
             repository.save(admin);
 

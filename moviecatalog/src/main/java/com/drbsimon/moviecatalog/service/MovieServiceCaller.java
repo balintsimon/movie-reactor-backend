@@ -1,6 +1,7 @@
 package com.drbsimon.moviecatalog.service;
 
 import com.drbsimon.moviecatalog.model.Movie;
+import com.drbsimon.moviecatalog.model.MovieListWrapper;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class MovieServiceCaller {
 
     // YAGNI: would have been used to initiate DB
     public List<Movie> getAllMovies() {
-        return restTemplate.getForObject(movieBaseUrl + "/movie", List.class);
+        MovieListWrapper movieListWrapper = restTemplate.getForObject(movieBaseUrl + "/movie/", MovieListWrapper.class);
+        return movieListWrapper.getMovies();
     }
 }
