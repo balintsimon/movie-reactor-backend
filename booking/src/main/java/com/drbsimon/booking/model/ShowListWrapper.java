@@ -1,6 +1,5 @@
-package com.drbsimon.moviecatalog.model;
+package com.drbsimon.booking.model;
 
-import com.drbsimon.moviecatalog.entity.Show;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
