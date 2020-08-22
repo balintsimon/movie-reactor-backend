@@ -1,6 +1,8 @@
 package com.drbsimon.moviecatalog.controller;
 
 import com.drbsimon.moviecatalog.entity.Show;
+import com.drbsimon.moviecatalog.model.ShowListWrapper;
+import com.drbsimon.moviecatalog.repository.ShowManager;
 import com.drbsimon.moviecatalog.repository.ShowRepository;
 import com.drbsimon.moviecatalog.service.MovieServiceCaller;
 import lombok.RequiredArgsConstructor;
@@ -13,27 +15,28 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class ShowController {
-    private final ShowRepository showRepository;
+    private final ShowManager showManager;
 
     // TODO: make it check timeframe => show upcoming daily shows only
     @GetMapping("/schedule")
-    public List<Show> getCurrentShows() {
-        return showRepository.findAll();
+    public ShowListWrapper getCurrentShows() {
+        return showManager.getAllCurrentShows();
     }
 
     @GetMapping("/show")
-    public List<Show> getAllShows() {
-        return showRepository.findAll();
+    public ShowListWrapper getAllShows() {
+        return showManager.getAllShows();
     }
 
     @GetMapping("/show/{showId}")
     public Show getShowById(@PathVariable("showId") Long showId) {
-        return showRepository.getShowById(showId);
+        return showManager.getShowById(showId);
     }
 
     @PutMapping("/show/{showId}")
     public void updateShowStartingTime(@PathVariable("showId") Long showId) {
         // TODO: Need to implement, use PathVariable
+//        showManager
     }
 
     // TODO: implement posting new show
@@ -45,13 +48,13 @@ public class ShowController {
     // TODO: check if id may travel in request body
     @DeleteMapping("/show/{showId}")
     public void deleteShowById(@PathVariable("showId") Long showId) {
-        showRepository.deleteById(showId);
+        showManager.deleteShowById(showId);
     }
 
     // TODO: check RESTfulness!
     // TODO: check if id may travel in request body
     @DeleteMapping("/show/movie/{showId}")
     public void deleteShowByMovieId(@PathVariable("showId") Long movieId) {
-        showRepository.deleteAllByMovieId(movieId);
+        showManager.deleteShowByMovieId(movieId);
     }
 }
