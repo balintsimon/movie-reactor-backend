@@ -12,21 +12,28 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-// TODO: check if possible to give unique constraint for the combination of seat+show
-@Table(uniqueConstraints={
-        @UniqueConstraint(columnNames = {"seat_id", "show_id"}) // TODO: Check if this actually works
-})
+//@Table(uniqueConstraints={
+//        @UniqueConstraint(columnNames = {"seat_id", "show_id"}) // TODO: Check if this actually works
+//})
+/*
+* Unable to create unique key constraint (seat_id, show_id)
+* on table reservation:
+* database column 'show_id', 'seat_id' not found.
+* Make sure that you use the correct column name
+* which depends on the naming strategy in use
+* (it may not be the same as the property name in the entity, especially for relational types)
+* */
 public class Reservation {
     @Id
     @GeneratedValue
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private Long seatId;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private Long showId;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private Long visitorId;
 }
