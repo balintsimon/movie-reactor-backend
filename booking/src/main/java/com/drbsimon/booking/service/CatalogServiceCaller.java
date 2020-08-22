@@ -2,6 +2,7 @@ package com.drbsimon.booking.service;
 
 
 import com.drbsimon.booking.model.Show;
+import com.drbsimon.booking.model.ShowListWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,12 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
 
 @CrossOrigin
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class MovieCatalogServiceCaller {
+public class CatalogServiceCaller {
     private final RestTemplate restTemplate;
 
     @Value("${moviecatalog.url}")
@@ -23,5 +25,10 @@ public class MovieCatalogServiceCaller {
     public boolean isShowValid(Long showId) {
         Show show = restTemplate.getForObject(baseUrl + "/show/" + showId, Show.class);
         return show != null;
+    }
+
+    public List<Show> getAllShows() {
+        ShowListWrapper shows = restTemplate.getForObject(baseUrl + "/show/", ShowListWrapper.class);
+        return shows.getShows();
     }
 }
