@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReservationOrganizer {
     private final ReservationRepository reservationRepository;
-    private final MovieCatalogServiceCaller movieCatalogServiceCaller;
+    private final CatalogServiceCaller catalogServiceCaller;
     private final CinemaServiceCaller cinemaServiceCaller;
 
     public boolean saveReservedSeats(SeatReservedWrapper reservationInfo)
@@ -24,7 +24,7 @@ public class ReservationOrganizer {
             return false;
         }
 
-        if (!movieCatalogServiceCaller.isShowValid(showId)) {
+        if (!catalogServiceCaller.isShowValid(showId)) {
             throw new IllegalStateException("Show not found.");
         }
 
