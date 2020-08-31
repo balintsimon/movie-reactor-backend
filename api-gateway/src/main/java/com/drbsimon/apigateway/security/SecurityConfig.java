@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 // TODO: delete permit all upon endpoints revision
-                .antMatchers("/*").permitAll()
+                .antMatchers("/**").permitAll()
                 // TODO: revise endpoints
 //                .antMatchers("/auth/*").permitAll()
 //                .antMatchers(HttpMethod.GET, "/watchlist").hasRole("USER")
