@@ -61,3 +61,12 @@ Under implementation:
 - RESTful API: change endpoint names to follow naming convention
 - enable Spring Security on endpoints
 - move dummy content creation under separate service or flag
+
+## Technology
+Services use:
+- Spring Boot (with Lombok and Spring Security)
+- H2 database through Hibernate ORM (where applicable)
+
+If viewed with IDE, please note that the project uses Lombok. If the IDE is not capable to interpret Lombok annotations
+it may show errors. In this case and if possible, please install an extension that interprets Lombok annotations for 
+the IDE of your choice.
