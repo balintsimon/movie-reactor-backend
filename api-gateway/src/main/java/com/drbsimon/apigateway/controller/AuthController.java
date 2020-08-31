@@ -22,7 +22,6 @@ public class AuthController {
         return visitorLoginService.loginUser(userCredentials);
     }
 
-    // TODO: rearrange to one line
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody UserCredentials userCredentials) {
         return visitorRegisterService.registerUser(userCredentials);
