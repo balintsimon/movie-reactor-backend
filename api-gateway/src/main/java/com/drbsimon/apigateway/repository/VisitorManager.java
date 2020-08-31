@@ -28,7 +28,7 @@ public class VisitorManager {
         return visitorRepository.getById(visitorId);
     }
 
-    public String getCurrentUserName() {
+    public String getCurrentUserNameWithRoles(){
         String username = customUserDetailsService.findLoggedInUsername();
         UserDetails visitor = customUserDetailsService.loadUserByUsername(username);
         return username + "\n" + visitor.getAuthorities();
