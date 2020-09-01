@@ -26,7 +26,7 @@ public class MovieController {
 //        return movieManager.getAllMovies();
 //    }
 
-    @GetMapping("/")
+    @GetMapping
     public MovieListWrapper getAllMoviesWrapped() {
         return movieManager.getAllMovies();
     }
