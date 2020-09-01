@@ -16,17 +16,16 @@ import javax.transaction.Transactional;
 @RequiredArgsConstructor
 public class ReservationController {
     private final ReservationOrganizer reservationOrganizer;
-    private final ReservationRepository reservationRepository;
 
     @Transactional
 //    @PostMapping("/seats") // TODO: rewrite frontend endpoint
-    @PostMapping("/")
+    @PostMapping
     public boolean saveReservedSeats(@RequestBody SeatReservedWrapper reservationInfoWrapper) throws IllegalStateException {
         return reservationOrganizer.saveReservedSeats(reservationInfoWrapper);
     }
 
 //    @DeleteMapping("/delete") // TODO: rewrite frontend endpoint
-    @DeleteMapping("/")
+    @DeleteMapping
     public boolean deleteReservation(@RequestBody SeatReservedWrapper seats) {
         return reservationOrganizer.deleteReservation(seats);
     }
