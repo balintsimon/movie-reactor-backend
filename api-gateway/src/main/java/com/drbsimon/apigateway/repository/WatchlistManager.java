@@ -24,6 +24,7 @@ public class WatchlistManager {
 
     public WatchListWrapper getWatchlistByUsername() {
         Visitor user = getUserFromToken();
+        if (user == null) return new WatchListWrapper(new ArrayList<>());
         List<Integer> watchlistIds = user.getWatchList();
         return new WatchListWrapper(watchlistIds);
     }
