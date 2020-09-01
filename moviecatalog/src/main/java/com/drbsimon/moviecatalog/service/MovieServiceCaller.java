@@ -26,7 +26,7 @@ public class MovieServiceCaller {
 
     // YAGNI: would have been used to initiate DB
     public List<Movie> getAllMovies() {
-        MovieListWrapper movieListWrapper = restTemplate.getForObject(movieBaseUrl + "/movie/", MovieListWrapper.class);
+        MovieListWrapper movieListWrapper = restTemplate.getForObject(movieBaseUrl + "/movie", MovieListWrapper.class);
         return movieListWrapper.getMovies();
     }
 }
