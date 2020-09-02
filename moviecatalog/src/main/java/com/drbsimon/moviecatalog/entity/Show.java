@@ -31,6 +31,7 @@ public class Show {
 //    @EqualsAndHashCode.Exclude
 //    @JsonManagedReference
     private Long movieId;
+    private int movieDbId;
 
 //    @ManyToOne
 //    @JsonManagedReference

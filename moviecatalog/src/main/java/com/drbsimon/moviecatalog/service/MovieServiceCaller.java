@@ -24,9 +24,12 @@ public class MovieServiceCaller {
     @Value("${movieservice.url}")
     private String movieBaseUrl;
 
-    // YAGNI: would have been used to initiate DB
     public List<Movie> getAllMovies() {
         MovieListWrapper movieListWrapper = restTemplate.getForObject(movieBaseUrl + "/movie", MovieListWrapper.class);
         return movieListWrapper.getMovies();
+    }
+
+    public Movie getMovieByMovieId(Long id) {
+        return restTemplate.getForObject(movieBaseUrl + "/movie/" + id, Movie.class);
     }
 }
