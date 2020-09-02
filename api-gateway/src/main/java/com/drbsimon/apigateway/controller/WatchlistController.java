@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "${main.route}")
+//@CrossOrigin(origins = "${main.route}")
 @RequiredArgsConstructor
 @RequestMapping("/watchlist")
 @RestController()
