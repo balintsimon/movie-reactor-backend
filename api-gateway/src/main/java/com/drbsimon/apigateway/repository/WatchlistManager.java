@@ -1,7 +1,7 @@
 package com.drbsimon.apigateway.repository;
 
 import com.drbsimon.apigateway.entity.Visitor;
-import com.drbsimon.apigateway.model.WatchListWrapper;
+import com.drbsimon.apigateway.wrapper.WatchListWrapper;
 import com.drbsimon.apigateway.security.CustomUserDetailsService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -17,20 +17,15 @@ public class WatchlistManager {
     private final VisitorManager visitorManager;
     private final CustomUserDetailsService customUserDetailsService;
 
-    private Visitor getUserFromToken() {
-        String userName = customUserDetailsService.findLoggedInUsername();
-        return visitorRepository.getByUsername(userName);
-    }
-
     public WatchListWrapper getWatchlistByUsername() {
-        Visitor user = getUserFromToken();
+        Visitor user = customUserDetailsService.getVisitorFromToken();
         if (user == null) return new WatchListWrapper(new ArrayList<>());
         List<Integer> watchlistIds = user.getWatchList();
         return new WatchListWrapper(watchlistIds);
     }
 
     public boolean saveNewWatchlistElement(Integer movie_db_id) {
-        Visitor visitor = getUserFromToken();
+        Visitor visitor = customUserDetailsService.getVisitorFromToken();
         List<Integer> watchList = visitor.getWatchList();
         if (watchList.contains(movie_db_id)) return false;
 
@@ -41,7 +36,7 @@ public class WatchlistManager {
     }
 
     public boolean deleteMovieFromWatchListById(Integer movie_db_id) {
-        Visitor visitor = getUserFromToken();
+        Visitor visitor = customUserDetailsService.getVisitorFromToken();
         List<Integer> watchList = visitor.getWatchList();
         if (!watchList.contains(movie_db_id)) return false;
 
