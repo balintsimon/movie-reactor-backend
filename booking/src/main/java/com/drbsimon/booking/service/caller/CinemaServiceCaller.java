@@ -1,7 +1,7 @@
-package com.drbsimon.booking.service;
+package com.drbsimon.booking.service.caller;
 
-import com.drbsimon.booking.model.Room;
-import com.drbsimon.booking.model.Seat;
+import com.drbsimon.booking.service.model.Room;
+import com.drbsimon.booking.service.model.Seat;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +22,10 @@ public class CinemaServiceCaller {
     public boolean isSeatValid(Long seatId) {
         Seat seat = restTemplate.getForObject(baseUrl + "/seat/" + seatId, Seat.class);
         return seat != null;
+    }
+
+    public Seat getSeatById(Long seatId) {
+        return restTemplate.getForObject(baseUrl + "/seat/" +  seatId, Seat.class);
     }
 
     public Room getRoomById(Long showId) {
