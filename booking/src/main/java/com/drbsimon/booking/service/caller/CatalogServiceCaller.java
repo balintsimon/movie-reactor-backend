@@ -28,7 +28,7 @@ public class CatalogServiceCaller {
     }
 
     public List<Show> getAllShows() {
-        ShowListWrapper shows = restTemplate.getForObject(baseUrl + "/show/", ShowListWrapper.class);
+        ShowListWrapper shows = restTemplate.getForObject(baseUrl + "/show", ShowListWrapper.class);
         return shows.getShows();
     }
 }
