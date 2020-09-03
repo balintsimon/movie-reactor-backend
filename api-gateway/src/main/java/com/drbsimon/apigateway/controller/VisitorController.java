@@ -1,11 +1,10 @@
 package com.drbsimon.apigateway.controller;
 
 import com.drbsimon.apigateway.entity.Visitor;
-import com.drbsimon.apigateway.model.VisitorListWrapper;
+import com.drbsimon.apigateway.wrapper.VisitorListWrapper;
 import com.drbsimon.apigateway.repository.VisitorManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,6 +32,11 @@ public class VisitorController {
     @GetMapping("/me")
     public String getCurrentUserName(){
         return visitorManager.getCurrentUserNameWithRoles();
+    }
+
+    @GetMapping("/loggedin")
+    public Visitor getLoggedInVisitor() {
+        return visitorManager.getLoggedInVisitorFromToken();
     }
 
 }

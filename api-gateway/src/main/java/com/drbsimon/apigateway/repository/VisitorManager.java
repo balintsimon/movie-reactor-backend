@@ -1,7 +1,7 @@
 package com.drbsimon.apigateway.repository;
 
 import com.drbsimon.apigateway.entity.Visitor;
-import com.drbsimon.apigateway.model.VisitorListWrapper;
+import com.drbsimon.apigateway.wrapper.VisitorListWrapper;
 import com.drbsimon.apigateway.security.CustomUserDetailsService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +32,9 @@ public class VisitorManager {
         String username = customUserDetailsService.findLoggedInUsername();
         UserDetails visitor = customUserDetailsService.loadUserByUsername(username);
         return username + "\n" + visitor.getAuthorities();
+    }
+
+    public Visitor getLoggedInVisitorFromToken() {
+        return customUserDetailsService.getVisitorFromToken();
     }
 }
