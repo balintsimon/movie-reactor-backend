@@ -1,4 +1,4 @@
-package com.drbsimon.apigateway.model;
+package com.drbsimon.apigateway.wrapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

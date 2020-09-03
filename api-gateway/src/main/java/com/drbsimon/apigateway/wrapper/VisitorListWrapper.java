@@ -1,4 +1,4 @@
-package com.drbsimon.apigateway.model;
+package com.drbsimon.apigateway.wrapper;
 
 import com.drbsimon.apigateway.entity.Visitor;
 import lombok.Data;
