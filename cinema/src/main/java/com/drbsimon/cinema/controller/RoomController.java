@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class RoomController {
     private final RoomManager roomManager;
 
-    @GetMapping("/")
+    @GetMapping
     public RoomListWrapper getAllRooms() {
         return roomManager.getAllRooms();
     }
