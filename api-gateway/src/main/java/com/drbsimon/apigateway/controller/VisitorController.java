@@ -34,10 +34,5 @@ public class VisitorController {
         return visitorManager.getCurrentUserNameWithRoles();
     }
 
-    @GetMapping("/loggedin")
-    public Visitor getLoggedInVisitor() {
-        return visitorManager.getLoggedInVisitorFromToken();
-    }
-
 }
 

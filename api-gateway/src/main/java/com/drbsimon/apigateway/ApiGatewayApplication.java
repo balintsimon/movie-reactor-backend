@@ -1,8 +1,10 @@
 package com.drbsimon.apigateway;
 
+import com.drbsimon.apigateway.controller.filter.PreFilter;
 import com.drbsimon.apigateway.entity.Visitor;
 import com.drbsimon.apigateway.model.Role;
 import com.drbsimon.apigateway.repository.VisitorRepository;
+import com.drbsimon.apigateway.security.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -38,6 +40,7 @@ import java.util.List;
 public class ApiGatewayApplication {
     private final ZuulProperties zuulProperties;
     private final VisitorRepository repository;
+    private final CustomUserDetailsService customUserDetailsService;
 
     public static void main(String[] args) {
         SpringApplication.run(ApiGatewayApplication.class, args);
@@ -71,6 +74,11 @@ public class ApiGatewayApplication {
         swaggerResource.setLocation("/" + location + "/v2/api-docs");
         swaggerResource.setSwaggerVersion(version);
         return swaggerResource;
+    }
+
+    @Bean
+    public PreFilter preFilter() {
+        return new PreFilter(customUserDetailsService);
     }
 
     @Bean

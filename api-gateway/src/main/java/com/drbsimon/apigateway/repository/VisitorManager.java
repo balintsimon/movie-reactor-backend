@@ -34,7 +34,9 @@ public class VisitorManager {
         return username + "\n" + visitor.getAuthorities();
     }
 
-    public Visitor getLoggedInVisitorFromToken() {
-        return customUserDetailsService.getVisitorFromToken();
-    }
+//    public Visitor getLoggedInVisitorFromToken() {
+//        Visitor visitor = customUserDetailsService.getVisitorFromToken();
+//        System.out.println("Visitor is "+ visitor);
+//        return visitor;
+//    }
 }

@@ -18,9 +18,9 @@ import javax.transaction.Transactional;
 public class ReservationController {
     private final ReservationOrganizer reservationOrganizer;
 
-    @GetMapping("/reservation")
-    public AllBookingInfoWrapper getAllReservations() {
-        return reservationOrganizer.getReservationsWithExtraInfoFactory();
+    @GetMapping
+    public AllBookingInfoWrapper getAllReservations(@RequestHeader("userid") Long visitorId) {
+        return reservationOrganizer.getReservationsWithExtraInfoFactory(visitorId);
     }
 
     @Transactional

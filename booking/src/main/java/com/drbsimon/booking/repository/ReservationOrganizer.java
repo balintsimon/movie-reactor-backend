@@ -80,10 +80,8 @@ public class ReservationOrganizer {
         return new ReservationWrapper(reservationRepository.getAllByVisitorId(visitorId));
     }
 
-    public AllBookingInfoWrapper getReservationsWithExtraInfoFactory() {
-        //TODO: create endpoint to get visitor from JWT OR send information in header through gateway!!!
-        Visitor visitor = visitorServiceCaller.getLoggedInUser();
-        System.out.println(visitor.getUsername());
+    public AllBookingInfoWrapper getReservationsWithExtraInfoFactory(Long visitorId) {
+        Visitor visitor = visitorServiceCaller.getVisitorById(visitorId);
         if (visitor.getRoles().contains(Role.ROLE_ADMIN)) return getAllReservationsWithExtraInfo();
         else if (visitor.getRoles().contains(Role.ROLE_USER)) return getAllReservationsOfUserWithExtraInfo(visitor);
         return null;
