@@ -30,10 +30,11 @@ public class ReservationController {
         return reservationOrganizer.saveReservedSeats(reservationInfoWrapper);
     }
 
-//    @DeleteMapping("/delete") // TODO: rewrite frontend endpoint
     @DeleteMapping
-    public boolean deleteReservation(@RequestBody SeatReservedWrapper seats) {
-        return reservationOrganizer.deleteReservation(seats);
+    public boolean deleteReservation(@RequestBody SeatReservedWrapper seats, @RequestHeader("userid") Long visitorId) {
+        System.out.println("Delete request");
+        System.out.println(seats);
+        return reservationOrganizer.deleteReservationWithRightsCheck(seats, visitorId);
     }
 
     // TODO: information must be combined in a service, rewrite

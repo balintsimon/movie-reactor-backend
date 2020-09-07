@@ -59,13 +59,23 @@ public class ReservationOrganizer {
         return true;
     }
 
+    public boolean deleteReservationWithRightsCheck(SeatReservedWrapper reservationInfo, long visitorId) {
+        Visitor visitor = visitorServiceCaller.getVisitorById(visitorId);
+        if (visitor.getRoles().contains(Role.ROLE_ADMIN)
+                ||  (visitor.getRoles().contains(Role.ROLE_USER) && visitor.getId() == visitorId))
+            return deleteReservation(reservationInfo);
+        return false;
+    }
+
     public boolean deleteReservation(SeatReservedWrapper reservationInfo) {
         Long seatId = reservationInfo.getSeats().size() == 1 ? reservationInfo.getSeats().get(0) : null;
+        Long showId = reservationInfo.getId();
         Long visitorId = reservationInfo.getVisitorId();
         if (seatId != null) {
-            Reservation reservation = reservationRepository.getBySeatIdAndVisitorId(seatId, visitorId);
+            Reservation reservation = reservationRepository.getBySeatIdAndVisitorIdAndShowId(seatId, visitorId, showId);
+            System.out.println(reservation);
             if (reservation != null) {
-                reservationRepository.deleteById(seatId);
+                reservationRepository.deleteById(reservation.getId());
                 return true;
             }
         }
