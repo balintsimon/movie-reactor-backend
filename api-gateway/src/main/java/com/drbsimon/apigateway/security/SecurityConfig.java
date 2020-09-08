@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 // TODO: delete permit all upon endpoints revision
-                .antMatchers("/*").permitAll()
+                .antMatchers("/**").permitAll()
                 // TODO: revise endpoints
 //                .antMatchers("/auth/*").permitAll()
 //                .antMatchers(HttpMethod.GET, "/watchlist").hasRole("USER")
@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers(HttpMethod.POST,"/reservation/seats").hasRole("USER")
 //                .antMatchers(HttpMethod.GET,"/reservation/seats").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.DELETE,"/reservation/delete").hasRole("ADMIN")
-                .anyRequest().denyAll() // anything else is denied
+//                .anyRequest().denyAll() // anything else is denied
                 .and()
                 .addFilterBefore(new JwtTokenFilter(jwtTokenServices), UsernamePasswordAuthenticationFilter.class);
     }

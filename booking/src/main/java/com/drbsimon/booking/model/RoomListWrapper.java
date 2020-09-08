@@ -1,5 +1,6 @@
 package com.drbsimon.booking.model;
 
+import com.drbsimon.booking.service.model.Room;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 

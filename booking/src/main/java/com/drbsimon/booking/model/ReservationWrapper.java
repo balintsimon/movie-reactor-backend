@@ -1,5 +1,5 @@
-package com.drbsimon.moviecatalog.model;
-
+package com.drbsimon.booking.model;
+import com.drbsimon.booking.entity.Reservation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,10 +7,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+
 @Component
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class MovieListWrapper {
-    List<Movie> movies;
+@AllArgsConstructor
+public class ReservationWrapper {
+    List<Reservation> reservations;
 }

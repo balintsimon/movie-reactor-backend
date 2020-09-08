@@ -1,6 +1,7 @@
 package com.drbsimon.moviecatalog.controller;
 
 import com.drbsimon.moviecatalog.entity.Show;
+import com.drbsimon.moviecatalog.model.MovieListWrapper;
 import com.drbsimon.moviecatalog.model.ShowListWrapper;
 import com.drbsimon.moviecatalog.repository.ShowManager;
 import com.drbsimon.moviecatalog.repository.ShowRepository;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin//("http://localhost:8762")
+//@CrossOrigin("http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
 public class ShowController {
@@ -26,6 +27,11 @@ public class ShowController {
     @GetMapping("/show")
     public ShowListWrapper getAllShows() {
         return showManager.getAllShows();
+    }
+
+    @GetMapping("/show/movie")
+    public MovieListWrapper getAllMovies() {
+        return showManager.getAllMoviesOnShow();
     }
 
     @GetMapping("/show/{showId}")

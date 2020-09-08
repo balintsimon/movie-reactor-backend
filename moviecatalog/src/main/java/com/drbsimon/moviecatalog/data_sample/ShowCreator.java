@@ -36,6 +36,7 @@ public class ShowCreator {
             for (Movie movie : movies) {
                 Show currentShow = Show.builder()
                         .movieId(movie.getId())
+                        .movieDbId(movie.getMovieDbId())
                         .startingDate(fromDate)
                         .startingTime(startingTime)
                         .roomId(rooms.get(0).getId())

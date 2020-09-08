@@ -8,7 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "${main.route}")
+//@CrossOrigin(origins = "${main.route}")
+@CrossOrigin
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -22,7 +23,6 @@ public class AuthController {
         return visitorLoginService.loginUser(userCredentials);
     }
 
-    // TODO: rearrange to one line
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody UserCredentials userCredentials) {
         return visitorRegisterService.registerUser(userCredentials);

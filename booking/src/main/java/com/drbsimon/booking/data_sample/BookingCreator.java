@@ -1,11 +1,11 @@
 package com.drbsimon.booking.data_sample;
 
 import com.drbsimon.booking.entity.Reservation;
-import com.drbsimon.booking.model.*;
 import com.drbsimon.booking.repository.ReservationRepository;
-import com.drbsimon.booking.service.CatalogServiceCaller;
-import com.drbsimon.booking.service.CinemaServiceCaller;
-import com.drbsimon.booking.service.VisitorServiceCaller;
+import com.drbsimon.booking.service.caller.CatalogServiceCaller;
+import com.drbsimon.booking.service.caller.CinemaServiceCaller;
+import com.drbsimon.booking.service.caller.VisitorServiceCaller;
+import com.drbsimon.booking.service.model.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

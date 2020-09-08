@@ -1,4 +1,4 @@
-package com.drbsimon.booking.model;
+package com.drbsimon.booking.service.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,5 +15,6 @@ public class Show {
     private LocalDate startingDate;
     private LocalTime startingTime;
     private Long movieId;
+    private int movieDbId;
     private Long roomId;
 }

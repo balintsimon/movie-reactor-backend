@@ -1,16 +1,18 @@
-package com.drbsimon.moviecatalog.model;
+package com.drbsimon.booking.service.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class MovieListWrapper {
-    List<Movie> movies;
+@AllArgsConstructor
+public class AllBookingInfo {
+    Long id;
+    Visitor visitor;
+    Seat seat;
+    Show show;
+    int movieId;
 }

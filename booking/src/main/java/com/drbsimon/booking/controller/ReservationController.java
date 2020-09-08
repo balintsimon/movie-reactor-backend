@@ -1,42 +1,55 @@
 package com.drbsimon.booking.controller;
 
 import com.drbsimon.booking.entity.SeatReservedWrapper;
-import com.drbsimon.booking.repository.ReservationRepository;
-import com.drbsimon.booking.service.ReservationOrganizer;
+import com.drbsimon.booking.model.AllBookingInfoWrapper;
+import com.drbsimon.booking.model.ReservationWrapper;
+import com.drbsimon.booking.repository.ReservationOrganizer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/reservation")
 @Slf4j
 @RequiredArgsConstructor
 public class ReservationController {
     private final ReservationOrganizer reservationOrganizer;
-    private final ReservationRepository reservationRepository;
 
-    @Transactional
-//    @PostMapping("/seats") // TODO: rewrite frontend endpoint
-    @PostMapping("/")
-    public boolean saveReservedSeats(@RequestBody SeatReservedWrapper reservationInfoWrapper) throws IllegalStateException {
-        return reservationOrganizer.saveReservedSeats(reservationInfoWrapper);
+    @GetMapping
+    public AllBookingInfoWrapper getAllReservations(@RequestHeader("userid") Long visitorId) {
+        return reservationOrganizer.getReservationsWithExtraInfoFactory(visitorId);
     }
 
-//    @DeleteMapping("/delete") // TODO: rewrite frontend endpoint
-    @DeleteMapping("/")
-    public boolean deleteReservation(@RequestBody SeatReservedWrapper seats) {
-        return reservationOrganizer.deleteReservation(seats);
+    @Transactional
+    @PostMapping
+    public boolean saveReservedSeats(@RequestBody SeatReservedWrapper reservationInfoWrapper, @RequestHeader("userid") Long visitorId) throws IllegalStateException {
+        return reservationOrganizer.saveReservedSeats(reservationInfoWrapper, visitorId);
+    }
+
+    @DeleteMapping
+    public boolean deleteReservation(@RequestBody SeatReservedWrapper seats, @RequestHeader("userid") Long visitorId) {
+        return reservationOrganizer.deleteReservationWithRightsCheck(seats, visitorId);
     }
 
     // TODO: information must be combined in a service, rewrite
-    // NB: doesn't work anymore, services are not linked!
-//    @GetMapping("/seats")
-//    // TODO: Only for admin, user should reach only user's seats! Secure endpoint
-//    public List<SeatReservedWithDetails> getAllReservedSeats() {
-//        return reservationRepository.getAllReservationsWithDetails();
-//    }
+//    // TODO: Only for admin, user internally, user should reach only user's seats! Secure endpoint
+    @GetMapping("/user")
+    public ReservationWrapper getAllReservedSeats() {
+        return reservationOrganizer.getAllReservations();
+    }
+
+    @GetMapping("/user/{id}")
+    public ReservationWrapper getReservationsOfUser(@PathVariable("id") Long id) {
+        return reservationOrganizer.getAllReservationsOfUserWithExtraInfo(id);
+    }
+
+    // TODO: limit visitor info to only logged in user!
+    @GetMapping("/show/{id}")
+    public AllBookingInfoWrapper getReservationsByShow(@PathVariable("id") Long showId) {
+        return reservationOrganizer.getReservationsByShowId(showId);
+    }
 
 }

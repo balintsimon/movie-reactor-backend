@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.AlgorithmConstraints;
 import java.util.List;
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/movie")
@@ -26,7 +26,7 @@ public class MovieController {
 //        return movieManager.getAllMovies();
 //    }
 
-    @GetMapping("/")
+    @GetMapping
     public MovieListWrapper getAllMoviesWrapped() {
         return movieManager.getAllMovies();
     }

@@ -1,4 +1,4 @@
-package com.drbsimon.moviecatalog.model;
+package com.drbsimon.apigateway.wrapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,6 +11,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MovieListWrapper {
-    List<Movie> movies;
+public class WatchListWrapper {
+    List<Integer> watchlist;
 }

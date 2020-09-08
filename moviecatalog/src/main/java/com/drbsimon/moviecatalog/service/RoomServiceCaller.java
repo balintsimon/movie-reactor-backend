@@ -27,7 +27,7 @@ public class RoomServiceCaller {
     private String cinemaBaseUrl;
 
     public List<Room> getAllRooms() {
-        RoomListWrapper roomList = restTemplate.getForObject(cinemaBaseUrl + "/room/", RoomListWrapper.class);
+        RoomListWrapper roomList = restTemplate.getForObject(cinemaBaseUrl + "/room", RoomListWrapper.class);
         return roomList.getRooms();
     }
 
