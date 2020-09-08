@@ -21,10 +21,11 @@ public class ReservationOrganizer {
     private final CinemaServiceCaller cinemaServiceCaller;
     private final VisitorServiceCaller visitorServiceCaller;
 
-    public boolean saveReservedSeats(SeatReservedWrapper reservationInfo)
+    public boolean saveReservedSeats(SeatReservedWrapper reservationInfo, Long visitorId)
             throws IllegalStateException {
         Long showId = reservationInfo.getId();
         List<Long> seatIds = reservationInfo.getSeats();
+        Visitor visitor = visitorServiceCaller.getVisitorById(visitorId);
 
         if (seatIds.size() == 0) {
             return false;
@@ -52,7 +53,7 @@ public class ReservationOrganizer {
             Reservation newReservation = Reservation.builder()
                     .seatId(actualSeatId)
                     .showId(showId)
-                    .visitorId(reservationInfo.getVisitorId())
+                    .visitorId(visitor.getId())
                     .build();
             reservationRepository.save(newReservation);
         }
