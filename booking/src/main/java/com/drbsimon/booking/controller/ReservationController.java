@@ -24,7 +24,6 @@ public class ReservationController {
     }
 
     @Transactional
-//    @PostMapping("/seats") // TODO: rewrite frontend endpoint
     @PostMapping
     public boolean saveReservedSeats(@RequestBody SeatReservedWrapper reservationInfoWrapper) throws IllegalStateException {
         return reservationOrganizer.saveReservedSeats(reservationInfoWrapper);
@@ -38,8 +37,6 @@ public class ReservationController {
     }
 
     // TODO: information must be combined in a service, rewrite
-    // NB: doesn't work anymore, services are not linked!
-//    @GetMapping("/seats")
 //    // TODO: Only for admin, user internally, user should reach only user's seats! Secure endpoint
     @GetMapping("/user")
     public ReservationWrapper getAllReservedSeats() {
@@ -49,6 +46,12 @@ public class ReservationController {
     @GetMapping("/user/{id}")
     public ReservationWrapper getReservationsOfUser(@PathVariable("id") Long id) {
         return reservationOrganizer.getAllReservationsOfUserWithExtraInfo(id);
+    }
+
+    // TODO: limit visitor info to only logged in user!
+    @GetMapping("/show/{id}")
+    public AllBookingInfoWrapper getReservationsByShow(@PathVariable("id") Long showId) {
+        return reservationOrganizer.getReservationsByShowId(showId);
     }
 
 }

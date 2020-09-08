@@ -152,4 +152,36 @@ public class ReservationOrganizer {
         }
         return new AllBookingInfoWrapper(allInformation);
     }
+
+    public AllBookingInfoWrapper getReservationsByShowId(Long showId) {
+        List<Reservation> reservations = reservationRepository.getAllByShowId(showId);
+        List<AllBookingInfo> allInformation = new ArrayList<>();
+        Map<Long, Visitor> visitors = new HashMap<>();
+        Map<Long, Show> shows = new HashMap<>();
+        Map<Long, Seat> seats = new HashMap<>();
+        for (Reservation reservation : reservations) {
+            Show show;
+            if (shows.containsKey(reservation.getShowId())) show = shows.get(reservation.getShowId());
+            else {
+                show = catalogServiceCaller.getShowById(reservation.getShowId());
+                shows.put(reservation.getShowId(), show);
+            }
+
+            Visitor visitor;
+            if (visitors.containsKey(reservation.getVisitorId())) visitor = visitors.get(reservation.getVisitorId());
+            else {
+                visitor = visitorServiceCaller.getVisitorById(reservation.getVisitorId());
+                visitors.put(reservation.getVisitorId(), visitor);
+            }
+
+            Seat seat;
+            if (seats.containsKey(reservation.getSeatId())) seat = seats.get(reservation.getSeatId());
+            else {
+                seat = cinemaServiceCaller.getSeatById(reservation.getSeatId());
+                seats.put(reservation.getSeatId(), seat);
+            }
+            allInformation.add(new AllBookingInfo(reservation.getId(), visitor, seat, show, show.getMovieDbId()));
+        }
+        return new AllBookingInfoWrapper(allInformation);
+    }
 }
