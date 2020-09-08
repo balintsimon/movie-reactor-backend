@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.AlgorithmConstraints;
 import java.util.List;
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/movie")

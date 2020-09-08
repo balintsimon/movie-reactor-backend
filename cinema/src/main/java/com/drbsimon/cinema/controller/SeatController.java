@@ -6,7 +6,7 @@ import com.drbsimon.cinema.repository.SeatManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/seat")
 @RequiredArgsConstructor
