@@ -10,6 +10,12 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+# Database configuration settings
+.idea/dataSources.xml
+
+# Unique name of the project / Created by K.
+.idea/.name
+
 # Package Files #
 *.jar
 *.war
