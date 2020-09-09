@@ -1,26 +1,22 @@
 package com.drbsimon.movieservice;
 
-import com.drbsimon.movieservice.controller.MovieController;
 import com.drbsimon.movieservice.entity.Movie;
 import com.drbsimon.movieservice.model.MovieListWrapper;
 import com.drbsimon.movieservice.repository.MovieManager;
 import com.drbsimon.movieservice.repository.MovieRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ExtendWith({SpringExtension.class})
 @DataJpaTest
 @ActiveProfiles("test")
 @ComponentScan(basePackages = {"com.drbsimon.movieservice"})
@@ -32,14 +28,14 @@ class MovieserviceApplicationTests {
     @Autowired
     private MovieManager manager;
 
-    @Autowired
-    private MovieController controller;
+    @Test
+    public void testRepositoryLoads() throws Exception {
+        assertThat(repository).isNotNull();
+    }
 
     @Test
-    public void testContexLoads() throws Exception {
-        assertThat(repository).isNotNull();
+    public void testManagerLoads() throws Exception {
         assertThat(manager).isNotNull();
-        assertThat(controller).isNotNull();
     }
 
     @Test
@@ -49,7 +45,7 @@ class MovieserviceApplicationTests {
                 .build();
 
         repository.save(movie);
-        
+
         List<Movie> movies = repository.findAll();
         assertThat(movies).hasSize(1);
     }
@@ -103,7 +99,7 @@ class MovieserviceApplicationTests {
 
         Assertions.assertThrows(DataIntegrityViolationException.class, () -> {
             repository.save(movie);
-            List<Movie> movies = repository.findAll();
+            repository.findAll();
         });
     }
 
