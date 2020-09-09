@@ -34,10 +34,14 @@ class MovieserviceApplicationTests {
     @Autowired
     private MovieManager movieManager;
 
+    @Autowired
+    private MovieController controller;
+    
     @Test
     public void testContexLoads() throws Exception {
         assertThat(movieRepository).isNotNull();
         assertThat(movieManager).isNotNull();
+        assertThat(controller).isNotNull();
     }
 
     @Test
