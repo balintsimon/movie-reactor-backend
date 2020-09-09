@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
@@ -28,19 +27,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 class MovieserviceApplicationTests {
 
     @Autowired
-    private MovieRepository movieRepository;
-
+    private MovieRepository repository;
 
     @Autowired
-    private MovieManager movieManager;
+    private MovieManager manager;
 
     @Autowired
     private MovieController controller;
-    
+
     @Test
     public void testContexLoads() throws Exception {
-        assertThat(movieRepository).isNotNull();
-        assertThat(movieManager).isNotNull();
+        assertThat(repository).isNotNull();
+        assertThat(manager).isNotNull();
         assertThat(controller).isNotNull();
     }
 
@@ -50,8 +48,8 @@ class MovieserviceApplicationTests {
                 .movieDbId(1234)
                 .build();
 
-        movieRepository.save(movie);
-        List<Movie> movies = movieRepository.findAll();
+        repository.save(movie);
+        List<Movie> movies = repository.findAll();
         assertThat(movies).hasSize(1);
     }
 
@@ -68,8 +66,8 @@ class MovieserviceApplicationTests {
         Movie movie3 = Movie.builder()
                 .movieDbId(910)
                 .build();
-        movieRepository.saveAll(Arrays.asList(movie1, movie2, movie3));
-        List<Movie> movies = movieRepository.findAll();
+        repository.saveAll(Arrays.asList(movie1, movie2, movie3));
+        List<Movie> movies = repository.findAll();
         assertThat(movies).hasSize(3);
     }
 
@@ -86,11 +84,11 @@ class MovieserviceApplicationTests {
         Movie movie3 = Movie.builder()
                 .movieDbId(910)
                 .build();
-        movieRepository.saveAll(Arrays.asList(movie1, movie2, movie3));
-        List<Movie> movies = movieRepository.findAll();
+        repository.saveAll(Arrays.asList(movie1, movie2, movie3));
+        List<Movie> movies = repository.findAll();
         Movie expectedResult = movies.get(0);
         Long sampleId = expectedResult.getId();
-        Movie actualResult = movieRepository.getById(sampleId);
+        Movie actualResult = repository.getById(sampleId);
 
         assertThat(actualResult).isEqualTo(expectedResult);
     }
@@ -101,8 +99,8 @@ class MovieserviceApplicationTests {
                 .build();
 
         Assertions.assertThrows(DataIntegrityViolationException.class, () -> {
-            movieRepository.save(movie);
-            List<Movie> movies = movieRepository.findAll();
+            repository.save(movie);
+            List<Movie> movies = repository.findAll();
         });
     }
 
@@ -119,9 +117,9 @@ class MovieserviceApplicationTests {
         Movie movie3 = Movie.builder()
                 .movieDbId(910)
                 .build();
-        movieRepository.saveAll(Arrays.asList(movie1, movie2, movie3));
-        List<Movie> expectedResult = movieRepository.findAll();
-        MovieListWrapper wrapper = movieManager.getAllMovies();
+        repository.saveAll(Arrays.asList(movie1, movie2, movie3));
+        List<Movie> expectedResult = repository.findAll();
+        MovieListWrapper wrapper = manager.getAllMovies();
         List<Movie> actualResult = wrapper.getMovies();
         assertThat(actualResult).isEqualTo(expectedResult);
     }
