@@ -16,5 +16,6 @@ public class Movie {
     @GeneratedValue
     private Long id;
 
+    @Column(nullable = false)
     private Integer movieDbId;
 }
