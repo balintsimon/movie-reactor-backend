@@ -49,6 +49,7 @@ class MovieserviceApplicationTests {
                 .build();
 
         repository.save(movie);
+        
         List<Movie> movies = repository.findAll();
         assertThat(movies).hasSize(1);
     }
@@ -67,6 +68,7 @@ class MovieserviceApplicationTests {
                 .movieDbId(910)
                 .build();
         repository.saveAll(Arrays.asList(movie1, movie2, movie3));
+
         List<Movie> movies = repository.findAll();
         assertThat(movies).hasSize(3);
     }
@@ -85,6 +87,7 @@ class MovieserviceApplicationTests {
                 .movieDbId(910)
                 .build();
         repository.saveAll(Arrays.asList(movie1, movie2, movie3));
+
         List<Movie> movies = repository.findAll();
         Movie expectedResult = movies.get(0);
         Long sampleId = expectedResult.getId();
@@ -105,7 +108,7 @@ class MovieserviceApplicationTests {
     }
 
     @Test
-    public void testManager() {
+    public void testManagerForOne() {
         Movie movie1 = Movie.builder()
                 .movieDbId(1234)
                 .build();
@@ -118,9 +121,34 @@ class MovieserviceApplicationTests {
                 .movieDbId(910)
                 .build();
         repository.saveAll(Arrays.asList(movie1, movie2, movie3));
+
+        List<Movie> movies = repository.findAll();
+        Movie expectedResult = movies.get(0);
+        Long sampleId = expectedResult.getId();
+        Movie actualResult = manager.getMovieById(sampleId);
+
+        assertThat(actualResult).isEqualTo(expectedResult);
+    }
+
+    @Test
+    public void testManagerForList() {
+        Movie movie1 = Movie.builder()
+                .movieDbId(1234)
+                .build();
+
+        Movie movie2 = Movie.builder()
+                .movieDbId(5678)
+                .build();
+
+        Movie movie3 = Movie.builder()
+                .movieDbId(910)
+                .build();
+        repository.saveAll(Arrays.asList(movie1, movie2, movie3));
+
         List<Movie> expectedResult = repository.findAll();
         MovieListWrapper wrapper = manager.getAllMovies();
         List<Movie> actualResult = wrapper.getMovies();
+
         assertThat(actualResult).isEqualTo(expectedResult);
     }
 }
