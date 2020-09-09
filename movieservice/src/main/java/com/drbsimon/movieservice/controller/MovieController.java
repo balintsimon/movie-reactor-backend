@@ -18,14 +18,6 @@ import java.util.List;
 public class MovieController {
     private final MovieManager movieManager;
 
-    //  TODO: cannot show in itself which movies are on air in a time frame, needs information
-    //   from show service to do that => can combine them in API gateway
-    // TODO: rework frontend to reflect change
-//    @GetMapping("/scheduled-movies")
-//    public List<Movie> getAllScheduledMovie() {
-//        return movieManager.getAllMovies();
-//    }
-
     @GetMapping
     public MovieListWrapper getAllMoviesWrapped() {
         return movieManager.getAllMovies();
