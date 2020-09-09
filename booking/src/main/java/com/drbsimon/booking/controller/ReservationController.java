@@ -25,14 +25,12 @@ public class ReservationController {
 
     @Transactional
     @PostMapping
-    public boolean saveReservedSeats(@RequestBody SeatReservedWrapper reservationInfoWrapper) throws IllegalStateException {
-        return reservationOrganizer.saveReservedSeats(reservationInfoWrapper);
+    public boolean saveReservedSeats(@RequestBody SeatReservedWrapper reservationInfoWrapper, @RequestHeader("userid") Long visitorId) throws IllegalStateException {
+        return reservationOrganizer.saveReservedSeats(reservationInfoWrapper, visitorId);
     }
 
     @DeleteMapping
     public boolean deleteReservation(@RequestBody SeatReservedWrapper seats, @RequestHeader("userid") Long visitorId) {
-        System.out.println("Delete request");
-        System.out.println(seats);
         return reservationOrganizer.deleteReservationWithRightsCheck(seats, visitorId);
     }
 
