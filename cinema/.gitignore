@@ -13,8 +13,13 @@ target/
 .springBeans
 .sts4-cache
 
+### Database files ###
+cinema.lock.db
+cinema.mv.db
+cinema.trace.db
+
 ### IntelliJ IDEA ###
-.idea
+.idea/
 *.iws
 *.iml
 *.ipr
