@@ -18,7 +18,7 @@ visitor_database.lock.db
 visitor_database.mv.db
 visitor_database.trace.db
 
-# These are deleted already
+### These are deleted already
 movie_database.mv.db
 movie_database.trace.db
 
