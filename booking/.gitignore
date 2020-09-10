@@ -13,6 +13,11 @@ target/
 .springBeans
 .sts4-cache
 
+### Database files ###
+booking.lock.db
+booking.mv.db
+booking.trace.db
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
