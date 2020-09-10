@@ -3,11 +3,13 @@ package com.drbsimon.cinema.data_sample;
 import com.drbsimon.cinema.entity.Room;
 import com.drbsimon.cinema.repository.RoomRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@Profile("production")
 public class DataProvider implements CommandLineRunner {
 
     private final RoomCreator roomCreator;
