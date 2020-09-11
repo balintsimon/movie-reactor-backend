@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class SeatController {
     private final SeatManager seatManager;
 
-    @GetMapping("/")
+    @GetMapping
     public SeatListWrapper getAllSeats() {
         return seatManager.getAllSeats();
     }
