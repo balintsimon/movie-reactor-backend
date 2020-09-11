@@ -237,4 +237,12 @@ class SeatTest {
         Seat foundSeat = manager.getSeatById(seatId);
         assertThat(foundSeat).isEqualTo(null);
     }
+
+    @Test
+    void testFindAllInManager() {
+        List<Seat> repoSeats = repository.findAll();
+        SeatListWrapper wrapper = manager.getAllSeats();
+        List<Seat> managerSeats = wrapper.getSeats();
+        assertThat(repoSeats).isEqualTo(managerSeats);
+    }
 }
