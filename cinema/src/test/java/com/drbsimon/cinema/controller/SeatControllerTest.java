@@ -83,7 +83,19 @@ class SeatControllerTest {
     }
 
     @Test
-    void getSeatById() {
+    void testGetSeatById() throws Exception {
+        final long seatId = 4L;
+        final int rowNumber = 1;
+        final int seatNumber = 2;
+        Seat newSeat = new Seat(seatId, rowNumber, seatNumber, null);
+
+        given(service.getSeatById(seatId)).willReturn(newSeat);
+
+        this.mockMvc.perform(get("/seat/" + seatId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is((int) seatId)))
+                .andExpect(jsonPath("$.rowNumber", is(rowNumber)))
+                .andExpect(jsonPath("$.seatNumber", is(seatNumber)));
     }
 
     @Test
