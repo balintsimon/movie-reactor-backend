@@ -1,7 +1,6 @@
 package com.drbsimon.cinema.controller;
 
 import com.drbsimon.cinema.entity.Room;
-import com.drbsimon.cinema.entity.Seat;
 import com.drbsimon.cinema.model.RoomListWrapper;
 import com.drbsimon.cinema.repository.RoomManager;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +12,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
