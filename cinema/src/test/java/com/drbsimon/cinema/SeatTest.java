@@ -94,8 +94,11 @@ class SeatTest {
                 .seatNumber(2)
                 .room(null)
                 .build();
-        repository.saveAll(Arrays.asList(seat1, seat2, seat3));
-        List<Seat> newSeats = repository.findAll();
-        assertThat(newSeats).hasSize(setUpSeats.size() + 3);
+
+        List<Seat> newSeats = Arrays.asList(seat1, seat2, seat3);
+
+        repository.saveAll(newSeats);
+        List<Seat> newAllSeats = repository.findAll();
+        assertThat(newAllSeats).hasSize(setUpSeats.size() + newSeats.size());
     }
 }
