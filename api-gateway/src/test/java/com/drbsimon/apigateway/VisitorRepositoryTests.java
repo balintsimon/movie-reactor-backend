@@ -209,6 +209,13 @@ class VisitorRepositoryTests {
     }
 
     @Test
+    public void testGetByNonexistendUsername() {
+        Visitor foundVisitor = repository.getByUsername("nobody");
+
+        assertThat(foundVisitor).isEqualTo(null);
+    }
+
+    @Test
     public void testFindUserById() {
         List<Visitor> allVisitors = repository.findAll();
         Visitor expectedVisitor = allVisitors.get(0);
