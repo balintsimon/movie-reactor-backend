@@ -4,14 +4,17 @@ import com.drbsimon.apigateway.entity.Visitor;
 import com.drbsimon.apigateway.model.Role;
 import com.drbsimon.apigateway.repository.VisitorRepository;
 import com.drbsimon.apigateway.security.CustomUserDetailsService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 
+import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -108,6 +111,60 @@ class VisitorRepositoryTests {
         List<Visitor> extendedVisitors = repository.findAll();
 
         assertThat(extendedVisitors).hasSize(visitors.size() + newVisitors.size());
+    }
+
+    @Test
+    void testSaveWithNonuniqueUsername() {
+        Visitor newUser1 = Visitor.builder()
+                .username("ASD")
+                .email("asd@asd.hu")
+                .firstname("ASD")
+                .lastname("DSA")
+                .password("AS")
+                .roles(Collections.singletonList(Role.ROLE_USER))
+                .build();
+
+        Visitor newUser2 = Visitor.builder()
+                .username("ASD")
+                .email("asd1@asd.hu")
+                .firstname("ASD")
+                .lastname("DSA")
+                .password("AS")
+                .roles(Collections.singletonList(Role.ROLE_USER))
+                .build();
+
+        repository.saveAndFlush(newUser1);
+
+        Assertions.assertThrows(DataIntegrityViolationException.class, () -> {
+            repository.saveAndFlush(newUser2);
+        });
+    }
+
+    @Test
+    void testSaveWithNonuniqueEmail() {
+        Visitor newUser1 = Visitor.builder()
+                .username("ASD")
+                .email("asd@asd.hu")
+                .firstname("ASD")
+                .lastname("DSA")
+                .password("AS")
+                .roles(Collections.singletonList(Role.ROLE_USER))
+                .build();
+
+        Visitor newUser2 = Visitor.builder()
+                .username("ASD2")
+                .email("asd@asd.hu")
+                .firstname("ASD")
+                .lastname("DSA")
+                .password("AS")
+                .roles(Collections.singletonList(Role.ROLE_USER))
+                .build();
+
+        repository.saveAndFlush(newUser1);
+
+        Assertions.assertThrows(DataIntegrityViolationException.class, () -> {
+            repository.saveAndFlush(newUser2);
+        });
     }
 
 }
