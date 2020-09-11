@@ -1,22 +1,16 @@
 package com.drbsimon.apigateway;
 
-import com.drbsimon.apigateway.controller.filter.PreFilter;
 import com.drbsimon.apigateway.entity.Visitor;
 import com.drbsimon.apigateway.model.Role;
-import com.drbsimon.apigateway.repository.VisitorManager;
 import com.drbsimon.apigateway.repository.VisitorRepository;
 import com.drbsimon.apigateway.security.CustomUserDetailsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -87,6 +81,33 @@ class VisitorRepositoryTests {
 
         List<Visitor> extendedVisitors = repository.findAll();
         assertThat(extendedVisitors).hasSize(visitors.size() + 1);
+    }
+
+    @Test
+    public void saveSeveralVisitorSimple() {
+        Visitor newUser1 = Visitor.builder()
+                .username("ASD")
+                .email("asd@asd.hu")
+                .firstname("ASD")
+                .lastname("DSA")
+                .password("AS")
+                .roles(Collections.singletonList(Role.ROLE_USER))
+                .build();
+
+        Visitor newUser2 = Visitor.builder()
+                .username("ASD2")
+                .email("asd1@asd.hu")
+                .firstname("ASD")
+                .lastname("DSA")
+                .password("AS")
+                .roles(Collections.singletonList(Role.ROLE_USER))
+                .build();
+
+        List<Visitor> newVisitors = Arrays.asList(newUser1, newUser2);
+        repository.saveAll(newVisitors);
+        List<Visitor> extendedVisitors = repository.findAll();
+
+        assertThat(extendedVisitors).hasSize(visitors.size() + newVisitors.size());
     }
 
 }
