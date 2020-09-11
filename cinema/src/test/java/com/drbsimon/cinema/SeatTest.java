@@ -6,6 +6,8 @@ import com.drbsimon.cinema.model.SeatListWrapper;
 import com.drbsimon.cinema.repository.RoomRepository;
 import com.drbsimon.cinema.repository.SeatManager;
 import com.drbsimon.cinema.repository.SeatRepository;
+import javax.validation.ConstraintViolationException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,6 +94,19 @@ class SeatTest {
         repository.saveAndFlush(seat);
         List<Seat> newSeats = repository.findAll();
         assertThat(newSeats).hasSize(setUpSeats.size() + 1);
+    }
+
+    @Test
+    void testSaveOneSeatWithInvalidRowNumber() {
+        Seat seat = Seat.builder()
+                .rowNumber(-1)
+                .seatNumber(2)
+                .room(null)
+                .build();
+
+        Assertions.assertThrows(ConstraintViolationException.class, () -> {
+            repository.saveAndFlush(seat);
+        });
     }
 
     @Test
