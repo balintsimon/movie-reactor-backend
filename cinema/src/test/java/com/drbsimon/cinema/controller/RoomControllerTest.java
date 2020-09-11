@@ -13,6 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
@@ -62,15 +63,15 @@ class RoomControllerTest {
         final int numberOfRows = 1;
         final int numberOfSeatsInRow = 2;
         final int capacity = 2;
-        final List<Seat> seats = null;
+        final Room room = new Room(roomId, name, numberOfRows, numberOfSeatsInRow, capacity, null);
 
-        final Room room = new Room(roomId, name, numberOfRows, numberOfSeatsInRow, capacity, seats);
         given(service.getRoomById(roomId)).willReturn(room);
 
         this.mockMvc.perform(get("/room/" + roomId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is((int) roomId)))
                 .andExpect(jsonPath("$.numberOfRows", is(numberOfRows)))
-                .andExpect(jsonPath("$.numberOfSeatsPerRow", is(numberOfSeatsInRow)));
+                .andExpect(jsonPath("$.numberOfSeatsPerRow", is(numberOfSeatsInRow)))
+                .andExpect(jsonPath("$.capacity", is(capacity)));
     }
 }
