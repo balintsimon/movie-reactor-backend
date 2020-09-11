@@ -2,6 +2,7 @@ package com.drbsimon.cinema;
 
 import com.drbsimon.cinema.entity.Room;
 import com.drbsimon.cinema.entity.Seat;
+import com.drbsimon.cinema.model.SeatListWrapper;
 import com.drbsimon.cinema.repository.RoomRepository;
 import com.drbsimon.cinema.repository.SeatManager;
 import com.drbsimon.cinema.repository.SeatRepository;
@@ -118,5 +119,63 @@ class SeatTest {
         repository.saveAll(newSeats);
         List<Seat> newAllSeats = repository.findAll();
         assertThat(newAllSeats).hasSize(setUpSeats.size() + newSeats.size());
+    }
+
+    @Test
+    void testFindSeatsByRoomIdWithoutSavingNewSeat() {
+        SeatListWrapper wrapper = manager.getAllSeatsByRoomId(roomId);
+        List<Seat> foundSeats = wrapper.getSeats();
+        assertThat(foundSeats).hasSize(setUpSeats.size());
+    }
+
+    @Test
+    void testFindSeatsByRoomIdWithSavingNewSeatWithoutRoom() {
+        Seat seat = Seat.builder()
+                .rowNumber(2)
+                .seatNumber(2)
+                .room(null)
+                .build();
+
+        repository.saveAndFlush(seat);
+
+        SeatListWrapper wrapper = manager.getAllSeatsByRoomId(roomId);
+        List<Seat> foundSeats = wrapper.getSeats();
+        assertThat(foundSeats).hasSize(setUpSeats.size());
+    }
+
+    @Test
+    void testFindSeatsByRoomIdWithSavingNewSeatWithRoom() {
+        Seat seat = Seat.builder()
+                .rowNumber(2)
+                .seatNumber(2)
+                .room(testRoom)
+                .build();
+
+        repository.saveAndFlush(seat);
+
+        SeatListWrapper wrapper = manager.getAllSeatsByRoomId(roomId);
+        List<Seat> foundSeats = wrapper.getSeats();
+        assertThat(foundSeats).hasSize(setUpSeats.size() + 1);
+    }
+
+    @Test
+    void testFindSeatsByRoomIdWithNewSeats() {
+        Seat seatWithRoom = Seat.builder()
+                .rowNumber(2)
+                .seatNumber(2)
+                .room(testRoom)
+                .build();
+
+        Seat seatWithoutRoom = Seat.builder()
+                .rowNumber(1)
+                .seatNumber(1)
+                .room(null)
+                .build();
+
+        repository.saveAll(Arrays.asList(seatWithRoom, seatWithoutRoom));
+
+        SeatListWrapper wrapper = manager.getAllSeatsByRoomId(roomId);
+        List<Seat> foundSeats = wrapper.getSeats();
+        assertThat(foundSeats).hasSize(setUpSeats.size() + 1);
     }
 }
