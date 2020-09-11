@@ -184,18 +184,6 @@ class VisitorRepositoryTests {
 
     @Test
     public void testCantFindUserByName() {
-        String username = "ASD";
-
-        Visitor newUser = Visitor.builder()
-                .username(username)
-                .email("asd@asd.hu")
-                .firstname("ASD")
-                .lastname("DSA")
-                .password("AS")
-                .roles(Collections.singletonList(Role.ROLE_USER))
-                .build();
-
-        repository.saveAndFlush(newUser);
         Optional<Visitor> foundVisitor = repository.findByUsername("nobody");
 
         assertThat(foundVisitor).isEmpty();
