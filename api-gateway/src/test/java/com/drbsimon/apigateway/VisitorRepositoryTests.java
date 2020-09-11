@@ -14,11 +14,7 @@ import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 
-import javax.validation.ConstraintViolationException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -165,6 +161,25 @@ class VisitorRepositoryTests {
         Assertions.assertThrows(DataIntegrityViolationException.class, () -> {
             repository.saveAndFlush(newUser2);
         });
+    }
+
+    @Test
+    public void findUserByName() {
+        String username = "ASD";
+
+        Visitor newUser = Visitor.builder()
+                .username(username)
+                .email("asd@asd.hu")
+                .firstname("ASD")
+                .lastname("DSA")
+                .password("AS")
+                .roles(Collections.singletonList(Role.ROLE_USER))
+                .build();
+
+        repository.saveAndFlush(newUser);
+        Optional<Visitor> foundVisitor = repository.findByUsername(username);
+
+        assertThat(foundVisitor).isEqualTo(Optional.of(newUser));
     }
 
 }
