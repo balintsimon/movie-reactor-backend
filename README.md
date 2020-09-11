@@ -36,6 +36,15 @@ must be read from some services at aggregate points, please:
 
 ## API
 Please note that endpoints are in the process of being rewritten at the moment to comply with REST.
+API at localhost port 8762:
+- `/user GET`: get all users
+- `/user/{id} GET`: get user by ID
+- `/me GET`: get logged in user
+
+- `/movieservice/movie GET`: get all movies in database
+- `/movieservice/movie/{id} GET`: get movie from database by its ID
+
+
 
 Please note that although Spring Security is installed, endpoints have not been secured yet.  
 
