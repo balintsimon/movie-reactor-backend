@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @Data
@@ -19,6 +20,7 @@ public class Room {
     @Column(unique = true, nullable = false)
     private String name;
 
+    @Min(0)
     private Integer numberOfRows;
     private Integer numberOfSeatsPerRow;
 

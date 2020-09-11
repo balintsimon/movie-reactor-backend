@@ -1,6 +1,7 @@
 package com.drbsimon.cinema;
 
 import com.drbsimon.cinema.entity.Room;
+import com.drbsimon.cinema.entity.Seat;
 import com.drbsimon.cinema.model.RoomListWrapper;
 import com.drbsimon.cinema.repository.RoomManager;
 import com.drbsimon.cinema.repository.RoomRepository;
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 
+import javax.validation.ConstraintViolationException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -51,6 +53,19 @@ class RoomTests {
 
         List<Room> rooms = repository.findAll();
         assertThat(rooms).hasSize(1);
+    }
+
+    @Test
+    void testSaveRoomWithInvalidRowNumber() {
+        Room room = Room.builder()
+                .name("1")
+                .numberOfRows(-1)
+                .numberOfSeatsPerRow(1)
+                .seats(null)
+                .build();
+        Assertions.assertThrows(ConstraintViolationException.class, () -> {
+            repository.saveAndFlush(room);
+        });
     }
 
     @Test
