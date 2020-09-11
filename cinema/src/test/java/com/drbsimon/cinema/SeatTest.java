@@ -110,6 +110,19 @@ class SeatTest {
     }
 
     @Test
+    void testSaveOneSeatWithInvalidSeatNumber() {
+        Seat seat = Seat.builder()
+                .rowNumber(1)
+                .seatNumber(-1)
+                .room(null)
+                .build();
+
+        Assertions.assertThrows(ConstraintViolationException.class, () -> {
+            repository.saveAndFlush(seat);
+        });
+    }
+
+    @Test
     void testSaveSeveralSeat() {
         Seat seat1 = Seat.builder()
                 .rowNumber(2)

@@ -19,6 +19,8 @@ public class Seat {
 
     @Min(0)
     private Integer rowNumber;
+
+    @Min(0)
     private Integer seatNumber;
 
     @ManyToOne
