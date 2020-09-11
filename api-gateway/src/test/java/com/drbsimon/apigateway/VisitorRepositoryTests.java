@@ -66,7 +66,7 @@ class VisitorRepositoryTests {
     }
 
     @Test
-    public void saveOneVisitorSimple() {
+    public void testSaveOneVisitorSimple() {
         Visitor newUser = Visitor.builder()
                 .username("ASD")
                 .email("asd@asd.hu")
@@ -83,7 +83,7 @@ class VisitorRepositoryTests {
     }
 
     @Test
-    public void saveSeveralVisitorSimple() {
+    public void testSaveSeveralVisitorSimple() {
         Visitor newUser1 = Visitor.builder()
                 .username("ASD")
                 .email("asd@asd.hu")
@@ -164,7 +164,7 @@ class VisitorRepositoryTests {
     }
 
     @Test
-    public void findUserByName() {
+    public void testFindUserByName() {
         String username = "ASD";
 
         Visitor newUser = Visitor.builder()
@@ -182,4 +182,22 @@ class VisitorRepositoryTests {
         assertThat(foundVisitor).isEqualTo(Optional.of(newUser));
     }
 
+    @Test
+    public void testCantFindUserByName() {
+        String username = "ASD";
+
+        Visitor newUser = Visitor.builder()
+                .username(username)
+                .email("asd@asd.hu")
+                .firstname("ASD")
+                .lastname("DSA")
+                .password("AS")
+                .roles(Collections.singletonList(Role.ROLE_USER))
+                .build();
+
+        repository.saveAndFlush(newUser);
+        Optional<Visitor> foundVisitor = repository.findByUsername("nobody");
+
+        assertThat(foundVisitor).isEmpty();
+    }
 }
