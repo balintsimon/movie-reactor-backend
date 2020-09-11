@@ -206,4 +206,27 @@ class SeatTest {
         List<Seat> foundSeats = wrapper.getSeats();
         assertThat(foundSeats).hasSize(setUpSeats.size() + 1);
     }
+
+    @Test
+    void testGetSeatById() {
+        Long seatId = 10L;
+        Seat seat1 = Seat.builder()
+                .rowNumber(2)
+                .seatNumber(3)
+                .room(null)
+                .build();
+
+        Seat seat2 = Seat.builder()
+                .id(seatId)
+                .rowNumber(2)
+                .seatNumber(2)
+                .room(null)
+                .build();
+
+        List<Seat> newSeats = Arrays.asList(seat1, seat2);
+
+        repository.saveAll(newSeats);
+        Seat foundSeat = manager.getSeatById(seatId);
+        assertThat(foundSeat).isEqualTo(seat2);
+    }
 }
