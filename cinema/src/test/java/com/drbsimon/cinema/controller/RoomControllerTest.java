@@ -1,6 +1,7 @@
 package com.drbsimon.cinema.controller;
 
 import com.drbsimon.cinema.entity.Room;
+import com.drbsimon.cinema.entity.Seat;
 import com.drbsimon.cinema.model.RoomListWrapper;
 import com.drbsimon.cinema.repository.RoomManager;
 import org.junit.jupiter.api.BeforeEach;
@@ -55,6 +56,21 @@ class RoomControllerTest {
     }
 
     @Test
-    void getRoom() throws Exception {
+    void testGetRoom() throws Exception {
+        final long roomId = 4L;
+        final String name = "tested";
+        final int numberOfRows = 1;
+        final int numberOfSeatsInRow = 2;
+        final int capacity = 2;
+        final List<Seat> seats = null;
+
+        final Room room = new Room(roomId, name, numberOfRows, numberOfSeatsInRow, capacity, seats);
+        given(service.getRoomById(roomId)).willReturn(room);
+
+        this.mockMvc.perform(get("/room/" + roomId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is((int) roomId)))
+                .andExpect(jsonPath("$.numberOfRows", is(numberOfRows)))
+                .andExpect(jsonPath("$.numberOfSeatsPerRow", is(numberOfSeatsInRow)));
     }
 }
