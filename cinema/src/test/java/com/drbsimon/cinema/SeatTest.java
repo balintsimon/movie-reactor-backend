@@ -1,6 +1,8 @@
 package com.drbsimon.cinema;
 
+import com.drbsimon.cinema.entity.Room;
 import com.drbsimon.cinema.entity.Seat;
+import com.drbsimon.cinema.repository.RoomRepository;
 import com.drbsimon.cinema.repository.SeatManager;
 import com.drbsimon.cinema.repository.SeatRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,6 +31,12 @@ class SeatTest {
 
     private List<Seat> setUpSeats = new ArrayList<>();
 
+    @Autowired
+    private RoomRepository roomRepository;
+
+    private Room testRoom;
+    private Long roomId;
+
     @Test
     public void testRepositoryLoads() throws Exception {
         assertThat(repository).isNotNull();
@@ -41,22 +49,32 @@ class SeatTest {
 
     @BeforeEach
     void setUp() {
+        Room newTestRoom = Room.builder()
+                .name("Test Room")
+                .numberOfSeatsPerRow(2)
+                .numberOfSeatsPerRow(2)
+                .capacity(4)
+                .build();
+        roomRepository.save(newTestRoom);
+        this.testRoom = newTestRoom;
+        roomId = newTestRoom.getId();
+
         Seat seat1 = Seat.builder()
                 .rowNumber(1)
                 .seatNumber(1)
-                .room(null)
+                .room(newTestRoom)
                 .build();
 
         Seat seat2 = Seat.builder()
                 .rowNumber(1)
                 .seatNumber(2)
-                .room(null)
+                .room(newTestRoom)
                 .build();
 
         Seat seat3 = Seat.builder()
                 .rowNumber(2)
                 .seatNumber(1)
-                .room(null)
+                .room(newTestRoom)
                 .build();
         repository.saveAll(Arrays.asList(seat1, seat2, seat3));
         setUpSeats.addAll(Arrays.asList(seat1, seat2, seat3));
