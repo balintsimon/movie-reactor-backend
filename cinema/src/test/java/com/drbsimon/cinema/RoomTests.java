@@ -69,6 +69,19 @@ class RoomTests {
     }
 
     @Test
+    void testSaveRoomWithInvalidSeatPerRowNumber() {
+        Room room = Room.builder()
+                .name("1")
+                .numberOfRows(1)
+                .numberOfSeatsPerRow(-1)
+                .seats(null)
+                .build();
+        Assertions.assertThrows(ConstraintViolationException.class, () -> {
+            repository.saveAndFlush(room);
+        });
+    }
+
+    @Test
     public void testSaveSeveralRoomSimple() {
         Room room1 = Room.builder()
                 .name("1")

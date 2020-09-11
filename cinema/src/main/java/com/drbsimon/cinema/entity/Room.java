@@ -22,6 +22,8 @@ public class Room {
 
     @Min(0)
     private Integer numberOfRows;
+
+    @Min(0)
     private Integer numberOfSeatsPerRow;
 
     @Transient
