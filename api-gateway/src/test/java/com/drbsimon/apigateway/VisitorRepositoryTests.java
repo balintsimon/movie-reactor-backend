@@ -202,6 +202,25 @@ class VisitorRepositoryTests {
     }
 
     @Test
+    public void testGetByUserByName() {
+        String username = "ASD";
+
+        Visitor newUser = Visitor.builder()
+                .username(username)
+                .email("asd@asd.hu")
+                .firstname("ASD")
+                .lastname("DSA")
+                .password("AS")
+                .roles(Collections.singletonList(Role.ROLE_USER))
+                .build();
+
+        repository.saveAndFlush(newUser);
+        Visitor foundVisitor = repository.getByUsername(username);
+
+        assertThat(foundVisitor).isEqualTo(newUser);
+    }
+
+    @Test
     public void testFindUserById() {
         List<Visitor> allVisitors = repository.findAll();
         Visitor expectedVisitor = allVisitors.get(0);
