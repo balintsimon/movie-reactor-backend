@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 @DataJpaTest
 @ActiveProfiles("test")
@@ -228,5 +229,12 @@ class SeatTest {
         repository.saveAll(newSeats);
         Seat foundSeat = manager.getSeatById(seatId);
         assertThat(foundSeat).isEqualTo(seat2);
+    }
+
+    @Test
+    void testSeatIsNotFound() {
+        Long seatId = 10L;
+        Seat foundSeat = manager.getSeatById(seatId);
+        assertThat(foundSeat).isEqualTo(null);
     }
 }
