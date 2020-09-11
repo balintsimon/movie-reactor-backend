@@ -99,6 +99,22 @@ class SeatControllerTest {
     }
 
     @Test
-    void getSeatByRoomId() {
+    void testGetSeatByRoomId() throws Exception {
+        final long seatId = 4L;
+        final int rowNumber = 1;
+        final int seatNumber = 2;
+        final long roomId = 2L;
+        final Room testRoom = new Room(roomId, "tested", 1, 1, 1, null);
+        Seat newSeat = new Seat(seatId, rowNumber, seatNumber, testRoom);
+        testRoom.setSeats(Arrays.asList(newSeat));
+
+        SeatListWrapper testWrapper = new SeatListWrapper();
+        testWrapper.setSeats(Arrays.asList(newSeat));
+
+        given(service.getAllSeatsByRoomId(seatId)).willReturn(testWrapper);
+
+        this.mockMvc.perform(get("/seat/room/" + roomId))
+                .andExpect(status().isOk())
+                .equals(testWrapper);
     }
 }
