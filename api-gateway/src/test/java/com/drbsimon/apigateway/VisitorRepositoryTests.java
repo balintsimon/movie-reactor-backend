@@ -200,4 +200,26 @@ class VisitorRepositoryTests {
 
         assertThat(foundVisitor).isEmpty();
     }
+
+    @Test
+    public void testFindUserById() {
+        List<Visitor> allVisitors = repository.findAll();
+        Visitor expectedVisitor = allVisitors.get(0);
+        long userId = expectedVisitor.getId();
+
+        Optional<Visitor> foundVisitor = repository.findById(userId);
+
+        assertThat(foundVisitor).isEqualTo(Optional.of(expectedVisitor));
+    }
+
+    @Test
+    public void testFindUserByNonexistentId() {
+        List<Visitor> allVisitors = repository.findAll();
+        Visitor expectedVisitor = allVisitors.get(allVisitors.size() - 1);
+        long lastUserId = expectedVisitor.getId();
+
+        Optional<Visitor> foundVisitor = repository.findById(lastUserId + 1);
+
+        assertThat(foundVisitor).isEmpty();
+    }
 }
