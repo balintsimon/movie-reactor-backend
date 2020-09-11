@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Null;
 
 @Data
 @NoArgsConstructor
@@ -15,7 +17,10 @@ public class Seat {
     @GeneratedValue
     private Long id;
 
+    @Min(0)
     private Integer rowNumber;
+
+    @Min(0)
     private Integer seatNumber;
 
     @ManyToOne
