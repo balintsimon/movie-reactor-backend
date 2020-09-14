@@ -34,23 +34,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                // TODO: delete permit all upon endpoints revision
-                .antMatchers("/**").permitAll()
-                // TODO: revise endpoints
-//                .antMatchers("/auth/*").permitAll()
-//                .antMatchers(HttpMethod.GET, "/watchlist").hasRole("USER")
-//                .antMatchers(HttpMethod.POST, "/watchlist/save/*").hasRole("USER")
-//                .antMatchers(HttpMethod.DELETE, "/watchlist/delete/*").hasRole("USER")
-//                .antMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.GET, "/me").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.GET, "/schedule").permitAll()
-//                .antMatchers(HttpMethod.GET, "/scheduled-movies").permitAll()
-//                .antMatchers(HttpMethod.GET, "/show/*").permitAll()
-//                .antMatchers(HttpMethod.PUT, "/show/*").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.POST,"/reservation/seats").hasRole("USER")
-//                .antMatchers(HttpMethod.GET,"/reservation/seats").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.DELETE,"/reservation/delete").hasRole("ADMIN")
-//                .anyRequest().denyAll() // anything else is denied
+                .antMatchers("/auth/**").permitAll()
+
+                .antMatchers(HttpMethod.GET, "/user", "/user/**").permitAll() // Needed for data initialization
+                .antMatchers(HttpMethod.GET, "/apigateway/user", "/apigateway/user/**").permitAll() // Needed for data initialization
+                // TODO: modify it to only authorized access
+                /* Bug description
+                 * Booking service requires intra-microservice communication. However, user token is stripped while going through gateway
+                 * or was non-existent (because user wasn't logged in), therefore this endpoint is locked for the booking service.
+                 * This results in the booking service not attaching information, so it does not work.
+                 * */
+
+                .antMatchers( "/watchlist", "/watchlist/**").authenticated()
+//                .antMatchers( "/watchlist", "/watchlist/**").hasRole("USER") // TODO: switch to this if admin loses capability to add to watchlist
+                .antMatchers(HttpMethod.GET, "/cinema/room/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/cinema/seat", "/cinema/seat/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/moviecatalog/schedule", "/moviecatalog/show", "/moviecatalog/show/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/booking/reservation/show/**").permitAll()
+
+
+                .antMatchers(HttpMethod.GET, "/booking/reservation", "/booking/reservation/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/booking/reservation", "/booking/reservation/**").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/booking/reservation", "/booking/reservation/**").authenticated()
+
+                .anyRequest().denyAll()
                 .and()
                 .addFilterBefore(new JwtTokenFilter(jwtTokenServices), UsernamePasswordAuthenticationFilter.class);
     }
