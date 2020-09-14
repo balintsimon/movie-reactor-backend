@@ -27,10 +27,6 @@ public class VisitorServiceCaller {
         return visitors.getVisitors();
     }
 
-    public Visitor getLoggedInUser() {
-        return restTemplate.getForObject(baseUrl + "/loggedin", Visitor.class);
-    }
-
     public Visitor getVisitorById(Long visitorId) {
         return restTemplate.getForObject(baseUrl + "/user/" + visitorId, Visitor.class);
     }
