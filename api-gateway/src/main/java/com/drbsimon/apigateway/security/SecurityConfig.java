@@ -47,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers( "/watchlist", "/watchlist/**").authenticated()
 //                .antMatchers( "/watchlist", "/watchlist/**").hasRole("USER") // TODO: switch to this if admin loses capability to add to watchlist
+                .antMatchers(HttpMethod.GET, "/movieservice/movie", "/movieservice/movie/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/cinema/room/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/cinema/seat", "/cinema/seat/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/moviecatalog/schedule", "/moviecatalog/show", "/moviecatalog/show/**").permitAll()
