@@ -46,6 +46,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     public Long findVisitorIdByUsername(String userName) {
         Visitor visitor = visitors.getByUsername(userName);
+        if (visitor == null) return null;
         return visitor.getId();
     }
 

@@ -5,8 +5,6 @@ import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
 
-import javax.servlet.http.HttpServletRequest;
-
 public class PreFilter extends ZuulFilter {
     private final CustomUserDetailsService customUserDetailsService;
 
@@ -34,7 +32,7 @@ public class PreFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         String username = customUserDetailsService.findLoggedInUsername();
         Long userId = customUserDetailsService.findVisitorIdByUsername(username);
-        ctx.addZuulRequestHeader("userid", userId.toString());
+        if (userId != null) ctx.addZuulRequestHeader("userid", userId.toString());
         return null;
     }
 }
