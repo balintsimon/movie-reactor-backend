@@ -34,8 +34,7 @@ public class ReservationController {
         return reservationOrganizer.deleteReservationWithRightsCheck(seats, visitorId);
     }
 
-    // TODO: information must be combined in a service, rewrite
-//    // TODO: Only for admin, user internally, user should reach only user's seats! Secure endpoint
+    // TODO: Only for admin, user internally, user should reach only user's seats! Secure endpoint
     @GetMapping("/user")
     public ReservationWrapper getAllReservedSeats() {
         return reservationOrganizer.getAllReservations();
@@ -48,8 +47,8 @@ public class ReservationController {
 
     // TODO: limit visitor info to only logged in user!
     @GetMapping("/show/{id}")
-    public AllBookingInfoWrapper getReservationsByShow(@PathVariable("id") Long showId) {
-        return reservationOrganizer.getReservationsByShowId(showId);
+    public AllBookingInfoWrapper getReservationsByShow(@PathVariable("id") Long showId, @RequestHeader("userid") Long visitorId) {
+        return reservationOrganizer.getAllReservationsFactory(showId, visitorId);
     }
 
 }
