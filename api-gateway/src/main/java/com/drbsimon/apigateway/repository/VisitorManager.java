@@ -1,7 +1,7 @@
 package com.drbsimon.apigateway.repository;
 
 import com.drbsimon.apigateway.model.entity.Visitor;
-import com.drbsimon.apigateway.wrapper.VisitorListWrapper;
+import com.drbsimon.apigateway.model.dto.VisitorsWrapperDTO;
 import com.drbsimon.apigateway.security.CustomUserDetailsService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +17,11 @@ public class VisitorManager {
     private final VisitorRepository visitorRepository;
     private final CustomUserDetailsService customUserDetailsService;
 
-    public VisitorListWrapper getAllVisitors() {
-        VisitorListWrapper visitorListWrapper = new VisitorListWrapper();
+    public VisitorsWrapperDTO getAllVisitors() {
+        VisitorsWrapperDTO visitorsWrapperDTO = new VisitorsWrapperDTO();
         List<Visitor> visitors = visitorRepository.findAll();
-        visitorListWrapper.setVisitors(visitors);
-        return visitorListWrapper;
+        visitorsWrapperDTO.setVisitors(visitors);
+        return visitorsWrapperDTO;
     }
 
     public Visitor getVisitorById(Long visitorId) {

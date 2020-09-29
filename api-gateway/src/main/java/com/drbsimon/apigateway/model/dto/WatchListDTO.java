@@ -1,4 +1,4 @@
-package com.drbsimon.apigateway.wrapper;
+package com.drbsimon.apigateway.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,6 +11,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class WatchListWrapper {
+public class WatchListDTO {
     List<Integer> watchlist;
 }

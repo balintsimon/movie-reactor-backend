@@ -1,7 +1,7 @@
 package com.drbsimon.apigateway.controller;
 
 import com.drbsimon.apigateway.model.entity.Visitor;
-import com.drbsimon.apigateway.wrapper.VisitorListWrapper;
+import com.drbsimon.apigateway.model.dto.VisitorsWrapperDTO;
 import com.drbsimon.apigateway.repository.VisitorManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ public class VisitorController {
 
     // TODO: remap on frontend from "/users" to "/user"
     @GetMapping("/user")
-    public VisitorListWrapper getAllUsers() {
+    public VisitorsWrapperDTO getAllUsers() {
         return visitorManager.getAllVisitors();
     }
 

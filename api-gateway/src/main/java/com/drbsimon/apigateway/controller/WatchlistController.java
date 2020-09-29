@@ -1,6 +1,6 @@
 package com.drbsimon.apigateway.controller;
 
-import com.drbsimon.apigateway.wrapper.WatchListWrapper;
+import com.drbsimon.apigateway.model.dto.WatchListDTO;
 import com.drbsimon.apigateway.repository.WatchlistManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +15,7 @@ public class WatchlistController {
     private final WatchlistManager watchlistManager;
 
     @GetMapping
-    public WatchListWrapper getWatchListByUser() {
+    public WatchListDTO getWatchListByUser() {
         return watchlistManager.getWatchlistByUsername();
     }
 
