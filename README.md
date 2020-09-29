@@ -71,17 +71,9 @@ Endpoint | Method | Response
 Please note that although Spring Security is installed, not all endpoints have not been secured yet.  
 
 ## Version
-The project is under development, in beta.
-
-Implemented:
-- all servers are running with dummy content initialization
-- cinema schedule
-- seat reservation
-- user (visitor) registration
+The project is under development.
 
 Under implementation:
-- aggregate API endpoint calls to minimize API calls from front-end
-- separate visitor users from admins (currently using roles)
 - admin functions: register new show instead of watchlist
 - admin functions: schedule show from possible movies list
 - admin functions: manage each show's reservations
@@ -89,9 +81,9 @@ Under implementation:
 - schedule check for past shows (void registration after start of show)
 - store JWT in cookie instead of local.storage
 - RESTful API: implement HATEOAS
-- RESTful API: change endpoint names to follow naming convention
 - enable Spring Security on endpoints
-- move dummy content creation under separate service or flag
+- remove or move dummy content creation under separate service or flag
+- deployment
 
 ## Technology
 Services use:
