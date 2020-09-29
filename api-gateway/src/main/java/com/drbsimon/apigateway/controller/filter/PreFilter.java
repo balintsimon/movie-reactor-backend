@@ -30,10 +30,8 @@ public class PreFilter extends ZuulFilter {
     @Override
     public Object run() throws ZuulException {
         RequestContext ctx = RequestContext.getCurrentContext();
-        System.out.println("proxy" + ctx.get("proxy"));
         String username = customUserDetailsService.findLoggedInUsername();
         Long userId = customUserDetailsService.findVisitorIdByUsername(username);
-        if (userId != null) ctx.addZuulRequestHeader("userid", userId.toString());
         if (userId == null) ctx.addZuulRequestHeader("userid", null);
         return null;
     }
