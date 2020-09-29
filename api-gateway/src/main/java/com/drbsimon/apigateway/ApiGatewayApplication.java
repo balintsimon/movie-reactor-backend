@@ -1,7 +1,7 @@
 package com.drbsimon.apigateway;
 
 import com.drbsimon.apigateway.controller.filter.PreFilter;
-import com.drbsimon.apigateway.entity.Visitor;
+import com.drbsimon.apigateway.model.entity.Visitor;
 import com.drbsimon.apigateway.model.Role;
 import com.drbsimon.apigateway.repository.VisitorRepository;
 import com.drbsimon.apigateway.security.CustomUserDetailsService;

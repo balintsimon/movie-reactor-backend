@@ -1,7 +1,7 @@
 package com.drbsimon.apigateway.repository;
 
-import com.drbsimon.apigateway.entity.Visitor;
-import com.drbsimon.apigateway.wrapper.WatchListWrapper;
+import com.drbsimon.apigateway.model.entity.Visitor;
+import com.drbsimon.apigateway.model.dto.WatchListDTO;
 import com.drbsimon.apigateway.security.CustomUserDetailsService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +17,11 @@ public class WatchlistManager {
     private final VisitorManager visitorManager;
     private final CustomUserDetailsService customUserDetailsService;
 
-    public WatchListWrapper getWatchlistByUsername() {
+    public WatchListDTO getWatchlistByUsername() {
         Visitor user = customUserDetailsService.getVisitorFromToken();
-        if (user == null) return new WatchListWrapper(new ArrayList<>());
+        if (user == null) return new WatchListDTO(new ArrayList<>());
         List<Integer> watchlistIds = user.getWatchList();
-        return new WatchListWrapper(watchlistIds);
+        return new WatchListDTO(watchlistIds);
     }
 
     public boolean saveNewWatchlistElement(Integer movie_db_id) {

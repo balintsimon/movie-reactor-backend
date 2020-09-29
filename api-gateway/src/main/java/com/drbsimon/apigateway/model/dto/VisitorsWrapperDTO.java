@@ -1,6 +1,6 @@
-package com.drbsimon.apigateway.wrapper;
+package com.drbsimon.apigateway.model.dto;
 
-import com.drbsimon.apigateway.entity.Visitor;
+import com.drbsimon.apigateway.model.entity.Visitor;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -8,6 +8,6 @@ import java.util.List;
 
 @Component
 @Data
-public class VisitorListWrapper {
+public class VisitorsWrapperDTO {
     List<Visitor> visitors;
 }

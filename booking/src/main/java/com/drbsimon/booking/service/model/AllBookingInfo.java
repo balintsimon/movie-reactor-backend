@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class AllBookingInfo {
     Long id;
-    Visitor visitor;
+    VisitorDTO visitor;
     Seat seat;
     Show show;
     int movieId;

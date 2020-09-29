@@ -1,6 +1,6 @@
 package com.drbsimon.apigateway.security;
 
-import com.drbsimon.apigateway.entity.Visitor;
+import com.drbsimon.apigateway.model.entity.Visitor;
 import com.drbsimon.apigateway.repository.VisitorRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,6 +46,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     public Long findVisitorIdByUsername(String userName) {
         Visitor visitor = visitors.getByUsername(userName);
+        if (visitor == null) return null;
         return visitor.getId();
     }
 

@@ -1,20 +1,18 @@
-package com.drbsimon.booking.service.model;
+package com.drbsimon.apigateway.model.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Visitor {
-    private Long id;
+public class UserCredentialsDTO {
     private String username;
+    private String password;
     private String firstname;
     private String lastname;
     private String email;
-    private List<Role> roles = new ArrayList<>();
 }
