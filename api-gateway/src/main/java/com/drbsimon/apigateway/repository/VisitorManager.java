@@ -1,6 +1,6 @@
 package com.drbsimon.apigateway.repository;
 
-import com.drbsimon.apigateway.entity.Visitor;
+import com.drbsimon.apigateway.model.entity.Visitor;
 import com.drbsimon.apigateway.wrapper.VisitorListWrapper;
 import com.drbsimon.apigateway.security.CustomUserDetailsService;
 import lombok.Data;

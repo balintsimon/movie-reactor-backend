@@ -1,6 +1,7 @@
-package com.drbsimon.apigateway.model;
+package com.drbsimon.apigateway.model.dto;
 
-import com.drbsimon.apigateway.entity.Visitor;
+import com.drbsimon.apigateway.model.entity.Visitor;
+import com.drbsimon.apigateway.model.Role;
 import com.drbsimon.apigateway.repository.VisitorRepository;
 import com.drbsimon.apigateway.security.DataValidatorService;
 import com.drbsimon.apigateway.security.JwtTokenServices;
@@ -17,24 +18,24 @@ import java.util.*;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public class VisitorRegisterService {
+public class VisitorRegisterDTO {
     private final VisitorRepository visitorRepository;
     private final JwtTokenServices jwtTokenServices;
     private final DataValidatorService dataValidator;
     private final PasswordEncoder passwordEncoder;
-    private final VisitorLoginService visitorLoginService;
+    private final VisitorLoginDTO visitorLoginDTO;
 
-    public ResponseEntity registerUser(UserCredentials userCredentials) {
+    public ResponseEntity registerUser(UserCredentialsDTO userCredentialsDTO) {
 
-        ResponseEntity failedRegistrationMessage = checkRegistrationForError(userCredentials);
+        ResponseEntity failedRegistrationMessage = checkRegistrationForError(userCredentialsDTO);
         if (failedRegistrationMessage != null) return failedRegistrationMessage;
 
         Visitor newVisitor = Visitor.builder()
-                .username(userCredentials.getUsername())
-                .password(passwordEncoder.encode(userCredentials.getPassword()))
-                .firstname(userCredentials.getFirstname())
-                .lastname(userCredentials.getLastname())
-                .email(userCredentials.getEmail())
+                .username(userCredentialsDTO.getUsername())
+                .password(passwordEncoder.encode(userCredentialsDTO.getPassword()))
+                .firstname(userCredentialsDTO.getFirstname())
+                .lastname(userCredentialsDTO.getLastname())
+                .email(userCredentialsDTO.getEmail())
                 .roles(Collections.singletonList(Role.ROLE_USER))
                 .build();
         visitorRepository.save(newVisitor);
@@ -54,12 +55,12 @@ public class VisitorRegisterService {
 
     // TODO: check if validation could generate error messages instead of registration service.
     // TODO: check if possible to modify to collect all possible errors in one message.
-    public ResponseEntity checkRegistrationForError(UserCredentials userCredentials) {
-        String username = userCredentials.getUsername();
-        String password = userCredentials.getPassword();
-        String firstname = userCredentials.getFirstname();
-        String lastname = userCredentials.getLastname();
-        String email = userCredentials.getEmail();
+    public ResponseEntity checkRegistrationForError(UserCredentialsDTO userCredentialsDTO) {
+        String username = userCredentialsDTO.getUsername();
+        String password = userCredentialsDTO.getPassword();
+        String firstname = userCredentialsDTO.getFirstname();
+        String lastname = userCredentialsDTO.getLastname();
+        String email = userCredentialsDTO.getEmail();
         List<String> errorList = new ArrayList<>();
 
         if (visitorRepository.findByUsername(username).isPresent()) {

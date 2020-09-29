@@ -1,4 +1,4 @@
-package com.drbsimon.apigateway.entity;
+package com.drbsimon.apigateway.model.entity;
 
 import com.drbsimon.apigateway.model.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;

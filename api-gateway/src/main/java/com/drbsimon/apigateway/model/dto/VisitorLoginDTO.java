@@ -1,4 +1,4 @@
-package com.drbsimon.apigateway.model;
+package com.drbsimon.apigateway.model.dto;
 
 import com.drbsimon.apigateway.repository.VisitorRepository;
 import com.drbsimon.apigateway.security.DataValidatorService;
@@ -25,17 +25,17 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public class VisitorLoginService {
+public class VisitorLoginDTO {
     private final VisitorRepository visitorRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenServices jwtTokenServices;
     private final DataValidatorService dataValidator;
     private final PasswordEncoder passwordEncoder;
 
-    public ResponseEntity loginUser(UserCredentials userCredentials) {
+    public ResponseEntity loginUser(UserCredentialsDTO userCredentialsDTO) {
         try {
-            String username = userCredentials.getUsername();
-            String password = userCredentials.getPassword();
+            String username = userCredentialsDTO.getUsername();
+            String password = userCredentialsDTO.getPassword();
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username, password)
             );

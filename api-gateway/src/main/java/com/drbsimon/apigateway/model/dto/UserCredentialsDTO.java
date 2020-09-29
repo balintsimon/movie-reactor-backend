@@ -1,4 +1,4 @@
-package com.drbsimon.apigateway.model;
+package com.drbsimon.apigateway.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserCredentials {
+public class UserCredentialsDTO {
     private String username;
     private String password;
     private String firstname;

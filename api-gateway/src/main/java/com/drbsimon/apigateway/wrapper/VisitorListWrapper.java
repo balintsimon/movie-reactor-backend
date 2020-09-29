@@ -1,6 +1,6 @@
 package com.drbsimon.apigateway.wrapper;
 
-import com.drbsimon.apigateway.entity.Visitor;
+import com.drbsimon.apigateway.model.entity.Visitor;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 

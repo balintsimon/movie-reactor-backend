@@ -1,6 +1,6 @@
 package com.drbsimon.apigateway.controller;
 
-import com.drbsimon.apigateway.entity.Visitor;
+import com.drbsimon.apigateway.model.entity.Visitor;
 import com.drbsimon.apigateway.wrapper.VisitorListWrapper;
 import com.drbsimon.apigateway.repository.VisitorManager;
 import lombok.RequiredArgsConstructor;
