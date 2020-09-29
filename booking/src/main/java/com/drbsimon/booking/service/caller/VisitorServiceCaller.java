@@ -1,6 +1,6 @@
 package com.drbsimon.booking.service.caller;
 
-import com.drbsimon.booking.service.model.Visitor;
+import com.drbsimon.booking.service.model.VisitorDTO;
 import com.drbsimon.booking.model.VisitorListWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,12 +22,12 @@ public class VisitorServiceCaller {
     @Value("${visitor.url}")
     private String baseUrl;
 
-    public List<Visitor> getAllVisitors() {
+    public List<VisitorDTO> getAllVisitors() {
         VisitorListWrapper visitors = restTemplate.getForObject(baseUrl + "/user", VisitorListWrapper.class);
         return visitors.getVisitors();
     }
 
-    public Visitor getVisitorById(Long visitorId) {
-        return restTemplate.getForObject(baseUrl + "/user/" + visitorId, Visitor.class);
+    public VisitorDTO getVisitorById(Long visitorId) {
+        return restTemplate.getForObject(baseUrl + "/user/" + visitorId, VisitorDTO.class);
     }
 }

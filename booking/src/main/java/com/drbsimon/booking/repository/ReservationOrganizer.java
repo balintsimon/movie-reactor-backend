@@ -25,7 +25,7 @@ public class ReservationOrganizer {
             throws IllegalStateException {
         Long showId = reservationInfo.getId();
         List<Long> seatIds = reservationInfo.getSeats();
-        Visitor visitor = visitorServiceCaller.getVisitorById(visitorId);
+        VisitorDTO visitor = visitorServiceCaller.getVisitorById(visitorId);
 
         if (seatIds.size() == 0) {
             return false;
@@ -61,7 +61,7 @@ public class ReservationOrganizer {
     }
 
     public boolean deleteReservationWithRightsCheck(SeatReservedWrapper reservationInfo, long visitorId) {
-        Visitor visitor = visitorServiceCaller.getVisitorById(visitorId);
+        VisitorDTO visitor = visitorServiceCaller.getVisitorById(visitorId);
         if (visitor.getRoles().contains(Role.ROLE_ADMIN)
                 ||  (visitor.getRoles().contains(Role.ROLE_USER) && visitor.getId() == visitorId))
             return deleteReservation(reservationInfo);
@@ -92,7 +92,7 @@ public class ReservationOrganizer {
     }
 
     public AllBookingInfoWrapper getReservationsWithExtraInfoFactory(Long visitorId) {
-        Visitor visitor = visitorServiceCaller.getVisitorById(visitorId);
+        VisitorDTO visitor = visitorServiceCaller.getVisitorById(visitorId);
         if (visitor.getRoles().contains(Role.ROLE_ADMIN)) return getAllReservationsWithExtraInfo();
         else if (visitor.getRoles().contains(Role.ROLE_USER)) return getAllReservationsOfUserWithExtraInfo(visitor);
         return null;
@@ -101,7 +101,7 @@ public class ReservationOrganizer {
     private AllBookingInfoWrapper getAllReservationsWithExtraInfo() {
         List<Reservation> reservations = reservationRepository.findAll();
         List<AllBookingInfo> allInformation = new ArrayList<>();
-        Map<Long, Visitor> visitors = new HashMap<>();
+        Map<Long, VisitorDTO> visitors = new HashMap<>();
         Map<Long, Show> shows = new HashMap<>();
         Map<Long, Seat> seats = new HashMap<>();
         for (Reservation reservation : reservations) {
@@ -112,7 +112,7 @@ public class ReservationOrganizer {
                 shows.put(reservation.getShowId(), show);
             }
 
-            Visitor visitor;
+            VisitorDTO visitor;
             if (visitors.containsKey(reservation.getVisitorId())) visitor = visitors.get(reservation.getVisitorId());
             else {
                 visitor = visitorServiceCaller.getVisitorById(reservation.getVisitorId());
@@ -130,7 +130,7 @@ public class ReservationOrganizer {
         return new AllBookingInfoWrapper(allInformation);
     }
 
-    private AllBookingInfoWrapper getAllReservationsOfUserWithExtraInfo(Visitor visitor) {
+    private AllBookingInfoWrapper getAllReservationsOfUserWithExtraInfo(VisitorDTO visitor) {
         List<Reservation> reservations = reservationRepository.getAllByVisitorId(visitor.getId());
         List<AllBookingInfo> allInformation = new ArrayList<>();
         Map<Long, Show> shows = new HashMap<>();
@@ -156,7 +156,7 @@ public class ReservationOrganizer {
 
     public AllBookingInfoWrapper getAllReservationsFactory(Long showId, Long visitorId) {
         if (visitorId != null) {
-            Visitor visitor = visitorServiceCaller.getVisitorById(visitorId);
+            VisitorDTO visitor = visitorServiceCaller.getVisitorById(visitorId);
             if (visitor.getRoles().contains(Role.ROLE_ADMIN)) return getAllReservationsWithDetailsByShowId(showId);
             else if (visitor.getRoles().contains(Role.ROLE_USER)) return getReservationsByShowIdWithoutUserInformation(showId);
         }
@@ -167,7 +167,7 @@ public class ReservationOrganizer {
     public AllBookingInfoWrapper getAllReservationsWithDetailsByShowId(Long showId) {
         List<Reservation> reservations = reservationRepository.getAllByShowId(showId);
         List<AllBookingInfo> allInformation = new ArrayList<>();
-        Map<Long, Visitor> visitors = new HashMap<>();
+        Map<Long, VisitorDTO> visitors = new HashMap<>();
         Map<Long, Show> shows = new HashMap<>();
         Map<Long, Seat> seats = new HashMap<>();
         for (Reservation reservation : reservations) {
@@ -178,7 +178,7 @@ public class ReservationOrganizer {
                 shows.put(reservation.getShowId(), show);
             }
 
-            Visitor visitor;
+            VisitorDTO visitor;
             if (visitors.containsKey(reservation.getVisitorId())) visitor = visitors.get(reservation.getVisitorId());
             else {
                 visitor = visitorServiceCaller.getVisitorById(reservation.getVisitorId());
@@ -210,7 +210,7 @@ public class ReservationOrganizer {
                 shows.put(reservation.getShowId(), show);
             }
 
-            Visitor visitor = new Visitor();
+            VisitorDTO visitor = new VisitorDTO();
 
             Seat seat;
             if (seats.containsKey(reservation.getSeatId())) seat = seats.get(reservation.getSeatId());

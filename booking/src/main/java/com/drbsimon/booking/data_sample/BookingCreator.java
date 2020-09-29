@@ -33,11 +33,11 @@ public class BookingCreator {
 
     public void createBookings() {
         List<Show> shows = catalogServiceCaller.getAllShows();
-        List<Visitor> visitors = visitorServiceCaller.getAllVisitors();
-        List<Visitor> users = visitors.stream()
+        List<VisitorDTO> visitorDTOS = visitorServiceCaller.getAllVisitors();
+        List<VisitorDTO> users = visitorDTOS.stream()
                 .filter(visitor -> visitor.getRoles().contains(Role.ROLE_USER))
                 .collect(Collectors.toList());
-        Visitor loneUser = users.get(0);
+        VisitorDTO loneUser = users.get(0);
 
         for (Show show : shows) {
             Room room = cinemaServiceCaller.getRoomById(show.getRoomId());
