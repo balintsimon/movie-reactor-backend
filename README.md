@@ -88,7 +88,11 @@ Under implementation:
 ## Technology
 Services use:
 - Spring Boot (with Lombok and Spring Security)
+- Netflix Zuul and Eureka
 - H2 database through Hibernate ORM (where applicable)
+- JUnit 5
+- Mockito
+- Swagger
 
 If viewed with IDE, please note that the project uses Lombok. If the IDE is not capable to interpret Lombok annotations
 it may show errors. In this case and if possible, please install an extension that interprets Lombok annotations for 
