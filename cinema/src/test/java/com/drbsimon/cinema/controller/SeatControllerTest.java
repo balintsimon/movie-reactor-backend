@@ -31,8 +31,6 @@ class SeatControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-
     @MockBean
     private SeatManager service;
 
