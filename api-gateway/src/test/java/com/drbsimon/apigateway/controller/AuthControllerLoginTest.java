@@ -95,4 +95,14 @@ class AuthControllerLoginTest {
 
         assertThat(visitorLoginDTO.loginUser(loggedInUser)).isEqualTo(visitorLoginDTO.validLoginResponse(authentication, userName));
     }
+
+    @Test
+    public void testInvalidLoginCall() {
+        AuthenticationException error = mock(AuthenticationException.class);
+        given(authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(userName, password)))
+                .willThrow(error);
+
+        assertThat(visitorLoginDTO.loginUser(loggedInUser)).isEqualTo(visitorLoginDTO.invalidLoginMessage());
+    }
 }
