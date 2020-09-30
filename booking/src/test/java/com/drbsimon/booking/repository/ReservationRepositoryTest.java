@@ -13,7 +13,6 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -140,5 +139,56 @@ class ReservationRepositoryTest {
         List<Reservation> actual = repository.getAllByVisitorId(id);
 
         assertThat(actual).isEmpty();
+    }
+
+    @Test
+    public void testGetReservationBySeatIdAndShowId() {
+        Long newSeatId = 10L;
+        Long newShowId = 10L;
+        Reservation reservation = new Reservation().builder()
+                .showId(newShowId)
+                .visitorId(1L)
+                .seatId(newSeatId)
+                .build();
+
+        repository.save(reservation);
+
+        Reservation actual = repository.getBySeatIdAndShowId(newSeatId, newShowId);
+
+        assertThat(actual).isEqualTo(reservation);
+    }
+
+    @Test
+    public void testNoReservationByInvalidSeatIdAndShowId() {
+
+        Long newSeatId = 10L;
+        Long newShowId = 10L;
+        Reservation reservation = new Reservation().builder()
+                .showId(newShowId)
+                .visitorId(1L)
+                .seatId(newSeatId)
+                .build();
+
+        repository.save(reservation);
+
+        Reservation actual = repository.getBySeatIdAndShowId(newSeatId + 1, newShowId);
+        Assertions.assertNull(actual);
+    }
+
+    @Test
+    public void testNoReservationBySeatIdAndInvalidShowId() {
+
+        Long newSeatId = 10L;
+        Long newShowId = 10L;
+        Reservation reservation = new Reservation().builder()
+                .showId(newShowId)
+                .visitorId(1L)
+                .seatId(newSeatId)
+                .build();
+
+        repository.save(reservation);
+
+        Reservation actual = repository.getBySeatIdAndShowId(newSeatId, newShowId + 1);
+        Assertions.assertNull(actual);
     }
 }
