@@ -13,6 +13,8 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -117,5 +119,26 @@ class ReservationRepositoryTest {
         Assertions.assertThrows(DataIntegrityViolationException.class, () -> {
             repository.saveAndFlush(reservation2);
         });
+    }
+
+    @Test
+    public void testGetReservationsByVisitorId() {
+        Long id = 1L;
+        List<Reservation> allReservations = repository.findAll();
+        List<Reservation> expected = allReservations.stream()
+                .filter(reservation -> reservation.getVisitorId().equals(id))
+                .collect(Collectors.toList());
+
+        List<Reservation> actual = repository.getAllByVisitorId(id);
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    public void testGetReservationsByNonexistentVisitorId() {
+        Long id = 3L;
+        List<Reservation> actual = repository.getAllByVisitorId(id);
+
+        assertThat(actual).isEmpty();
     }
 }
