@@ -1,10 +1,12 @@
 package com.drbsimon.booking.repository;
 
 import com.drbsimon.booking.entity.Reservation;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -77,5 +79,43 @@ class ReservationRepositoryTest {
         assertThat(newReservations).hasSize(originalReservations.size() + 1);
     }
 
+    @Test
+    public void testSaveSeveralSimple() {
+        Reservation reservation_1 = new Reservation().builder()
+                .showId(3L)
+                .visitorId(3L)
+                .seatId(3L)
+                .build();
 
+        Reservation reservation_2 = new Reservation().builder()
+                .showId(4L)
+                .visitorId(4L)
+                .seatId(4L)
+                .build();
+
+        List<Reservation> addedReservations = Arrays.asList(reservation_1, reservation_2);
+        repository.saveAll(addedReservations);
+        List<Reservation> newReservations = repository.findAll();
+
+        assertThat(newReservations).hasSize(originalReservations.size() + addedReservations.size());
+    }
+
+    @Test
+    public void testNonUniqueReservationSave() {
+        Reservation reservation = new Reservation().builder()
+                .showId(3L)
+                .visitorId(2L)
+                .seatId(2L)
+                .build();
+        repository.save(reservation);
+
+        Reservation reservation2 = new Reservation().builder()
+                .showId(3L)
+                .visitorId(2L)
+                .seatId(2L)
+                .build();
+        Assertions.assertThrows(DataIntegrityViolationException.class, () -> {
+            repository.saveAndFlush(reservation2);
+        });
+    }
 }
