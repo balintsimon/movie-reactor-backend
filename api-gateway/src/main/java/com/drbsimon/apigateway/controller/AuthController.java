@@ -8,24 +8,23 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-//@CrossOrigin(origins = "${main.route}")
 @CrossOrigin
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 @Slf4j
 public class AuthController {
-    private final VisitorLoginDTO visitorLoginDTO;
-    private final VisitorRegisterDTO visitorRegisterDTO;
+    private final VisitorLoginDTO visitorLogin;
+    private final VisitorRegisterDTO visitorRegister;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody UserCredentialsDTO userCredentialsDTO) {
-        return visitorLoginDTO.loginUser(userCredentialsDTO);
+    public ResponseEntity<?> login(@RequestBody UserCredentialsDTO userCredentials) {
+        return visitorLogin.loginUser(userCredentials);
     }
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody UserCredentialsDTO userCredentialsDTO) {
-        return visitorRegisterDTO.registerUser(userCredentialsDTO);
+    public ResponseEntity<?> register(@RequestBody UserCredentialsDTO userCredentials) {
+        return visitorRegister.registerUser(userCredentials);
     }
 }
 
