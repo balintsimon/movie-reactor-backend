@@ -1,13 +1,12 @@
 package com.drbsimon.apigateway.controller;
 
+import com.drbsimon.apigateway.model.Role;
 import com.drbsimon.apigateway.model.dto.UserCredentialsDTO;
 import com.drbsimon.apigateway.model.dto.VisitorLoginDTO;
-import com.drbsimon.apigateway.model.dto.VisitorRegisterDTO;
 import com.drbsimon.apigateway.repository.VisitorRepository;
 import com.drbsimon.apigateway.security.CustomUserDetailsService;
 import com.drbsimon.apigateway.security.DataValidatorService;
 import com.drbsimon.apigateway.security.JwtTokenServices;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,22 +14,30 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 
 @WebMvcTest(controllers = VisitorLoginDTO.class)
 @ActiveProfiles("test")
-class AuthControllerTest {
+class AuthControllerLoginTest {
 
     @Autowired
     private VisitorLoginDTO visitorLoginDTO;
 
-//    @Autowired
-//    private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
     // Dependencies necessary to start tests
     @MockBean
@@ -55,9 +62,37 @@ class AuthControllerTest {
     @MockBean
     private PasswordEncoder passwordEncoder;
 
+    private UserCredentialsDTO loggedInUser;
+    private String userName = "Test";
+    private String password = "test";
+
     @Test
-    public void textContextLoaded() {
+    public void testContextLoaded() {
         assertThat(visitorLoginDTO).isNotNull();
     }
 
+    @BeforeEach
+    public void init() {
+        loggedInUser = new UserCredentialsDTO().builder()
+                .username(userName)
+                .password(password)
+                .firstname("Firstname")
+                .lastname("Lastname")
+                .email("test@test.com")
+                .build();
+
+    }
+
+    @Test
+    public void testValidLoginCall() {
+        GrantedAuthority grantedAuthority = mock(GrantedAuthority.class);
+        List<Role> roles = new ArrayList<>();
+        roles.add(Role.ROLE_USER);
+        given(grantedAuthority.getAuthority()).willReturn(String.valueOf(roles));
+
+        Authentication authentication = mock(Authentication.class);
+        given(authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, password))).willReturn(authentication);
+
+        assertThat(visitorLoginDTO.loginUser(loggedInUser)).isEqualTo(visitorLoginDTO.validLoginResponse(authentication, userName));
+    }
 }
