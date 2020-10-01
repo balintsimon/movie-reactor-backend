@@ -208,7 +208,6 @@ class ReservationRepositoryTest {
 
         Reservation actual = repository.getBySeatIdAndVisitorIdAndShowId(newSeatId, newVisitorId, newShowId);
         assertThat(actual).isEqualTo(reservation);
-//        Assertions.assertNull(actual);
     }
 
     @Test
@@ -264,10 +263,41 @@ class ReservationRepositoryTest {
         Reservation actual = repository.getBySeatIdAndVisitorIdAndShowId(newSeatId, newVisitorId, newShowId + 1);
         Assertions.assertNull(actual);
     }
-//    @Test
-//    void getAllByShowId() {
-//    }
-//
+
+    @Test
+    public void testGetAllByShowId() {
+        List<Reservation> expected = new ArrayList<>();
+        Long newSeatId = 10L;
+        Long newVisitorId = 10L;
+        Long newShowId = 10L;
+        Reservation reservation1 = new Reservation().builder()
+                .showId(newShowId)
+                .visitorId(newVisitorId)
+                .seatId(newSeatId)
+                .build();
+
+        Reservation reservation2 = new Reservation().builder()
+                .showId(newShowId)
+                .visitorId(newVisitorId + 1)
+                .seatId(newSeatId + 1)
+                .build();
+
+        expected.addAll(Arrays.asList(reservation1, reservation2));
+        repository.saveAll(expected);
+
+        List<Reservation> actual = repository.getAllByShowId(newShowId);
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    public void testEmptyForGetAllByInvaliShowId() {
+        Long invalidShowId = 10L;
+
+        List<Reservation> actual = repository.getAllByShowId(invalidShowId);
+
+        assertThat(actual).isEmpty();
+    }
+
 //    @Test
 //    void deleteById() {
 //    }
