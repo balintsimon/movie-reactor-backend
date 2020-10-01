@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -298,7 +299,25 @@ class ReservationRepositoryTest {
         assertThat(actual).isEmpty();
     }
 
-//    @Test
-//    void deleteById() {
-//    }
+    @Test
+    public void testDeleteById() {
+        List<Reservation> reservationsBeforeDeletion = repository.findAll();
+        Long lastReservationId = reservationsBeforeDeletion.get(reservationsBeforeDeletion.size() - 1).getId();
+
+        repository.deleteById(lastReservationId);
+
+        List<Reservation> reservationsAfterDeletion = repository.findAll();
+
+        assertThat(reservationsAfterDeletion.size()).isEqualTo(reservationsBeforeDeletion.size() - 1);
+    }
+
+    @Test
+    public void testDeleteByInvalidId() {
+        List<Reservation> reservationsBeforeDeletion = repository.findAll();
+        Long lastReservationId = reservationsBeforeDeletion.get(reservationsBeforeDeletion.size() - 1).getId();
+
+        Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+            repository.deleteById(lastReservationId + 1);
+        });
+    }
 }
