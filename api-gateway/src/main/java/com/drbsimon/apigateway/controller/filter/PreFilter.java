@@ -32,6 +32,7 @@ public class PreFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         String username = customUserDetailsService.findLoggedInUsername();
         Long userId = customUserDetailsService.findVisitorIdByUsername(username);
+        if (userId != null) ctx.addZuulRequestHeader("userid", userId.toString());
         if (userId == null) ctx.addZuulRequestHeader("userid", null);
         return null;
     }
