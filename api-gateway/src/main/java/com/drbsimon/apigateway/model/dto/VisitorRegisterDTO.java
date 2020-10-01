@@ -36,6 +36,7 @@ public class VisitorRegisterDTO {
                 .lastname(userCredentials.getLastname())
                 .email(userCredentials.getEmail())
                 .roles(Collections.singletonList(Role.ROLE_USER))
+                .gender(userCredentials.getGender())
                 .build();
         visitorRepository.save(newVisitor);
         return successfulRegistrationResponse(newVisitor.getUsername(), newVisitor.getRoles());

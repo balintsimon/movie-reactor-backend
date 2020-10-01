@@ -1,5 +1,7 @@
 package com.drbsimon.apigateway.model.dto;
 
+import com.drbsimon.apigateway.model.Gender;
+import com.drbsimon.apigateway.model.entity.Visitor;
 import com.drbsimon.apigateway.repository.VisitorRepository;
 import com.drbsimon.apigateway.security.DataValidatorService;
 import com.drbsimon.apigateway.security.JwtTokenServices;
@@ -50,7 +52,10 @@ public class VisitorLoginDTO {
 
         String token = jwtTokenServices.createToken(username, roles);
 
-        return validLoginMessage(new ValidMessageFields(true, username, roles, token));
+        Visitor visitor = visitorRepository.getByUsername(username);
+        Gender gender = visitor.getGender();
+
+        return validLoginMessage(new ValidMessageFields(true, username, roles, token, gender));
     }
 
     private ResponseEntity validLoginMessage(ValidMessageFields validMessageFields) {
@@ -59,6 +64,7 @@ public class VisitorLoginDTO {
         responseEntityBody.put("username", validMessageFields.getUsername());
         responseEntityBody.put("roles", validMessageFields.getRoles());
         responseEntityBody.put("token", validMessageFields.getToken());
+        responseEntityBody.put("gender", validMessageFields.getGender());
         return ResponseEntity.ok(responseEntityBody);
     }
 
@@ -76,5 +82,6 @@ public class VisitorLoginDTO {
         private String username;
         private List<String> roles;
         private String token;
+        private Gender gender;
     }
 }

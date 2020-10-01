@@ -1,5 +1,6 @@
 package com.drbsimon.apigateway.model.dto;
 
+import com.drbsimon.apigateway.model.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,4 +16,5 @@ public class UserCredentialsDTO {
     private String firstname;
     private String lastname;
     private String email;
+    private Gender gender;
 }
