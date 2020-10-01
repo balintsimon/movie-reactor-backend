@@ -191,4 +191,84 @@ class ReservationRepositoryTest {
         Reservation actual = repository.getBySeatIdAndShowId(newSeatId, newShowId + 1);
         Assertions.assertNull(actual);
     }
+
+    @Test
+    public void testGetBySeatIdAndVisitorIdAndShowId() {
+
+        Long newSeatId = 10L;
+        Long newVisitorId = 10L;
+        Long newShowId = 10L;
+        Reservation reservation = new Reservation().builder()
+                .showId(newShowId)
+                .visitorId(newVisitorId)
+                .seatId(newSeatId)
+                .build();
+
+        repository.save(reservation);
+
+        Reservation actual = repository.getBySeatIdAndVisitorIdAndShowId(newSeatId, newVisitorId, newShowId);
+        assertThat(actual).isEqualTo(reservation);
+//        Assertions.assertNull(actual);
+    }
+
+    @Test
+    public void testNoByInvalidSeatIdAndVisitorIdAndShowId() {
+
+        Long newSeatId = 10L;
+        Long newVisitorId = 10L;
+        Long newShowId = 10L;
+        Reservation reservation = new Reservation().builder()
+                .showId(newShowId)
+                .visitorId(newVisitorId)
+                .seatId(newSeatId)
+                .build();
+
+        repository.save(reservation);
+
+        Reservation actual = repository.getBySeatIdAndVisitorIdAndShowId(newSeatId + 1, newVisitorId, newShowId);
+        Assertions.assertNull(actual);
+    }
+
+    @Test
+    public void testNoBySeatIdAndInvalidVisitorIdAndShowId() {
+
+        Long newSeatId = 10L;
+        Long newVisitorId = 10L;
+        Long newShowId = 10L;
+        Reservation reservation = new Reservation().builder()
+                .showId(newShowId)
+                .visitorId(newVisitorId)
+                .seatId(newSeatId)
+                .build();
+
+        repository.save(reservation);
+
+        Reservation actual = repository.getBySeatIdAndVisitorIdAndShowId(newSeatId, newVisitorId + 1, newShowId);
+        Assertions.assertNull(actual);
+    }
+
+    @Test
+    public void testNoBySeatIdAndVisitorIdAndInvalidShowId() {
+
+        Long newSeatId = 10L;
+        Long newVisitorId = 10L;
+        Long newShowId = 10L;
+        Reservation reservation = new Reservation().builder()
+                .showId(newShowId)
+                .visitorId(newVisitorId)
+                .seatId(newSeatId)
+                .build();
+
+        repository.save(reservation);
+
+        Reservation actual = repository.getBySeatIdAndVisitorIdAndShowId(newSeatId, newVisitorId, newShowId + 1);
+        Assertions.assertNull(actual);
+    }
+//    @Test
+//    void getAllByShowId() {
+//    }
+//
+//    @Test
+//    void deleteById() {
+//    }
 }
