@@ -16,5 +16,6 @@ public class VisitorDTO {
     private String firstname;
     private String lastname;
     private String email;
+    private Gender gender;
     private List<Role> roles = new ArrayList<>();
 }

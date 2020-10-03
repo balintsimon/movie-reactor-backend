@@ -1,5 +1,6 @@
 package com.drbsimon.apigateway.model.entity;
 
+import com.drbsimon.apigateway.model.Gender;
 import com.drbsimon.apigateway.model.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -37,6 +38,9 @@ public class Visitor {
 
     @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(nullable = false)
+    private Gender gender;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
