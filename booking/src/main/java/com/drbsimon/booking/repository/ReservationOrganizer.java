@@ -63,7 +63,7 @@ public class ReservationOrganizer {
     public boolean deleteReservationWithRightsCheck(SeatReservedWrapper reservationInfo, long visitorId) {
         VisitorDTO visitor = visitorServiceCaller.getVisitorById(visitorId);
         if (visitor.getRoles().contains(Role.ROLE_ADMIN)
-                ||  (visitor.getRoles().contains(Role.ROLE_USER) && visitor.getId() == visitorId))
+                || (visitor.getRoles().contains(Role.ROLE_USER) && visitor.getId() == visitorId))
             return deleteReservation(reservationInfo);
         return false;
     }
@@ -158,7 +158,8 @@ public class ReservationOrganizer {
         if (visitorId != null) {
             VisitorDTO visitor = visitorServiceCaller.getVisitorById(visitorId);
             if (visitor.getRoles().contains(Role.ROLE_ADMIN)) return getAllReservationsWithDetailsByShowId(showId);
-            else if (visitor.getRoles().contains(Role.ROLE_USER)) return getReservationsByShowIdWithoutUserInformation(showId);
+            else if (visitor.getRoles().contains(Role.ROLE_USER))
+                return getAllReservationsWithDetailsOfLoggedInUserByShowId(showId, visitor);
         }
         return getReservationsByShowIdWithoutUserInformation(showId);
     }
@@ -184,6 +185,33 @@ public class ReservationOrganizer {
                 visitor = visitorServiceCaller.getVisitorById(reservation.getVisitorId());
                 visitors.put(reservation.getVisitorId(), visitor);
             }
+
+            Seat seat;
+            if (seats.containsKey(reservation.getSeatId())) seat = seats.get(reservation.getSeatId());
+            else {
+                seat = cinemaServiceCaller.getSeatById(reservation.getSeatId());
+                seats.put(reservation.getSeatId(), seat);
+            }
+            allInformation.add(new AllBookingInfo(reservation.getId(), visitor, seat, show, show.getMovieDbId()));
+        }
+        return new AllBookingInfoWrapper(allInformation);
+    }
+
+    public AllBookingInfoWrapper getAllReservationsWithDetailsOfLoggedInUserByShowId(Long showId, VisitorDTO loggedInVisitor) {
+        List<Reservation> reservations = reservationRepository.getAllByShowId(showId);
+        List<AllBookingInfo> allInformation = new ArrayList<>();
+        Map<Long, Show> shows = new HashMap<>();
+        Map<Long, Seat> seats = new HashMap<>();
+        for (Reservation reservation : reservations) {
+            Show show;
+            if (shows.containsKey(reservation.getShowId())) show = shows.get(reservation.getShowId());
+            else {
+                show = catalogServiceCaller.getShowById(reservation.getShowId());
+                shows.put(reservation.getShowId(), show);
+            }
+
+            VisitorDTO visitor = (reservation.getVisitorId().equals(loggedInVisitor.getId())) ? loggedInVisitor
+                    : new VisitorDTO();
 
             Seat seat;
             if (seats.containsKey(reservation.getSeatId())) seat = seats.get(reservation.getSeatId());
