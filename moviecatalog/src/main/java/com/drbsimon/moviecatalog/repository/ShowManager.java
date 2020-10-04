@@ -28,14 +28,20 @@ public class ShowManager {
         return showListWrapper;
     }
 
-    public ShowListWrapper getAllCurrentShows() {
-        LocalDate dateToday = LocalDate.now();
-        LocalDate dateWeekFromNow = LocalDate.now().plusDays(6L);
+    public ShowListWrapper getShowsForAWeekFromNow() {
+        LocalDate today = LocalDate.now();
+        LocalDate aWeekFromNow = LocalDate.now().plusDays(6L);
+        return getAllCurrentShows(today, aWeekFromNow);
+    }
+
+    public ShowListWrapper getAllCurrentShows(LocalDate startDate, LocalDate endDate) {
+        LocalDate fromDate = startDate.minusDays(1L);
+        LocalDate untilDate = endDate.plusDays(1L);
         ShowListWrapper showListWrapper = new ShowListWrapper();
         List<Show> shows = showRepository.findAll();
         List<Show> currentShows = shows.stream()
-                .filter(show -> show.getStartingDate().isAfter(dateToday)
-                        && show.getStartingDate().isBefore(dateWeekFromNow))
+                .filter(show -> show.getStartingDate().isAfter(fromDate)
+                        && show.getStartingDate().isBefore(untilDate))
                 .collect(Collectors.toList());
         showListWrapper.setShows(currentShows);
         return showListWrapper;
