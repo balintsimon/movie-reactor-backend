@@ -21,7 +21,7 @@ public class ShowController {
     // TODO: make it check timeframe => show upcoming daily shows only
     @GetMapping("/schedule")
     public ShowListWrapper getCurrentShows() {
-        return showManager.getAllCurrentShows();
+        return showManager.getShowsForAWeekFromNow();
     }
 
     @GetMapping("/show")
