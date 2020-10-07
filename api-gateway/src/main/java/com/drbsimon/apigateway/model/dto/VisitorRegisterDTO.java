@@ -68,25 +68,25 @@ public class VisitorRegisterDTO {
         }
 
         if (!dataValidator.isValidUsername(username, errorList)) {
-            String error = String.join(" , ", errorList);
+            String error = String.join(", ", errorList);
             String errorMessage = "Username should have " + error + "!";
             return failedRegisterMessage(errorMessage);
         }
 
         if (!dataValidator.isValidPassword(password, errorList)) {
-            String error = String.join(" , ", errorList);
+            String error = String.join(", ", errorList);
             String errorMessage = "Password should contain " + error + "!";
             return failedRegisterMessage(errorMessage);
         }
 
         if (!dataValidator.isValidName(firstname, errorList)) {
-            String error = String.join(" , ", errorList);
+            String error = String.join(", ", errorList);
             String errorMessage = "Firstname " + error + "!";
             return failedRegisterMessage(errorMessage);
         }
 
         if (!dataValidator.isValidName(lastname, errorList)) {
-            String error = String.join(" , ", errorList);
+            String error = String.join(", ", errorList);
             String errorMessage = "Lastname " + error + "!";
             return failedRegisterMessage(errorMessage);
         }
