@@ -44,7 +44,7 @@ public class MovieserviceApplication {
     public CommandLineRunner init() {
         return args -> {
 //            List<Integer> movieIds = Arrays.asList(496243, 495764, 475557, 155, 501907);
-            List<Integer> movieIds = Arrays.asList(106646, 495764, 76341, 556678, 501907);
+            List<Integer> movieIds = Arrays.asList(501907, 556678, 495764, 76341, 106646);
 
             for (Integer movieDBId : movieIds) {
                 Movie newMovie = Movie.builder()
