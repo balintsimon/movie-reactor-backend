@@ -34,6 +34,8 @@ public class ShowCreator {
             LocalTime startingTime = LocalTime.of(12, 0);
 
             for (Movie movie : movies) {
+                Integer runtime = movie.getRuntime() != null ? movie.getRuntime() : 130;
+
                 Show currentShow = Show.builder()
                         .movieId(movie.getId())
                         .movieDbId(movie.getMovieDbId())
@@ -42,7 +44,8 @@ public class ShowCreator {
                         .roomId(rooms.get(0).getId())
                         .build();
                 showRepository.save(currentShow);
-                startingTime = startingTime.plusHours(2);
+//                startingTime = startingTime.plusHours(2);
+                startingTime = startingTime.plusMinutes(runtime + 10);
             }
             fromDate = fromDate.plusDays(1);
         }

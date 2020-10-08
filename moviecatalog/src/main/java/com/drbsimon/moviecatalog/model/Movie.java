@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class Movie {
     private Long id;
     private Integer movieDbId;
+    private Integer runtime;
 }
