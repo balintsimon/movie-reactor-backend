@@ -45,10 +45,12 @@ public class MovieserviceApplication {
         return args -> {
 //            List<Integer> movieIds = Arrays.asList(496243, 495764, 475557, 155, 501907);
             List<Integer> movieIds = Arrays.asList(501907, 556678, 495764, 76341, 106646);
+            List<Integer> runtime = Arrays.asList(110, 125, 110, 130, 180);
 
-            for (Integer movieDBId : movieIds) {
+            for (Integer i = 0; i < movieIds.size(); i++) {
                 Movie newMovie = Movie.builder()
-                        .movieDbId(movieDBId)
+                        .movieDbId(movieIds.get(i))
+                        .runtime(runtime.get(i))
                         .build();
                 movieRepository.save(newMovie);
             }
