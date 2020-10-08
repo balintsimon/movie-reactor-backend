@@ -43,7 +43,8 @@ public class MovieserviceApplication {
     @Profile("production")
     public CommandLineRunner init() {
         return args -> {
-            List<Integer> movieIds = Arrays.asList(496243, 495764, 475557, 155, 501907);
+//            List<Integer> movieIds = Arrays.asList(496243, 495764, 475557, 155, 501907);
+            List<Integer> movieIds = Arrays.asList(106646, 495764, 76341, 556678, 501907);
 
             for (Integer movieDBId : movieIds) {
                 Movie newMovie = Movie.builder()
