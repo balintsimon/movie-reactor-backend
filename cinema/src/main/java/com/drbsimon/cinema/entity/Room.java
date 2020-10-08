@@ -29,6 +29,11 @@ public class Room {
     @Transient
     private Integer capacity;
 
+    @PostLoad
+    private void postLoad() {
+        calculateCapacity();
+    }
+
     public void calculateCapacity () {
         if (numberOfRows != null && numberOfSeatsPerRow != null) {
             this.capacity = numberOfRows * numberOfSeatsPerRow;
