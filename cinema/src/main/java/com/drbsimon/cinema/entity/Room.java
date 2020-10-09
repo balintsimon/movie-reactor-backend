@@ -29,15 +29,20 @@ public class Room {
     @Transient
     private Integer capacity;
 
-    public void calculateCapacity () {
-        if (numberOfRows != null && numberOfSeatsPerRow != null) {
-            this.capacity = numberOfRows * numberOfSeatsPerRow;
-        }
-    }
-
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JsonManagedReference
     @OneToMany(mappedBy = "room", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Seat> seats;
+
+    @PostLoad
+    private void postLoad() {
+        calculateCapacity();
+    }
+
+    public void calculateCapacity () {
+        if (numberOfRows != null && numberOfSeatsPerRow != null) {
+            this.capacity = numberOfRows * numberOfSeatsPerRow;
+        }
+    }
 }

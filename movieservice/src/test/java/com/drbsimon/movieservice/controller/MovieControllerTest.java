@@ -42,9 +42,9 @@ class MovieControllerTest {
     @BeforeEach
     void setUp() {
         this.movieList = new ArrayList<>();
-        this.movieList.add(new Movie(1L, 123));
-        this.movieList.add(new Movie(2L, 234));
-        this.movieList.add(new Movie(3L, 345));
+        this.movieList.add(new Movie(1L, 123, 100));
+        this.movieList.add(new Movie(2L, 234, 100));
+        this.movieList.add(new Movie(3L, 345, 100));
 
         this.movieListWrapper = new MovieListWrapper();
         movieListWrapper.setMovies(movieList);
@@ -63,7 +63,7 @@ class MovieControllerTest {
     public void testFetchOne() throws Exception {
         final long movieId = 1L;
         final int movieDbId = 999;
-        final Movie movie = new Movie(movieId, movieDbId);
+        final Movie movie = new Movie(movieId, movieDbId, 100);
         given(service.getMovieById(movieId)).willReturn(movie);
 
         this.mockMvc.perform(get("/movie/" + movieId))
