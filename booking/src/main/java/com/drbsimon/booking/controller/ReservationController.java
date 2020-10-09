@@ -2,10 +2,12 @@ package com.drbsimon.booking.controller;
 
 import com.drbsimon.booking.entity.SeatReservedWrapper;
 import com.drbsimon.booking.model.AllBookingInfoWrapper;
+import com.drbsimon.booking.model.MessageDTO;
 import com.drbsimon.booking.model.ReservationWrapper;
 import com.drbsimon.booking.repository.ReservationOrganizer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -30,8 +32,16 @@ public class ReservationController {
     }
 
     @DeleteMapping
-    public boolean deleteReservation(@RequestBody SeatReservedWrapper seats, @RequestHeader("userid") Long visitorId) {
-        return reservationOrganizer.deleteReservationWithRightsCheck(seats, visitorId);
+    public ResponseEntity<MessageDTO> deleteReservation(@RequestBody SeatReservedWrapper seats, @RequestHeader("userid") Long visitorId) {
+        MessageDTO responseMessage = new MessageDTO();
+        if (reservationOrganizer.deleteReservationWithRightsCheck(seats, visitorId)) {
+            responseMessage.setSuccessful(true);
+            responseMessage.setMessage("Reservation successfully deleted!");
+        } else {
+            responseMessage.setSuccessful(false);
+            responseMessage.setMessage("Database error.");
+        }
+        return ResponseEntity.ok(responseMessage);
     }
 
     // TODO: Only for admin, user internally, user should reach only user's seats! Secure endpoint

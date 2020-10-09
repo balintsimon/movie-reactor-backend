@@ -18,4 +18,6 @@ public class Movie {
 
     @Column(nullable = false)
     private Integer movieDbId;
+
+    private Integer runtime;
 }

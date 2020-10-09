@@ -1,6 +1,7 @@
 package com.drbsimon.apigateway;
 
 import com.drbsimon.apigateway.controller.filter.PreFilter;
+import com.drbsimon.apigateway.model.Gender;
 import com.drbsimon.apigateway.model.entity.Visitor;
 import com.drbsimon.apigateway.model.Role;
 import com.drbsimon.apigateway.repository.VisitorRepository;
@@ -104,6 +105,7 @@ public class ApiGatewayApplication {
                     .firstname("Klari")
                     .lastname("Tolnai")
                     .roles(Arrays.asList(Role.ROLE_ADMIN))
+                    .gender(Gender.GENERAL)
                     .build();
             repository.save(admin);
 
@@ -114,6 +116,7 @@ public class ApiGatewayApplication {
                     .firstname("Dani")
                     .lastname("Kovats D.")
                     .roles(Collections.singletonList(Role.ROLE_USER))
+                    .gender(Gender.MAN)
                     .build();
             repository.save(user);
         };

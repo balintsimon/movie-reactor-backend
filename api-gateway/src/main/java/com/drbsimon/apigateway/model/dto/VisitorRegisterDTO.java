@@ -23,20 +23,20 @@ public class VisitorRegisterDTO {
     private final JwtTokenServices jwtTokenServices;
     private final DataValidatorService dataValidator;
     private final PasswordEncoder passwordEncoder;
-    private final VisitorLoginDTO visitorLoginDTO;
 
-    public ResponseEntity registerUser(UserCredentialsDTO userCredentialsDTO) {
+    public ResponseEntity registerUser(UserCredentialsDTO userCredentials) {
 
-        ResponseEntity failedRegistrationMessage = checkRegistrationForError(userCredentialsDTO);
+        ResponseEntity failedRegistrationMessage = checkRegistrationForError(userCredentials);
         if (failedRegistrationMessage != null) return failedRegistrationMessage;
 
         Visitor newVisitor = Visitor.builder()
-                .username(userCredentialsDTO.getUsername())
-                .password(passwordEncoder.encode(userCredentialsDTO.getPassword()))
-                .firstname(userCredentialsDTO.getFirstname())
-                .lastname(userCredentialsDTO.getLastname())
-                .email(userCredentialsDTO.getEmail())
+                .username(userCredentials.getUsername())
+                .password(passwordEncoder.encode(userCredentials.getPassword()))
+                .firstname(userCredentials.getFirstname())
+                .lastname(userCredentials.getLastname())
+                .email(userCredentials.getEmail())
                 .roles(Collections.singletonList(Role.ROLE_USER))
+                .gender(userCredentials.getGender())
                 .build();
         visitorRepository.save(newVisitor);
         return successfulRegistrationResponse(newVisitor.getUsername(), newVisitor.getRoles());
@@ -55,12 +55,12 @@ public class VisitorRegisterDTO {
 
     // TODO: check if validation could generate error messages instead of registration service.
     // TODO: check if possible to modify to collect all possible errors in one message.
-    public ResponseEntity checkRegistrationForError(UserCredentialsDTO userCredentialsDTO) {
-        String username = userCredentialsDTO.getUsername();
-        String password = userCredentialsDTO.getPassword();
-        String firstname = userCredentialsDTO.getFirstname();
-        String lastname = userCredentialsDTO.getLastname();
-        String email = userCredentialsDTO.getEmail();
+    public ResponseEntity checkRegistrationForError(UserCredentialsDTO userCredentials) {
+        String username = userCredentials.getUsername();
+        String password = userCredentials.getPassword();
+        String firstname = userCredentials.getFirstname();
+        String lastname = userCredentials.getLastname();
+        String email = userCredentials.getEmail();
         List<String> errorList = new ArrayList<>();
 
         if (visitorRepository.findByUsername(username).isPresent()) {
@@ -68,25 +68,25 @@ public class VisitorRegisterDTO {
         }
 
         if (!dataValidator.isValidUsername(username, errorList)) {
-            String error = String.join(" , ", errorList);
+            String error = String.join(", ", errorList);
             String errorMessage = "Username should have " + error + "!";
             return failedRegisterMessage(errorMessage);
         }
 
         if (!dataValidator.isValidPassword(password, errorList)) {
-            String error = String.join(" , ", errorList);
+            String error = String.join(", ", errorList);
             String errorMessage = "Password should contain " + error + "!";
             return failedRegisterMessage(errorMessage);
         }
 
         if (!dataValidator.isValidName(firstname, errorList)) {
-            String error = String.join(" , ", errorList);
+            String error = String.join(", ", errorList);
             String errorMessage = "Firstname " + error + "!";
             return failedRegisterMessage(errorMessage);
         }
 
         if (!dataValidator.isValidName(lastname, errorList)) {
-            String error = String.join(" , ", errorList);
+            String error = String.join(", ", errorList);
             String errorMessage = "Lastname " + error + "!";
             return failedRegisterMessage(errorMessage);
         }

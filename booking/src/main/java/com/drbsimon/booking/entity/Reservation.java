@@ -12,26 +12,16 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-//@Table(uniqueConstraints={
-//        @UniqueConstraint(columnNames = {"seat_id", "show_id"}) // TODO: Check if this actually works
-//})
-/*
-* Unable to create unique key constraint (seat_id, show_id)
-* on table reservation:
-* database column 'show_id', 'seat_id' not found.
-* Make sure that you use the correct column name
-* which depends on the naming strategy in use
-* (it may not be the same as the property name in the entity, especially for relational types)
-* */
+@Table(uniqueConstraints=@UniqueConstraint(columnNames = {"seat_id", "show_id"}))
 public class Reservation {
     @Id
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "seat_id")
     private Long seatId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "show_id")
     private Long showId;
 
     @Column(nullable = false)

@@ -73,18 +73,6 @@ Please note that although Spring Security is installed, not all endpoints have n
 ## Version
 The project is under development.
 
-Under implementation:
-- admin functions: register new show instead of watchlist
-- admin functions: schedule show from possible movies list
-- admin functions: manage each show's reservations
-- admin functions: manage users' data
-- schedule check for past shows (void registration after start of show)
-- store JWT in cookie instead of local.storage
-- RESTful API: implement HATEOAS
-- enable Spring Security on endpoints
-- remove or move dummy content creation under separate service or flag
-- deployment
-
 ## Technology
 Services use:
 - Spring Boot (with Lombok and Spring Security)
