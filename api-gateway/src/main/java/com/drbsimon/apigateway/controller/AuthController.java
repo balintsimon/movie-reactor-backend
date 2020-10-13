@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/auth")
@@ -17,9 +19,9 @@ public class AuthController {
     private final VisitorLoginDTO visitorLogin;
     private final VisitorRegisterDTO visitorRegister;
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserCredentialsDTO userCredentials) {
-        return visitorLogin.loginUser(userCredentials);
+    @PostMapping(value = "login", consumes = "application/json")
+    public ResponseEntity login(@RequestBody UserCredentialsDTO userCredentials, HttpServletResponse response) {
+        return visitorLogin.loginUser(userCredentials, response);
     }
 
     @PostMapping("/register")

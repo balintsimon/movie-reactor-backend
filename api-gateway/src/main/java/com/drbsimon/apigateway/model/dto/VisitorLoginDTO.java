@@ -9,14 +9,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,20 +37,23 @@ public class VisitorLoginDTO {
     private final DataValidatorService dataValidator;
     private final PasswordEncoder passwordEncoder;
 
-    public ResponseEntity loginUser(UserCredentialsDTO userCredentials) {
+    public static final String TOKEN_COOKIE_NAME = "JWT";
+
+    public ResponseEntity loginUser(UserCredentialsDTO userCredentials, HttpServletResponse response) {
         try {
             String username = userCredentials.getUsername();
             String password = userCredentials.getPassword();
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username, password)
             );
-            return validLoginResponse(authentication, username);
-        } catch (Exception e) {
+            return validLoginResponse(authentication, response);
+        } catch (AuthenticationException e) {
             return invalidLoginMessage();
         }
     }
 
-    public ResponseEntity validLoginResponse(Authentication authentication, String username) {
+    public ResponseEntity validLoginResponse(Authentication authentication, HttpServletResponse response) {
+        String username = authentication.getName();
         List<String> roles = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
 
@@ -54,6 +61,8 @@ public class VisitorLoginDTO {
 
         Visitor visitor = visitorRepository.getByUsername(username);
         Gender gender = visitor.getGender();
+        ResponseCookie tokenCookie = createTokenCookie(token, Duration.ofSeconds(-1L));
+        response.addHeader("Set-Cookie", tokenCookie.toString());
 
         return validLoginMessage(new ValidMessageFields(true, username, roles, token, gender));
     }
@@ -73,6 +82,15 @@ public class VisitorLoginDTO {
         responseEntityBody.put("correct", false);
         responseEntityBody.put("msg", "Username or/and password is not correct!");
         return ResponseEntity.ok(responseEntityBody);
+    }
+
+    public ResponseCookie createTokenCookie(String jwt, Duration maxAge) {
+        return ResponseCookie.from(TOKEN_COOKIE_NAME, jwt)
+                .sameSite("Strict")
+                .httpOnly(true)
+                .path("/")
+                .maxAge(maxAge)
+                .build();
     }
 
     @Data
