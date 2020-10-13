@@ -21,12 +21,18 @@ public class AuthController {
 
     @PostMapping(value = "login", consumes = "application/json")
     public ResponseEntity login(@RequestBody UserCredentialsDTO userCredentials, HttpServletResponse response) {
+        System.out.println("Login request received with json");
         return visitorLogin.loginUser(userCredentials, response);
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserCredentialsDTO userCredentials) {
         return visitorRegister.registerUser(userCredentials);
+    }
+
+    @PostMapping("/logout")
+    public void logout(HttpServletResponse response) {
+        visitorLogin.logout(response);
     }
 }
 

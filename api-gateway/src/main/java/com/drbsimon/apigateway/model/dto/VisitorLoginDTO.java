@@ -93,6 +93,15 @@ public class VisitorLoginDTO {
                 .build();
     }
 
+    public void logout(HttpServletResponse response) {
+        invalidateTokenCookie(response);
+    }
+
+    private void invalidateTokenCookie(HttpServletResponse response) {
+        ResponseCookie cookie = createTokenCookie("", Duration.ZERO);
+        response.addHeader("Set-Cookie", cookie.toString());
+    }
+
     @Data
     @AllArgsConstructor
     private class ValidMessageFields {
