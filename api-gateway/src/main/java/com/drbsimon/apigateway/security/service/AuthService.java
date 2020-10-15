@@ -1,6 +1,7 @@
-package com.drbsimon.apigateway.model.dto;
+package com.drbsimon.apigateway.security.service;
 
 import com.drbsimon.apigateway.model.Gender;
+import com.drbsimon.apigateway.model.dto.UserCredentialsDTO;
 import com.drbsimon.apigateway.model.entity.Visitor;
 import com.drbsimon.apigateway.repository.VisitorRepository;
 import com.drbsimon.apigateway.security.DataValidatorService;
@@ -30,7 +31,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public class VisitorLoginDTO {
+public class AuthService {
     private final VisitorRepository visitorRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenServices jwtTokenServices;
@@ -64,7 +65,7 @@ public class VisitorLoginDTO {
         ResponseCookie tokenCookie = createTokenCookie(token, Duration.ofSeconds(-1L));
         response.addHeader("Set-Cookie", tokenCookie.toString());
 
-        return validLoginMessage(new ValidMessageFields(true, username, roles, token, gender));
+        return validLoginMessage(new ValidMessageFields(true, username, roles, gender));
     }
 
     private ResponseEntity validLoginMessage(ValidMessageFields validMessageFields) {
@@ -72,7 +73,6 @@ public class VisitorLoginDTO {
         responseEntityBody.put("correct", validMessageFields.getIsCorrect());
         responseEntityBody.put("username", validMessageFields.getUsername());
         responseEntityBody.put("roles", validMessageFields.getRoles());
-        responseEntityBody.put("token", validMessageFields.getToken());
         responseEntityBody.put("gender", validMessageFields.getGender());
         return ResponseEntity.ok(responseEntityBody);
     }
@@ -98,6 +98,7 @@ public class VisitorLoginDTO {
     }
 
     private void invalidateTokenCookie(HttpServletResponse response) {
+        log.info("Invalidating JWT cookie...");
         ResponseCookie cookie = createTokenCookie("", Duration.ZERO);
         response.addHeader("Set-Cookie", cookie.toString());
     }
@@ -108,7 +109,6 @@ public class VisitorLoginDTO {
         private Boolean isCorrect;
         private String username;
         private List<String> roles;
-        private String token;
         private Gender gender;
     }
 }
