@@ -1,5 +1,6 @@
 package com.drbsimon.apigateway;
 
+import com.drbsimon.apigateway.model.Gender;
 import com.drbsimon.apigateway.model.entity.Visitor;
 import com.drbsimon.apigateway.model.Role;
 import com.drbsimon.apigateway.repository.VisitorManager;
@@ -48,6 +49,7 @@ class VisitorRepositoryTests {
         Visitor admin = Visitor.builder()
                 .username("admin")
                 .password("admin")
+                .gender(Gender.GENERAL)
                 .email("admin@gmail.com")
                 .firstname("Klari")
                 .lastname("Tolnai")
@@ -58,6 +60,7 @@ class VisitorRepositoryTests {
         Visitor user = Visitor.builder()
                 .username("user")
                 .password("user")
+                .gender(Gender.GENERAL)
                 .email("user@gmail.com")
                 .firstname("Dani")
                 .lastname("Kovats D.")
@@ -72,6 +75,7 @@ class VisitorRepositoryTests {
     public void testSaveOneVisitorSimple() {
         Visitor newUser = Visitor.builder()
                 .username("ASD")
+                .gender(Gender.GENERAL)
                 .email("asd@asd.hu")
                 .firstname("ASD")
                 .lastname("DSA")
@@ -89,6 +93,7 @@ class VisitorRepositoryTests {
     public void testSaveSeveralVisitorSimple() {
         Visitor newUser1 = Visitor.builder()
                 .username("ASD")
+                .gender(Gender.GENERAL)
                 .email("asd@asd.hu")
                 .firstname("ASD")
                 .lastname("DSA")
@@ -98,6 +103,7 @@ class VisitorRepositoryTests {
 
         Visitor newUser2 = Visitor.builder()
                 .username("ASD2")
+                .gender(Gender.GENERAL)
                 .email("asd1@asd.hu")
                 .firstname("ASD")
                 .lastname("DSA")
@@ -116,6 +122,7 @@ class VisitorRepositoryTests {
     void testSaveWithNonuniqueUsername() {
         Visitor newUser1 = Visitor.builder()
                 .username("ASD")
+                .gender(Gender.GENERAL)
                 .email("asd@asd.hu")
                 .firstname("ASD")
                 .lastname("DSA")
@@ -125,6 +132,7 @@ class VisitorRepositoryTests {
 
         Visitor newUser2 = Visitor.builder()
                 .username("ASD")
+                .gender(Gender.GENERAL)
                 .email("asd1@asd.hu")
                 .firstname("ASD")
                 .lastname("DSA")
@@ -143,6 +151,7 @@ class VisitorRepositoryTests {
     void testSaveWithNonuniqueEmail() {
         Visitor newUser1 = Visitor.builder()
                 .username("ASD")
+                .gender(Gender.GENERAL)
                 .email("asd@asd.hu")
                 .firstname("ASD")
                 .lastname("DSA")
@@ -152,6 +161,7 @@ class VisitorRepositoryTests {
 
         Visitor newUser2 = Visitor.builder()
                 .username("ASD2")
+                .gender(Gender.GENERAL)
                 .email("asd@asd.hu")
                 .firstname("ASD")
                 .lastname("DSA")
@@ -172,6 +182,7 @@ class VisitorRepositoryTests {
 
         Visitor newUser = Visitor.builder()
                 .username(username)
+                .gender(Gender.GENERAL)
                 .email("asd@asd.hu")
                 .firstname("ASD")
                 .lastname("DSA")
@@ -198,6 +209,7 @@ class VisitorRepositoryTests {
 
         Visitor newUser = Visitor.builder()
                 .username(username)
+                .gender(Gender.GENERAL)
                 .email("asd@asd.hu")
                 .firstname("ASD")
                 .lastname("DSA")
