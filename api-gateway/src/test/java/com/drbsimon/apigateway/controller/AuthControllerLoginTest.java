@@ -104,10 +104,11 @@ class AuthControllerLoginTest {
 //                .willReturn((Authentication) loggedInUser);
 //
 //        Authentication authentication = mock(Authentication.class);
+//        authentication.setAuthenticated(true);
 //        given(authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, password))).willReturn(authentication);
 //
-//        ResponseEntity actual =authService.loginUser(loggedInUser, httpResponse);
-//        ResponseEntity expected =authService.validLoginResponse(authentication, httpResponse);
+//        ResponseEntity actual = authService.loginUser(loggedInUser, httpResponse);
+//        ResponseEntity expected = authService.validLoginResponse(authentication, httpResponse);
 //        assertThat(actual).isEqualTo(expected);
 //    }
 
