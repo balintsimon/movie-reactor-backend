@@ -10,11 +10,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Base64;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 @Slf4j
@@ -33,6 +32,7 @@ public class JwtTokenServices {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
+    // TODO: add user ID
     // Creates a JWT token
     public String createToken(String username, List<String> roles) {
         // Add a custom field to the token
@@ -50,22 +50,23 @@ public class JwtTokenServices {
                 .compact();
     }
 
-    String getTokenFromRequest(HttpServletRequest req) {
-        String bearerToken = req.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7, bearerToken.length());
-        }
-        return null;
+    public Optional<Cookie> getTokenCookieFromRequest(HttpServletRequest request) {
+        if (request.getCookies() == null) return Optional.empty();
+        System.out.println("Cookies: " + request.getCookies().toString());
+        return Arrays.stream(request.getCookies())
+                .filter(cookie -> "JWT".equals(cookie.getName()))
+                .findFirst();
+    }
+
+    public String getTokenFromRequest(HttpServletRequest request) {
+        return getTokenCookieFromRequest(request).map(Cookie::getValue).orElse(null);
     }
 
     // checks if the token is valid and not expired.
-    boolean validateToken(String token) {
+    public boolean validateToken(String token) {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
-            if (claims.getBody().getExpiration().before(new Date())) {
-                return false;
-            }
-            return true;
+            return claims.getBody().getExpiration().after(new Date());
         } catch (JwtException | IllegalArgumentException e) {
             log.debug("JWT token invalid " + e);
         }
@@ -82,10 +83,9 @@ public class JwtTokenServices {
         Claims body = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
         String username = body.getSubject();
         List<String> roles = (List<String>) body.get(rolesFieldName);
-        List<SimpleGrantedAuthority> authorities = new LinkedList<>();
-        for (String role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role));
-        }
+        List<SimpleGrantedAuthority> authorities = roles.stream()
+                    .map(SimpleGrantedAuthority::new)
+                    .collect(Collectors.toCollection(LinkedList::new));
         return new UsernamePasswordAuthenticationToken(username, "", authorities);
     }
 }
