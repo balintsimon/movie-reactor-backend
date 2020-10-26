@@ -47,8 +47,10 @@ API at localhost port 8762 (see Swagger for further details):
 
 Endpoint | Method | Response
 --- | --- | ---
-/auth/login | POST | log in existing visitor by request body credentials
+/auth/login | POST | log in existing visitor by request body credentials (accepts JSON)
 /auth/register | POST | register new visitor by request body credentials 
+/auth/logout | POST | invalidate JWT cookie of user
+/auth/isloggedin | GET | test endpoint to check if valid user cookie is present
 /user | GET | get all users
 /user/{id} | GET | get user by ID
 /watchlist | GET | get watchlist of logged-in visitor
