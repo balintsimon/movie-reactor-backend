@@ -74,6 +74,11 @@ Endpoint | Method | Response
 /moviecatalog/show/{id} | DELETE | delete show, selected by its ID
 /movieservice/movie | GET | get all movies that is/has been on show
 /movieservice/movie/{id} | GET | get movie that is/has been on show by its ID
+/movieservice/moviedb/movie/{movie_id} | GET | get primary information about a movie 
+/movieservice/moviedb/movie/{movie_id}/videos | GET | get the videos that have been added to a movie
+/movieservice/moviedb/movie/{movie_id}/credits | GET | get the cast and crew for a movie
+/movieservice/moviedb/person/{person_id} | GET | get the primary person details by id
+/movieservice/moviedb/person/{restUrlPath}/movie_credits | GET | get the movie credits for a person 
 
 Please note that although Spring Security is installed, not all endpoints have not been secured yet.  
 
