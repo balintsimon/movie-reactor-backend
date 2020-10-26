@@ -1,21 +1,17 @@
 # movie-reactor-backend
 
 ## About this project
-This microservice web project is a continuation of and acts as a back-end service for a separate front-end of the 
-Movie Reactor front-end application project (please find it at https://github.com/balintsimon/movie-reactor-application).
-This version of the project is an exercise in Spring Boot to rewrite a monolithic back-end service using microservices
-(Spring Boot, Zuul, Eureka, Spring Security, Hibernate and H2, Swagger, JUnit and Mockito). As such, it has been built 
-with  the existing capabilities of the front-end in mind (that is, it should provide all the previously existing features),
-albeit is rewritten from the ground up, rethinking database structure, endpoints and experiments with microservice
-architecture.
+This microservice web project is a continuation of and acts as a back-end service for the separate "the Movie Reactor" 
+front-end application project (find related front-end at https://github.com/balintsimon/movie-reactor-application). 
+This version of the project is an exercise in Spring Boot to rewrite and transfer a previously existing monolithic 
+design with a robust database with inter-dependent tables using microservices (Spring Boot, Zuul, Eureka, 
+Spring Security, Hibernate and H2, Swagger, JUnit and Mockito). As such, it has been built with  the existing 
+capabilities of the front-end in mind (that is, it should provide all the previously existing features), albeit is 
+rewritten from the ground up, rethinking database structure, endpoints and experiments with microservice architecture.
 
 The front-end project started out as a learn-to-use-React demo project that originally used "The MovieDb API" as a 
-data source (find related front-end at https://github.com/balintsimon/movie-reactor-application). The microservice 
-back-end provides movies, user registration and validation, screening and cinema related functionality via REST API.
-
-The aim of this project is to explore how a previously existing monolithic design with a robust database with
-inter-dependent tables may transfer to a microservice architecture. The project is planned to switch to use RabbitMQ
-and PostgreSQL.
+data source. The microservice back-end provides movies, user registration and validation, screening and cinema related 
+functionality via REST API.
 
 ## Servers
 1. `api-gateway` (on port 8762): Netflix Zuul API Gateway, containing visitor service
@@ -23,21 +19,30 @@ and PostgreSQL.
 1. `cinema` contains information on movie theater room and their seats
 1. `eureka` Netflix Eureka server discovery
 1. `moviecatalog` contains information on shows (N.B.: depends upon movie id and room id)
-1. `movieservice` contains the movies that can be on the agenda
+1. `movieservice` contains the movies that can be on the agenda and acts as a pass-through for The MovieDB API.
+ 
+![design](readme/design.png)
 
 ## How to start services?
 Please install dependencies for each server.
 
 The project uses H2 database as default. Please provide environment variable value for `DB_URL` for each database 
-(e.g. in the form `DB_URL=jdbc:h2:~/[directory location]`).
+(e.g. in the form `DB_URL=jdbc:h2:~/[directory location]`). All existing services - with the exception of Eureka - 
+have a database.
+
+Please register on The Movie DB (https://www.themoviedb.org/) to acquire an API key in order to use the service. The
+project uses v3 of The Movie DB API. In order to start the `movieservice` server, please provide your The Movie DB 
+API v3 key as an environmental variable value `API_KEY` (e.g. in the form `API_KEY=[your TMDB API key]`).
 
 Also note that the project - for demonstration purposes - uses dummy content through `CommandLineRunner`. As data
 must be read from some services at aggregate points, please:
 - start `moviecatalog` service after `cinema`
 - start `booking` after all other services have started
 
+If you are using an IDE, please note that the project uses Lombok. If your IDE does not support it already, please
+find an extension or note that the IDE may indicate errors in the code if it cannot interpret the annotations.
+
 ## API
-Please note that endpoints are in the process of being rewritten at the moment to comply with REST.
 API at localhost port 8762 (see Swagger for further details):
 
 Endpoint | Method | Response
@@ -70,8 +75,7 @@ Endpoint | Method | Response
 
 Please note that although Spring Security is installed, not all endpoints have not been secured yet.  
 
-## Version
-The project is under development.
+Please note that endpoints are subject to change to comply with REST.
 
 ## Technology
 Services use:
