@@ -26,7 +26,7 @@ public class DataProvider implements CommandLineRunner {
     public void run(String... args) {
         int roomAmount = 1;
         int numberOfRows = 5;
-        int numberOfSeatsPerRow = 9;
+        int numberOfSeatsPerRow = 10;
         roomCreator.createRooms(roomAmount, numberOfRows, numberOfSeatsPerRow);
 
         List<Room> rooms = roomRepository.findAll();
