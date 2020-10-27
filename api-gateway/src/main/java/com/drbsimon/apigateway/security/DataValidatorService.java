@@ -13,7 +13,6 @@ public class DataValidatorService {
     private final Pattern lowerCaseLetters = Pattern.compile("[a-z ]");
     private final Pattern digitsPattern = Pattern.compile("[0-9 ]");
 
-    private final String passwordPattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}";
     private final String emailPattern = "^(.+)@(.+)$";
 
     public boolean isValidUsername(String username, List<String> errorList) {
@@ -35,10 +34,6 @@ public class DataValidatorService {
         boolean valid = true;
         if (password.length() < 8) {
             errorList.add("at least 8 characters");
-            valid = false;
-        }
-        if (!specialCharacters.matcher(password).find()) {
-            errorList.add("at least 1 special character");
             valid = false;
         }
         if (!upperCaseLetters.matcher(password).find()) {
