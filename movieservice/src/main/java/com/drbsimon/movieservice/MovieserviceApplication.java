@@ -44,8 +44,11 @@ public class MovieserviceApplication {
     public CommandLineRunner init() {
         return args -> {
 //            List<Integer> movieIds = Arrays.asList(496243, 495764, 475557, 155, 501907);
-            List<Integer> movieIds = Arrays.asList(501907, 556678, 495764, 76341, 106646);
-            List<Integer> runtime = Arrays.asList(110, 125, 110, 130, 180);
+//            List<Integer> movieIds = Arrays.asList(501907, 556678, 495764, 76341, 106646);
+//            List<Integer> runtime = Arrays.asList(110, 125, 110, 130, 180);
+
+            List<Integer> movieIds = Arrays.asList(721656, 23202, 948, 76341, 106646);
+            List<Integer> runtime = Arrays.asList(80, 90, 100, 130, 180);
 
             for (Integer i = 0; i < movieIds.size(); i++) {
                 Movie newMovie = Movie.builder()
