@@ -8,9 +8,9 @@ import java.util.regex.Pattern;
 @Service
 public class DataValidatorService {
 
-    private final Pattern specialCharacters = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
-    private final Pattern upperCaseLetters = Pattern.compile("[A-Z ]");
-    private final Pattern lowerCaseLetters = Pattern.compile("[a-z ]");
+    private final Pattern specialCharacters = Pattern.compile("[^A-Za-zÀ-ÖØ-öø-ÿ0-9 ,.'-]", Pattern.CASE_INSENSITIVE);
+    private final Pattern upperCaseLetters = Pattern.compile("[A-ZÀ-Ö ]");
+    private final Pattern lowerCaseLetters = Pattern.compile("[a-zØ-öø-ÿ ,.'-]");
     private final Pattern digitsPattern = Pattern.compile("[0-9 ]");
 
     private final String emailPattern = "^(.+)@(.+)$";
