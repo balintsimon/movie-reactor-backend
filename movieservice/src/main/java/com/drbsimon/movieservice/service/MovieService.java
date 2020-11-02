@@ -2,7 +2,7 @@ package com.drbsimon.movieservice.service;
 
 import com.drbsimon.movieservice.model.Movie;
 import com.drbsimon.movieservice.model.wrapper.MovieListWrapper;
-import com.drbsimon.movieservice.repository.MovieRepository;
+import com.drbsimon.movieservice.service.dao.MovieDao;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,17 +13,17 @@ import java.util.List;
 @Data
 @RequiredArgsConstructor
 public class MovieService {
-    private final MovieRepository movieRepository;
+    private final MovieDao movieDao;
 
     public MovieListWrapper getAllMovies() {
         MovieListWrapper wrapper = new MovieListWrapper();
-        List<Movie> movies = movieRepository.findAll();
+        List<Movie> movies = movieDao.findAll();
         wrapper.setMovies(movies);
         return wrapper;
     }
 
     public Movie getMovieById(Long movieId) {
-        return movieRepository.getById(movieId);
+        return movieDao.getById(movieId);
     }
 
 }
