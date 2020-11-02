@@ -4,7 +4,7 @@ import com.drbsimon.apigateway.model.Gender;
 import com.drbsimon.apigateway.model.entity.Visitor;
 import com.drbsimon.apigateway.model.Role;
 import com.drbsimon.apigateway.repository.VisitorRepository;
-import com.drbsimon.apigateway.security.CustomUserDetailsService;
+import com.drbsimon.apigateway.security.service.ParseVisitorSecurityService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ class VisitorRepositoryTests {
     private ZuulProperties zuulProperties;
 
     @MockBean
-    private CustomUserDetailsService customUserDetailsService;
+    private ParseVisitorSecurityService parseVisitorSecurityService;
 
     List<Visitor> visitors;
 

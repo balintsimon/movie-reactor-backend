@@ -1,4 +1,4 @@
-package com.drbsimon.apigateway.security;
+package com.drbsimon.apigateway.security.service;
 
 import com.drbsimon.apigateway.model.entity.Visitor;
 import com.drbsimon.apigateway.service.dao.VisitorDao;
@@ -13,11 +13,11 @@ import org.springframework.stereotype.Component;
 import java.util.stream.Collectors;
 
 @Component
-public class CustomUserDetailsService implements UserDetailsService {
+public class ParseVisitorSecurityService implements UserDetailsService {
 
     private VisitorDao visitorDao;
 
-    public CustomUserDetailsService(VisitorDao visitorDao) {
+    public ParseVisitorSecurityService(VisitorDao visitorDao) {
         this.visitorDao = visitorDao;
     }
 
@@ -42,12 +42,6 @@ public class CustomUserDetailsService implements UserDetailsService {
             username = principal.toString();
         }
         return username;
-    }
-
-    public Long findVisitorIdByUsername(String userName) {
-        Visitor visitor = visitorDao.getVisitorBy(userName);
-        if (visitor == null) return null;
-        return visitor.getId();
     }
 
     public Visitor parseVisitorFromToken() {

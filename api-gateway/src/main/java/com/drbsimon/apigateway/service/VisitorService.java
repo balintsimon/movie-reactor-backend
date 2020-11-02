@@ -4,7 +4,7 @@ import com.drbsimon.apigateway.model.dto.UserCredentialsDTO;
 import com.drbsimon.apigateway.model.Role;
 import com.drbsimon.apigateway.model.dto.WatchListDTO;
 import com.drbsimon.apigateway.model.entity.Visitor;
-import com.drbsimon.apigateway.security.CustomUserDetailsService;
+import com.drbsimon.apigateway.security.service.ParseVisitorSecurityService;
 import com.drbsimon.apigateway.utils.PatternUtil;
 import com.drbsimon.apigateway.security.service.JwtTokenServices;
 import com.drbsimon.apigateway.service.dao.VisitorDao;
@@ -26,7 +26,7 @@ public class VisitorService {
     private final JwtTokenServices jwtTokenServices;
     private final PasswordEncoder passwordEncoder;
     private final VisitorDao visitorDao;
-    private final CustomUserDetailsService customUserDetailsService;
+    private final ParseVisitorSecurityService parseVisitorSecurityService;
 
     public ResponseEntity registerUser(UserCredentialsDTO userCredentials) {
 
@@ -103,20 +103,20 @@ public class VisitorService {
     }
 
     public String getLoggedInVisitorNameAndRole(){
-        String username = customUserDetailsService.findLoggedInUsername();
-        UserDetails visitor = customUserDetailsService.loadUserByUsername(username);
+        String username = parseVisitorSecurityService.findLoggedInUsername();
+        UserDetails visitor = parseVisitorSecurityService.loadUserByUsername(username);
         return username + "\n" + visitor.getAuthorities();
     }
 
     public WatchListDTO getVisitorWatchlist() {
-        Visitor user = customUserDetailsService.parseVisitorFromToken();
+        Visitor user = parseVisitorSecurityService.parseVisitorFromToken();
         if (user == null) return new WatchListDTO(new ArrayList<>());
         List<Integer> watchlistIds = user.getWatchList();
         return new WatchListDTO(watchlistIds);
     }
 
     public boolean addToWatchList(Integer movie_db_id) {
-        Visitor visitor = customUserDetailsService.parseVisitorFromToken();
+        Visitor visitor = parseVisitorSecurityService.parseVisitorFromToken();
         List<Integer> watchList = visitor.getWatchList();
         if (watchList.contains(movie_db_id)) return false;
 
@@ -127,7 +127,7 @@ public class VisitorService {
     }
 
     public boolean deleteFromWatchList(Integer movie_db_id) {
-        Visitor visitor = customUserDetailsService.parseVisitorFromToken();
+        Visitor visitor = parseVisitorSecurityService.parseVisitorFromToken();
         List<Integer> watchList = visitor.getWatchList();
         if (!watchList.contains(movie_db_id)) return false;
 

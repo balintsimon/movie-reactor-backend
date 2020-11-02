@@ -4,7 +4,7 @@ import com.drbsimon.apigateway.model.Gender;
 import com.drbsimon.apigateway.model.dto.UserCredentialsDTO;
 import com.drbsimon.apigateway.security.service.AuthService;
 import com.drbsimon.apigateway.repository.VisitorRepository;
-import com.drbsimon.apigateway.security.CustomUserDetailsService;
+import com.drbsimon.apigateway.security.service.ParseVisitorSecurityService;
 import com.drbsimon.apigateway.security.service.JwtTokenServices;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,7 +43,7 @@ class AuthControllerLoginTest {
     private VisitorRepository repository;
 
     @MockBean
-    private CustomUserDetailsService customUserDetailsService;
+    private ParseVisitorSecurityService parseVisitorSecurityService;
 
     @MockBean
     private JwtTokenServices jwtTokenServices;
