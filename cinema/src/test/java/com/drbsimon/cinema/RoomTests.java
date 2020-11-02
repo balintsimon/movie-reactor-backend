@@ -1,8 +1,7 @@
 package com.drbsimon.cinema;
 
-import com.drbsimon.cinema.entity.Room;
-import com.drbsimon.cinema.entity.Seat;
-import com.drbsimon.cinema.model.RoomListWrapper;
+import com.drbsimon.cinema.model.Room;
+import com.drbsimon.cinema.model.wrapper.RoomListWrapper;
 import com.drbsimon.cinema.repository.RoomManager;
 import com.drbsimon.cinema.repository.RoomRepository;
 import org.junit.jupiter.api.Assertions;

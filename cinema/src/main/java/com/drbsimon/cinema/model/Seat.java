@@ -1,11 +1,10 @@
-package com.drbsimon.cinema.entity;
+package com.drbsimon.cinema.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.Null;
 
 @Data
 @NoArgsConstructor

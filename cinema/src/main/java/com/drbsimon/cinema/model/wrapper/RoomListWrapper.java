@@ -1,6 +1,6 @@
-package com.drbsimon.cinema.model;
+package com.drbsimon.cinema.model.wrapper;
 
-import com.drbsimon.cinema.entity.Room;
+import com.drbsimon.cinema.model.Room;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 

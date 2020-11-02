@@ -1,9 +1,7 @@
 package com.drbsimon.cinema.repository;
 
-import com.drbsimon.cinema.entity.Room;
-import com.drbsimon.cinema.entity.Seat;
-import com.drbsimon.cinema.model.RoomListWrapper;
-import com.drbsimon.cinema.model.SeatListWrapper;
+import com.drbsimon.cinema.model.Seat;
+import com.drbsimon.cinema.model.wrapper.SeatListWrapper;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

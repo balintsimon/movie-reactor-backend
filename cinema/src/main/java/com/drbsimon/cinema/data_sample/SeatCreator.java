@@ -1,7 +1,7 @@
 package com.drbsimon.cinema.data_sample;
 
-import com.drbsimon.cinema.entity.Room;
-import com.drbsimon.cinema.entity.Seat;
+import com.drbsimon.cinema.model.Room;
+import com.drbsimon.cinema.model.Seat;
 import com.drbsimon.cinema.repository.SeatRepository;
 import org.springframework.stereotype.Component;
 

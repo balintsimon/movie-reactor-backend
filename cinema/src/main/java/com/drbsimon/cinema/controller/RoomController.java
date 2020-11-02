@@ -1,7 +1,7 @@
 package com.drbsimon.cinema.controller;
 
-import com.drbsimon.cinema.entity.Room;
-import com.drbsimon.cinema.model.RoomListWrapper;
+import com.drbsimon.cinema.model.Room;
+import com.drbsimon.cinema.model.wrapper.RoomListWrapper;
 import com.drbsimon.cinema.repository.RoomManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

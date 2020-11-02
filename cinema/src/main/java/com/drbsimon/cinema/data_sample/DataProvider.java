@@ -1,6 +1,6 @@
 package com.drbsimon.cinema.data_sample;
 
-import com.drbsimon.cinema.entity.Room;
+import com.drbsimon.cinema.model.Room;
 import com.drbsimon.cinema.repository.RoomRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;

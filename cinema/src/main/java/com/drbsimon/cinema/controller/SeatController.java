@@ -1,7 +1,7 @@
 package com.drbsimon.cinema.controller;
 
-import com.drbsimon.cinema.entity.Seat;
-import com.drbsimon.cinema.model.SeatListWrapper;
+import com.drbsimon.cinema.model.Seat;
+import com.drbsimon.cinema.model.wrapper.SeatListWrapper;
 import com.drbsimon.cinema.repository.SeatManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
