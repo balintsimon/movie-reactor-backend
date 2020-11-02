@@ -1,4 +1,4 @@
-package com.drbsimon.booking.model;
+package com.drbsimon.booking.model.wrapper;
 
 import com.drbsimon.booking.service.model.VisitorDTO;
 import lombok.Data;

@@ -2,7 +2,7 @@ package com.drbsimon.booking.service.caller;
 
 
 import com.drbsimon.booking.service.model.Show;
-import com.drbsimon.booking.model.ShowListWrapper;
+import com.drbsimon.booking.model.wrapper.ShowListWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

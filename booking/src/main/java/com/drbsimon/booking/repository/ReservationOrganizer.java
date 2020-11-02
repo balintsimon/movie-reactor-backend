@@ -2,8 +2,8 @@ package com.drbsimon.booking.repository;
 
 import com.drbsimon.booking.entity.Reservation;
 import com.drbsimon.booking.entity.SeatReservedWrapper;
-import com.drbsimon.booking.model.AllBookingInfoWrapper;
-import com.drbsimon.booking.model.ReservationWrapper;
+import com.drbsimon.booking.model.wrapper.AllBookingInfoWrapper;
+import com.drbsimon.booking.model.wrapper.ReservationWrapper;
 import com.drbsimon.booking.service.caller.CatalogServiceCaller;
 import com.drbsimon.booking.service.caller.CinemaServiceCaller;
 import com.drbsimon.booking.service.caller.VisitorServiceCaller;
