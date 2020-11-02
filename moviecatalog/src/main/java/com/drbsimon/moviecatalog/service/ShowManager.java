@@ -1,9 +1,10 @@
-package com.drbsimon.moviecatalog.repository;
+package com.drbsimon.moviecatalog.service;
 
 import com.drbsimon.moviecatalog.model.Show;
 import com.drbsimon.moviecatalog.model.dto.MovieDTO;
 import com.drbsimon.moviecatalog.model.wrapper.MovieListWrapper;
 import com.drbsimon.moviecatalog.model.wrapper.ShowListWrapper;
+import com.drbsimon.moviecatalog.repository.ShowRepository;
 import com.drbsimon.moviecatalog.service.MovieServiceCaller;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

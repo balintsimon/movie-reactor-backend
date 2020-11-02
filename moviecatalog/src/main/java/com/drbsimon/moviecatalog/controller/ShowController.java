@@ -3,7 +3,7 @@ package com.drbsimon.moviecatalog.controller;
 import com.drbsimon.moviecatalog.model.Show;
 import com.drbsimon.moviecatalog.model.wrapper.MovieListWrapper;
 import com.drbsimon.moviecatalog.model.wrapper.ShowListWrapper;
-import com.drbsimon.moviecatalog.repository.ShowManager;
+import com.drbsimon.moviecatalog.service.ShowManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
