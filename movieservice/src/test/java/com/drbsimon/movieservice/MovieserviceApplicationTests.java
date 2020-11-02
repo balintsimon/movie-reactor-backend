@@ -1,6 +1,6 @@
 package com.drbsimon.movieservice;
 
-import com.drbsimon.movieservice.entity.Movie;
+import com.drbsimon.movieservice.model.Movie;
 import com.drbsimon.movieservice.model.MovieListWrapper;
 import com.drbsimon.movieservice.repository.MovieManager;
 import com.drbsimon.movieservice.repository.MovieRepository;

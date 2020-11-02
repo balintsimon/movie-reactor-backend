@@ -1,6 +1,6 @@
 package com.drbsimon.movieservice.repository;
 
-import com.drbsimon.movieservice.entity.Movie;
+import com.drbsimon.movieservice.model.Movie;
 import com.drbsimon.movieservice.model.MovieListWrapper;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

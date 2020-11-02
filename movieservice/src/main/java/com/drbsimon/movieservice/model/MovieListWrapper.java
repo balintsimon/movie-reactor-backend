@@ -1,6 +1,5 @@
 package com.drbsimon.movieservice.model;
 
-import com.drbsimon.movieservice.entity.Movie;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 

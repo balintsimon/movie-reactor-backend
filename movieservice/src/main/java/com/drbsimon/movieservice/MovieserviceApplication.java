@@ -1,6 +1,6 @@
 package com.drbsimon.movieservice;
 
-import com.drbsimon.movieservice.entity.Movie;
+import com.drbsimon.movieservice.model.Movie;
 import com.drbsimon.movieservice.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;

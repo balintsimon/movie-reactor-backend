@@ -1,4 +1,4 @@
-package com.drbsimon.movieservice.entity;
+package com.drbsimon.movieservice.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
