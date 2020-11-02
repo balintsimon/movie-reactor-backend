@@ -5,21 +5,19 @@ import com.drbsimon.apigateway.model.dto.UserCredentialsDTO;
 import com.drbsimon.apigateway.model.entity.Visitor;
 import com.drbsimon.apigateway.model.dto.VisitorsWrapperDTO;
 import com.drbsimon.apigateway.repository.VisitorRepository;
-import com.drbsimon.apigateway.security.CustomUserDetailsService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @Data
 @RequiredArgsConstructor
-public class VisitorServiceDaoDB implements VisitorServiceDao {
+public class VisitorDaoDB implements VisitorDao {
     private final VisitorRepository visitorRepository;
-    private final CustomUserDetailsService customUserDetailsService;
     private final PasswordEncoder passwordEncoder;
 
     public VisitorsWrapperDTO getAllVisitors() {
@@ -27,6 +25,11 @@ public class VisitorServiceDaoDB implements VisitorServiceDao {
         List<Visitor> visitors = visitorRepository.findAll();
         visitorsWrapperDTO.setVisitors(visitors);
         return visitorsWrapperDTO;
+    }
+
+    @Override
+    public Optional<Visitor> findVisitorBy(String name) {
+        return visitorRepository.findByUsername(name);
     }
 
     public Visitor getVisitorBy(Long visitorId) {
@@ -37,11 +40,7 @@ public class VisitorServiceDaoDB implements VisitorServiceDao {
         return visitorRepository.getByUsername(name);
     }
 
-    public String getCurrentUserNameWithRoles(){
-        String username = customUserDetailsService.findLoggedInUsername();
-        UserDetails visitor = customUserDetailsService.loadUserByUsername(username);
-        return username + "\n" + visitor.getAuthorities();
-    }
+
 
     public void save(Visitor visitor) {
         visitorRepository.save(visitor);

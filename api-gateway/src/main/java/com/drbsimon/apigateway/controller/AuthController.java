@@ -2,7 +2,7 @@ package com.drbsimon.apigateway.controller;
 
 import com.drbsimon.apigateway.model.dto.UserCredentialsDTO;
 import com.drbsimon.apigateway.security.service.AuthService;
-import com.drbsimon.apigateway.service.RegisterService;
+import com.drbsimon.apigateway.service.VisitorService;
 import com.drbsimon.apigateway.security.service.JwtTokenServices;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class AuthController {
     private final AuthService authService;
-    private final RegisterService visitorRegisterService;
+    private final VisitorService visitorService;
     private final JwtTokenServices jwtService;
 
     @PostMapping(value = "login", consumes = "application/json")
@@ -31,7 +31,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserCredentialsDTO userCredentials) {
         log.info("Registration request received: " + userCredentials.toString());
-        return visitorRegisterService.registerUser(userCredentials);
+        return visitorService.registerUser(userCredentials);
     }
 
     @PostMapping("/logout")

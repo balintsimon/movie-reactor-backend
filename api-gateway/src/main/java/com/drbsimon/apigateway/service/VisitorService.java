@@ -2,14 +2,17 @@ package com.drbsimon.apigateway.service;
 
 import com.drbsimon.apigateway.model.dto.UserCredentialsDTO;
 import com.drbsimon.apigateway.model.Role;
-import com.drbsimon.apigateway.repository.VisitorRepository;
+import com.drbsimon.apigateway.model.dto.WatchListDTO;
+import com.drbsimon.apigateway.model.entity.Visitor;
+import com.drbsimon.apigateway.security.CustomUserDetailsService;
 import com.drbsimon.apigateway.utils.PatternUtil;
 import com.drbsimon.apigateway.security.service.JwtTokenServices;
-import com.drbsimon.apigateway.service.dao.VisitorServiceDao;
+import com.drbsimon.apigateway.service.dao.VisitorDao;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +22,11 @@ import java.util.*;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public class RegisterService {
-    private final VisitorRepository visitorRepository;
+public class VisitorService {
     private final JwtTokenServices jwtTokenServices;
     private final PasswordEncoder passwordEncoder;
-    private final VisitorServiceDao visitorServiceDao;
+    private final VisitorDao visitorDao;
+    private final CustomUserDetailsService customUserDetailsService;
 
     public ResponseEntity registerUser(UserCredentialsDTO userCredentials) {
 
@@ -31,7 +34,7 @@ public class RegisterService {
         if (failedRegistrationMessage != null) return failedRegistrationMessage;
 
         List<Role> roles = Collections.singletonList(Role.ROLE_USER);
-        visitorServiceDao.save(userCredentials, roles);
+        visitorDao.save(userCredentials, roles);
         return successfulRegistrationResponse(userCredentials.getUsername(), roles);
     }
 
@@ -46,7 +49,7 @@ public class RegisterService {
         String email = userCredentials.getEmail();
         List<String> errorList = new ArrayList<>();
 
-        if (visitorRepository.findByUsername(username).isPresent()) {
+        if (visitorDao.findVisitorBy(username).isPresent()) {
             return failedRegisterMessage("Username already exists! Please choose a different username!");
         }
 
@@ -97,5 +100,40 @@ public class RegisterService {
         responseMessage.put("correct", false);
         responseMessage.put("msg", message);
         return ResponseEntity.ok(responseMessage);
+    }
+
+    public String getLoggedInVisitorNameAndRole(){
+        String username = customUserDetailsService.findLoggedInUsername();
+        UserDetails visitor = customUserDetailsService.loadUserByUsername(username);
+        return username + "\n" + visitor.getAuthorities();
+    }
+
+    public WatchListDTO getVisitorWatchlist() {
+        Visitor user = customUserDetailsService.parseVisitorFromToken();
+        if (user == null) return new WatchListDTO(new ArrayList<>());
+        List<Integer> watchlistIds = user.getWatchList();
+        return new WatchListDTO(watchlistIds);
+    }
+
+    public boolean addToWatchList(Integer movie_db_id) {
+        Visitor visitor = customUserDetailsService.parseVisitorFromToken();
+        List<Integer> watchList = visitor.getWatchList();
+        if (watchList.contains(movie_db_id)) return false;
+
+        watchList.add(movie_db_id);
+        visitor.setWatchList(watchList);
+        visitorDao.save(visitor);
+        return true;
+    }
+
+    public boolean deleteFromWatchList(Integer movie_db_id) {
+        Visitor visitor = customUserDetailsService.parseVisitorFromToken();
+        List<Integer> watchList = visitor.getWatchList();
+        if (!watchList.contains(movie_db_id)) return false;
+
+        watchList.remove(movie_db_id);
+        visitor.setWatchList(watchList);
+        visitorDao.save(visitor);
+        return true;
     }
 }
