@@ -1,11 +1,15 @@
 package com.drbsimon.booking.data_sample;
 
-import com.drbsimon.booking.entity.Reservation;
+import com.drbsimon.booking.model.Reservation;
+import com.drbsimon.booking.model.Role;
+import com.drbsimon.booking.model.dto.RoomDTO;
+import com.drbsimon.booking.model.dto.SeatDTO;
+import com.drbsimon.booking.model.dto.ShowDTO;
+import com.drbsimon.booking.model.dto.VisitorDTO;
 import com.drbsimon.booking.repository.ReservationRepository;
 import com.drbsimon.booking.service.caller.CatalogServiceCaller;
 import com.drbsimon.booking.service.caller.CinemaServiceCaller;
 import com.drbsimon.booking.service.caller.VisitorServiceCaller;
-import com.drbsimon.booking.service.model.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -32,17 +36,17 @@ public class BookingCreator {
     }
 
     public void createBookings() {
-        List<Show> shows = catalogServiceCaller.getAllShows();
+        List<ShowDTO> shows = catalogServiceCaller.getAllShows();
         List<VisitorDTO> visitorDTOS = visitorServiceCaller.getAllVisitors();
         List<VisitorDTO> users = visitorDTOS.stream()
                 .filter(visitor -> visitor.getRoles().contains(Role.ROLE_USER))
                 .collect(Collectors.toList());
         VisitorDTO loneUser = users.get(0);
 
-        for (Show show : shows) {
-            Room room = cinemaServiceCaller.getRoomById(show.getRoomId());
+        for (ShowDTO show : shows) {
+            RoomDTO room = cinemaServiceCaller.getRoomById(show.getRoomId());
 
-            for (Seat seat : room.getSeats()) {
+            for (SeatDTO seat : room.getSeats()) {
                 if (random.nextBoolean()) {
                     Reservation newReservation = Reservation.builder()
                             .visitorId(loneUser.getId())

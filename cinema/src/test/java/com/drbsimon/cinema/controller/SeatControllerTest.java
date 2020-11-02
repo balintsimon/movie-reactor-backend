@@ -1,9 +1,9 @@
 package com.drbsimon.cinema.controller;
 
-import com.drbsimon.cinema.entity.Room;
-import com.drbsimon.cinema.entity.Seat;
-import com.drbsimon.cinema.model.SeatListWrapper;
-import com.drbsimon.cinema.repository.SeatManager;
+import com.drbsimon.cinema.model.Room;
+import com.drbsimon.cinema.model.Seat;
+import com.drbsimon.cinema.model.wrapper.SeatListWrapper;
+import com.drbsimon.cinema.service.SeatService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ class SeatControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private SeatManager service;
+    private SeatService service;
 
     private List<Seat> seats;
     private SeatListWrapper listWrapper;

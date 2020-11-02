@@ -1,5 +1,6 @@
 package com.drbsimon.apigateway.security;
 
+import com.drbsimon.apigateway.security.service.JwtTokenServices;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;

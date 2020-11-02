@@ -1,8 +1,8 @@
 package com.drbsimon.movieservice;
 
-import com.drbsimon.movieservice.entity.Movie;
-import com.drbsimon.movieservice.model.MovieListWrapper;
-import com.drbsimon.movieservice.repository.MovieManager;
+import com.drbsimon.movieservice.model.Movie;
+import com.drbsimon.movieservice.model.wrapper.MovieListWrapper;
+import com.drbsimon.movieservice.service.MovieService;
 import com.drbsimon.movieservice.repository.MovieRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ class MovieserviceApplicationTests {
     private MovieRepository repository;
 
     @Autowired
-    private MovieManager manager;
+    private MovieService manager;
 
     @Test
     public void testRepositoryLoads() throws Exception {

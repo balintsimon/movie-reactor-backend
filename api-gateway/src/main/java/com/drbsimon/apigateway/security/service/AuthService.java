@@ -2,10 +2,8 @@ package com.drbsimon.apigateway.security.service;
 
 import com.drbsimon.apigateway.model.Gender;
 import com.drbsimon.apigateway.model.dto.UserCredentialsDTO;
-import com.drbsimon.apigateway.model.entity.Visitor;
-import com.drbsimon.apigateway.repository.VisitorRepository;
-import com.drbsimon.apigateway.security.DataValidatorService;
-import com.drbsimon.apigateway.security.JwtTokenServices;
+import com.drbsimon.apigateway.model.Visitor;
+import com.drbsimon.apigateway.service.dao.VisitorDao;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -32,10 +30,9 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class AuthService {
-    private final VisitorRepository visitorRepository;
+    private final VisitorDao visitorDao;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenServices jwtTokenServices;
-    private final DataValidatorService dataValidator;
     private final PasswordEncoder passwordEncoder;
 
     public static final String TOKEN_COOKIE_NAME = "JWT";
@@ -60,7 +57,7 @@ public class AuthService {
 
         String token = jwtTokenServices.createToken(username, roles);
 
-        Visitor visitor = visitorRepository.getByUsername(username);
+        Visitor visitor = visitorDao.getVisitorBy(username);
         Gender gender = visitor.getGender();
         ResponseCookie tokenCookie = createTokenCookie(token, Duration.ofSeconds(-1L));
         response.addHeader("Set-Cookie", tokenCookie.toString());

@@ -1,10 +1,10 @@
 package com.drbsimon.cinema;
 
-import com.drbsimon.cinema.entity.Room;
-import com.drbsimon.cinema.entity.Seat;
-import com.drbsimon.cinema.model.SeatListWrapper;
+import com.drbsimon.cinema.model.Room;
+import com.drbsimon.cinema.model.Seat;
+import com.drbsimon.cinema.model.wrapper.SeatListWrapper;
 import com.drbsimon.cinema.repository.RoomRepository;
-import com.drbsimon.cinema.repository.SeatManager;
+import com.drbsimon.cinema.service.SeatService;
 import com.drbsimon.cinema.repository.SeatRepository;
 import javax.validation.ConstraintViolationException;
 import org.junit.jupiter.api.Assertions;
@@ -30,7 +30,7 @@ class SeatTest {
     private SeatRepository repository;
 
     @Autowired
-    private SeatManager manager;
+    private SeatService manager;
 
     private List<Seat> setUpSeats = new ArrayList<>();
 

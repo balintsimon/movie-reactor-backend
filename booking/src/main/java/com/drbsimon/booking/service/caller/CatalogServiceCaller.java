@@ -1,8 +1,8 @@
 package com.drbsimon.booking.service.caller;
 
 
-import com.drbsimon.booking.service.model.Show;
-import com.drbsimon.booking.model.ShowListWrapper;
+import com.drbsimon.booking.model.dto.ShowDTO;
+import com.drbsimon.booking.model.wrapper.ShowListWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,16 +23,16 @@ public class CatalogServiceCaller {
     private String baseUrl;
 
     public boolean isShowValid(Long showId) {
-        Show show = restTemplate.getForObject(baseUrl + "/show/" + showId, Show.class);
+        ShowDTO show = restTemplate.getForObject(baseUrl + "/show/" + showId, ShowDTO.class);
         return show != null;
     }
 
-    public List<Show> getAllShows() {
+    public List<ShowDTO> getAllShows() {
         ShowListWrapper shows = restTemplate.getForObject(baseUrl + "/show", ShowListWrapper.class);
         return shows.getShows();
     }
 
-    public Show getShowById(Long showId) {
-        return restTemplate.getForObject(baseUrl + "/show/" + showId, Show.class);
+    public ShowDTO getShowById(Long showId) {
+        return restTemplate.getForObject(baseUrl + "/show/" + showId, ShowDTO.class);
     }
 }

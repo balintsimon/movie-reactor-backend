@@ -1,6 +1,6 @@
 package com.drbsimon.moviecatalog.repository;
 
-import com.drbsimon.moviecatalog.entity.Show;
+import com.drbsimon.moviecatalog.model.Show;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,16 +1,16 @@
 package com.drbsimon.cinema.data_sample;
 
-import com.drbsimon.cinema.entity.Room;
-import com.drbsimon.cinema.entity.Seat;
-import com.drbsimon.cinema.repository.SeatRepository;
+import com.drbsimon.cinema.model.Room;
+import com.drbsimon.cinema.model.Seat;
+import com.drbsimon.cinema.service.dao.SeatDao;
 import org.springframework.stereotype.Component;
 
 @Component
 public class SeatCreator {
-    private final SeatRepository seatRepository;
+    private final SeatDao seatDao;
 
-    public SeatCreator(SeatRepository seatRepository) {
-        this.seatRepository = seatRepository;
+    public SeatCreator(SeatDao seatDao) {
+        this.seatDao = seatDao;
     }
 
     public void createSeatsForRoomData(Room room) {
@@ -21,7 +21,7 @@ public class SeatCreator {
                         .seatNumber(seatNumber)
                         .room(room)
                         .build();
-                seatRepository.save(newSeat);
+                seatDao.save(newSeat);
             }
         }
     }

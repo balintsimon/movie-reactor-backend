@@ -1,8 +1,8 @@
 package com.drbsimon.cinema.controller;
 
-import com.drbsimon.cinema.entity.Seat;
-import com.drbsimon.cinema.model.SeatListWrapper;
-import com.drbsimon.cinema.repository.SeatManager;
+import com.drbsimon.cinema.model.Seat;
+import com.drbsimon.cinema.model.wrapper.SeatListWrapper;
+import com.drbsimon.cinema.service.SeatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,20 +11,20 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/seat")
 @RequiredArgsConstructor
 public class SeatController {
-    private final SeatManager seatManager;
+    private final SeatService seatService;
 
     @GetMapping
     public SeatListWrapper getAllSeats() {
-        return seatManager.getAllSeats();
+        return seatService.getAllSeats();
     }
 
     @GetMapping("/{id}")
     public Seat getSeatById(@PathVariable("id") Long id) {
-        return seatManager.getSeatById(id);
+        return seatService.getSeatById(id);
     }
 
     @GetMapping("/room/{id}")
     public SeatListWrapper getSeatByRoomId(@PathVariable("id") Long roomId) {
-        return seatManager.getAllSeatsByRoomId(roomId);
+        return seatService.getAllSeatsByRoomId(roomId);
     }
 }

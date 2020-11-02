@@ -1,8 +1,8 @@
 package com.drbsimon.movieservice.controller;
 
-import com.drbsimon.movieservice.entity.Movie;
-import com.drbsimon.movieservice.model.MovieListWrapper;
-import com.drbsimon.movieservice.repository.MovieManager;
+import com.drbsimon.movieservice.model.Movie;
+import com.drbsimon.movieservice.model.wrapper.MovieListWrapper;
+import com.drbsimon.movieservice.service.MovieService;
 import com.drbsimon.movieservice.repository.MovieRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,7 +34,7 @@ class MovieControllerTest {
     private MovieRepository movieRepository;
 
     @MockBean
-    private MovieManager service;
+    private MovieService service;
 
     private List<Movie> movieList;
     private MovieListWrapper movieListWrapper;

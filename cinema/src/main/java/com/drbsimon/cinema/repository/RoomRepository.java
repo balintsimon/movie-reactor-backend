@@ -1,6 +1,6 @@
 package com.drbsimon.cinema.repository;
 
-import com.drbsimon.cinema.entity.Room;
+import com.drbsimon.cinema.model.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

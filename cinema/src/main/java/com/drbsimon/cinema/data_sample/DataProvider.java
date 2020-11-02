@@ -1,7 +1,7 @@
 package com.drbsimon.cinema.data_sample;
 
-import com.drbsimon.cinema.entity.Room;
-import com.drbsimon.cinema.repository.RoomRepository;
+import com.drbsimon.cinema.model.Room;
+import com.drbsimon.cinema.service.dao.RoomDao;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -14,12 +14,12 @@ public class DataProvider implements CommandLineRunner {
 
     private final RoomCreator roomCreator;
     private final SeatCreator seatCreator;
-    private final RoomRepository roomRepository;
+    private final RoomDao roomDao;
 
-    public DataProvider(RoomCreator roomCreator, SeatCreator seatCreator, RoomRepository roomRepository) {
+    public DataProvider(RoomCreator roomCreator, SeatCreator seatCreator, RoomDao roomDao) {
         this.roomCreator = roomCreator;
         this.seatCreator = seatCreator;
-        this.roomRepository = roomRepository;
+        this.roomDao = roomDao;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class DataProvider implements CommandLineRunner {
         int numberOfSeatsPerRow = 10;
         roomCreator.createRooms(roomAmount, numberOfRows, numberOfSeatsPerRow);
 
-        List<Room> rooms = roomRepository.findAll();
+        List<Room> rooms = roomDao.findAll();
         for (Room room : rooms) {
             seatCreator.createSeatsForRoomData(room);
         }
