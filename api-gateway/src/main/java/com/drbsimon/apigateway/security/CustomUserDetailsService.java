@@ -1,7 +1,7 @@
 package com.drbsimon.apigateway.security;
 
 import com.drbsimon.apigateway.model.entity.Visitor;
-import com.drbsimon.apigateway.repository.VisitorRepository;
+import com.drbsimon.apigateway.service.dao.VisitorDao;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -15,10 +15,10 @@ import java.util.stream.Collectors;
 @Component
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private VisitorRepository visitors;
+    private VisitorDao visitorDao;
 
-    public CustomUserDetailsService(VisitorRepository visitors) {
-        this.visitors = visitors;
+    public CustomUserDetailsService(VisitorDao visitorDao) {
+        this.visitorDao = visitorDao;
     }
 
     /**
@@ -27,7 +27,7 @@ public class CustomUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Visitor visitor = visitors.findByUsername(username)
+        Visitor visitor = visitorDao.findVisitorBy(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Username: " + username + " not found"));
         return new User(visitor.getUsername(), visitor.getPassword(),
                 visitor.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.toString())).collect(Collectors.toList()));
@@ -45,13 +45,13 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     public Long findVisitorIdByUsername(String userName) {
-        Visitor visitor = visitors.getByUsername(userName);
+        Visitor visitor = visitorDao.getVisitorBy(userName);
         if (visitor == null) return null;
         return visitor.getId();
     }
 
     public Visitor parseVisitorFromToken() {
         String userName = findLoggedInUsername();
-        return visitors.getByUsername(userName);
+        return visitorDao.getVisitorBy(userName);
     }
 }
