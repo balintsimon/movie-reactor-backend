@@ -1,7 +1,7 @@
 package com.drbsimon.movieservice.repository;
 
 import com.drbsimon.movieservice.model.Movie;
-import com.drbsimon.movieservice.model.MovieListWrapper;
+import com.drbsimon.movieservice.model.wrapper.MovieListWrapper;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

@@ -1,7 +1,7 @@
 package com.drbsimon.movieservice.controller;
 
 import com.drbsimon.movieservice.model.Movie;
-import com.drbsimon.movieservice.model.MovieListWrapper;
+import com.drbsimon.movieservice.model.wrapper.MovieListWrapper;
 import com.drbsimon.movieservice.repository.MovieManager;
 import com.drbsimon.movieservice.repository.MovieRepository;
 import org.junit.jupiter.api.BeforeEach;
