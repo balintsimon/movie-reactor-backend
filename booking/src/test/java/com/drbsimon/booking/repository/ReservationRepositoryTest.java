@@ -1,6 +1,6 @@
 package com.drbsimon.booking.repository;
 
-import com.drbsimon.booking.entity.Reservation;
+import com.drbsimon.booking.model.Reservation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

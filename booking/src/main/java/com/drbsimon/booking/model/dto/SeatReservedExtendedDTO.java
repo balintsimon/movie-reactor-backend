@@ -1,4 +1,4 @@
-package com.drbsimon.booking.entity;
+package com.drbsimon.booking.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +15,7 @@ import java.time.LocalTime;
 @Builder
 @Component
 //TODO: rename class to something more useful
-public class SeatReservedWithDetails {
+public class SeatReservedExtendedDTO {
     // TODO: needed for admin on frontend only; should be reworked
     // TODO: check frontend information - rewrite to send only necessary data
 

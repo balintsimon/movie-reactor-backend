@@ -1,4 +1,4 @@
-package com.drbsimon.booking.entity;
+package com.drbsimon.booking.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
-public class SeatReservedWrapper {
+public class SeatReservedDTO {
     // TODO: check if possible to rename id to show_id to avoid confusion later on
     private Long id;
     private List<Long> seats;

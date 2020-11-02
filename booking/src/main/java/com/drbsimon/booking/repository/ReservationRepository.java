@@ -1,6 +1,6 @@
 package com.drbsimon.booking.repository;
 
-import com.drbsimon.booking.entity.Reservation;
+import com.drbsimon.booking.model.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

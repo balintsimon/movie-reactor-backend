@@ -1,7 +1,7 @@
 package com.drbsimon.booking.repository;
 
-import com.drbsimon.booking.entity.Reservation;
-import com.drbsimon.booking.entity.SeatReservedWrapper;
+import com.drbsimon.booking.model.Reservation;
+import com.drbsimon.booking.model.dto.SeatReservedDTO;
 import com.drbsimon.booking.model.Role;
 import com.drbsimon.booking.model.dto.AllBookingInfoDTO;
 import com.drbsimon.booking.model.dto.SeatDTO;
@@ -25,7 +25,7 @@ public class ReservationOrganizer {
     private final CinemaServiceCaller cinemaServiceCaller;
     private final VisitorServiceCaller visitorServiceCaller;
 
-    public boolean saveReservedSeats(SeatReservedWrapper reservationInfo, Long visitorId)
+    public boolean saveReservedSeats(SeatReservedDTO reservationInfo, Long visitorId)
             throws IllegalStateException {
         Long showId = reservationInfo.getId();
         List<Long> seatIds = reservationInfo.getSeats();
@@ -64,7 +64,7 @@ public class ReservationOrganizer {
         return true;
     }
 
-    public boolean deleteReservationWithRightsCheck(SeatReservedWrapper reservationInfo, long visitorId) {
+    public boolean deleteReservationWithRightsCheck(SeatReservedDTO reservationInfo, long visitorId) {
         VisitorDTO visitor = visitorServiceCaller.getVisitorById(visitorId);
         if (visitor.getRoles().contains(Role.ROLE_ADMIN)
                 || (visitor.getRoles().contains(Role.ROLE_USER) && visitor.getId() == visitorId))
@@ -72,7 +72,7 @@ public class ReservationOrganizer {
         return false;
     }
 
-    public boolean deleteReservation(SeatReservedWrapper reservationInfo) {
+    public boolean deleteReservation(SeatReservedDTO reservationInfo) {
         Long seatId = reservationInfo.getSeats().size() == 1 ? reservationInfo.getSeats().get(0) : null;
         Long showId = reservationInfo.getId();
         Long visitorId = reservationInfo.getVisitorId();

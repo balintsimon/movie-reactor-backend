@@ -1,6 +1,6 @@
 package com.drbsimon.booking.data_sample;
 
-import com.drbsimon.booking.entity.Reservation;
+import com.drbsimon.booking.model.Reservation;
 import com.drbsimon.booking.model.Role;
 import com.drbsimon.booking.model.dto.RoomDTO;
 import com.drbsimon.booking.model.dto.SeatDTO;

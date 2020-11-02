@@ -1,5 +1,5 @@
 package com.drbsimon.booking.model.wrapper;
-import com.drbsimon.booking.entity.Reservation;
+import com.drbsimon.booking.model.Reservation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,6 @@
 package com.drbsimon.booking.controller;
 
-import com.drbsimon.booking.entity.SeatReservedWrapper;
+import com.drbsimon.booking.model.dto.SeatReservedDTO;
 import com.drbsimon.booking.model.wrapper.AllBookingInfoWrapper;
 import com.drbsimon.booking.model.dto.MessageDTO;
 import com.drbsimon.booking.model.wrapper.ReservationWrapper;
@@ -27,12 +27,12 @@ public class ReservationController {
 
     @Transactional
     @PostMapping
-    public boolean saveReservedSeats(@RequestBody SeatReservedWrapper reservationInfoWrapper, @RequestHeader("userid") Long visitorId) throws IllegalStateException {
+    public boolean saveReservedSeats(@RequestBody SeatReservedDTO reservationInfoWrapper, @RequestHeader("userid") Long visitorId) throws IllegalStateException {
         return reservationOrganizer.saveReservedSeats(reservationInfoWrapper, visitorId);
     }
 
     @DeleteMapping
-    public ResponseEntity<MessageDTO> deleteReservation(@RequestBody SeatReservedWrapper seats, @RequestHeader("userid") Long visitorId) {
+    public ResponseEntity<MessageDTO> deleteReservation(@RequestBody SeatReservedDTO seats, @RequestHeader("userid") Long visitorId) {
         MessageDTO responseMessage = new MessageDTO();
         if (reservationOrganizer.deleteReservationWithRightsCheck(seats, visitorId)) {
             responseMessage.setSuccessful(true);

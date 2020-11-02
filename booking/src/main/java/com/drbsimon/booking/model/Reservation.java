@@ -1,4 +1,4 @@
-package com.drbsimon.booking.entity;
+package com.drbsimon.booking.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
