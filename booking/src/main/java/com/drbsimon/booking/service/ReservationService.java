@@ -1,4 +1,4 @@
-package com.drbsimon.booking.repository;
+package com.drbsimon.booking.service;
 
 import com.drbsimon.booking.model.Reservation;
 import com.drbsimon.booking.model.dto.SeatReservedDTO;
@@ -12,6 +12,7 @@ import com.drbsimon.booking.model.wrapper.ReservationWrapper;
 import com.drbsimon.booking.service.caller.CatalogServiceCaller;
 import com.drbsimon.booking.service.caller.CinemaServiceCaller;
 import com.drbsimon.booking.service.caller.VisitorServiceCaller;
+import com.drbsimon.booking.service.dao.ReservationDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -19,8 +20,8 @@ import java.util.*;
 
 @Component
 @RequiredArgsConstructor
-public class ReservationOrganizer {
-    private final ReservationRepository reservationRepository;
+public class ReservationService {
+    private final ReservationDao reservationDao;
     private final CatalogServiceCaller catalogServiceCaller;
     private final CinemaServiceCaller cinemaServiceCaller;
     private final VisitorServiceCaller visitorServiceCaller;
@@ -44,7 +45,7 @@ public class ReservationOrganizer {
                 throw new IllegalStateException("Seat not found.");
             }
 
-            Reservation foundSeat = reservationRepository.getBySeatIdAndShowId(actualSeatId, showId);
+            Reservation foundSeat = reservationDao.getBySeatIdAndShowId(actualSeatId, showId);
             if (foundSeat != null) {
                 return false;
                 // NB: throwing exception crashes frontend unbeknownst to the user.
@@ -59,7 +60,7 @@ public class ReservationOrganizer {
                     .showId(showId)
                     .visitorId(visitor.getId())
                     .build();
-            reservationRepository.save(newReservation);
+            reservationDao.save(newReservation);
         }
         return true;
     }
@@ -77,10 +78,10 @@ public class ReservationOrganizer {
         Long showId = reservationInfo.getId();
         Long visitorId = reservationInfo.getVisitorId();
         if (seatId != null) {
-            Reservation reservation = reservationRepository.getBySeatIdAndVisitorIdAndShowId(seatId, visitorId, showId);
+            Reservation reservation = reservationDao.getBySeatIdAndVisitorIdAndShowId(seatId, visitorId, showId);
             System.out.println(reservation);
             if (reservation != null) {
-                reservationRepository.deleteById(reservation.getId());
+                reservationDao.deleteById(reservation.getId());
                 return true;
             }
         }
@@ -88,11 +89,11 @@ public class ReservationOrganizer {
     }
 
     public ReservationWrapper getAllReservations() {
-        return new ReservationWrapper(reservationRepository.findAll());
+        return new ReservationWrapper(reservationDao.findAll());
     }
 
     public ReservationWrapper getAllReservationsOfUserWithExtraInfo(Long visitorId) {
-        return new ReservationWrapper(reservationRepository.getAllByVisitorId(visitorId));
+        return new ReservationWrapper(reservationDao.getAllByVisitorId(visitorId));
     }
 
     public AllBookingInfoWrapper getReservationsWithExtraInfoFactory(Long visitorId) {
@@ -103,7 +104,7 @@ public class ReservationOrganizer {
     }
 
     private AllBookingInfoWrapper getAllReservationsWithExtraInfo() {
-        List<Reservation> reservations = reservationRepository.findAll();
+        List<Reservation> reservations = reservationDao.findAll();
         List<AllBookingInfoDTO> allInformation = new ArrayList<>();
         Map<Long, VisitorDTO> visitors = new HashMap<>();
         Map<Long, ShowDTO> shows = new HashMap<>();
@@ -135,7 +136,7 @@ public class ReservationOrganizer {
     }
 
     private AllBookingInfoWrapper getAllReservationsOfUserWithExtraInfo(VisitorDTO visitor) {
-        List<Reservation> reservations = reservationRepository.getAllByVisitorId(visitor.getId());
+        List<Reservation> reservations = reservationDao.getAllByVisitorId(visitor.getId());
         List<AllBookingInfoDTO> allInformation = new ArrayList<>();
         Map<Long, ShowDTO> shows = new HashMap<>();
         Map<Long, SeatDTO> seats = new HashMap<>();
@@ -170,7 +171,7 @@ public class ReservationOrganizer {
 
 
     public AllBookingInfoWrapper getAllReservationsWithDetailsByShowId(Long showId) {
-        List<Reservation> reservations = reservationRepository.getAllByShowId(showId);
+        List<Reservation> reservations = reservationDao.getAllByShowId(showId);
         List<AllBookingInfoDTO> allInformation = new ArrayList<>();
         Map<Long, VisitorDTO> visitors = new HashMap<>();
         Map<Long, ShowDTO> shows = new HashMap<>();
@@ -202,7 +203,7 @@ public class ReservationOrganizer {
     }
 
     public AllBookingInfoWrapper getAllReservationsWithDetailsOfLoggedInUserByShowId(Long showId, VisitorDTO loggedInVisitor) {
-        List<Reservation> reservations = reservationRepository.getAllByShowId(showId);
+        List<Reservation> reservations = reservationDao.getAllByShowId(showId);
         List<AllBookingInfoDTO> allInformation = new ArrayList<>();
         Map<Long, ShowDTO> shows = new HashMap<>();
         Map<Long, SeatDTO> seats = new HashMap<>();
@@ -230,7 +231,7 @@ public class ReservationOrganizer {
 
 
     public AllBookingInfoWrapper getReservationsByShowIdWithoutUserInformation(Long showId) {
-        List<Reservation> reservations = reservationRepository.getAllByShowId(showId);
+        List<Reservation> reservations = reservationDao.getAllByShowId(showId);
         List<AllBookingInfoDTO> allInformation = new ArrayList<>();
         Map<Long, ShowDTO> shows = new HashMap<>();
         Map<Long, SeatDTO> seats = new HashMap<>();
