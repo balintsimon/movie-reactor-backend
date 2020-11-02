@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Component
 @Data
 @RequiredArgsConstructor
-public class ShowManager {
+public class ShowService {
     private final ShowRepository showRepository;
     private final MovieServiceCaller movieServiceCaller;
 
