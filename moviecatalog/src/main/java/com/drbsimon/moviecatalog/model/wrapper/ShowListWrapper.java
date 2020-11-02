@@ -1,6 +1,6 @@
 package com.drbsimon.moviecatalog.model.wrapper;
 
-import com.drbsimon.moviecatalog.entity.Show;
+import com.drbsimon.moviecatalog.model.Show;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 

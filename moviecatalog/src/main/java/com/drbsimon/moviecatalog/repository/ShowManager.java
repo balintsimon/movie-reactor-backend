@@ -1,6 +1,6 @@
 package com.drbsimon.moviecatalog.repository;
 
-import com.drbsimon.moviecatalog.entity.Show;
+import com.drbsimon.moviecatalog.model.Show;
 import com.drbsimon.moviecatalog.model.dto.MovieDTO;
 import com.drbsimon.moviecatalog.model.wrapper.MovieListWrapper;
 import com.drbsimon.moviecatalog.model.wrapper.ShowListWrapper;

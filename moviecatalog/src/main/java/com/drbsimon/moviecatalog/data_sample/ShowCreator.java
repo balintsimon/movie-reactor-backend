@@ -1,6 +1,6 @@
 package com.drbsimon.moviecatalog.data_sample;
 
-import com.drbsimon.moviecatalog.entity.Show;
+import com.drbsimon.moviecatalog.model.Show;
 import com.drbsimon.moviecatalog.model.dto.MovieDTO;
 import com.drbsimon.moviecatalog.model.dto.RoomDTO;
 import com.drbsimon.moviecatalog.repository.ShowRepository;
