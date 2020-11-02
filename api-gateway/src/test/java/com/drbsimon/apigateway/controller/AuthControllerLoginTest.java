@@ -6,6 +6,7 @@ import com.drbsimon.apigateway.security.service.AuthService;
 import com.drbsimon.apigateway.repository.VisitorRepository;
 import com.drbsimon.apigateway.security.service.ParseVisitorSecurityService;
 import com.drbsimon.apigateway.security.service.JwtTokenServices;
+import com.drbsimon.apigateway.service.dao.VisitorDao;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,9 @@ class AuthControllerLoginTest {
 
     @MockBean
     private VisitorRepository repository;
+
+    @MockBean
+    private VisitorDao visitorDao;
 
     @MockBean
     private ParseVisitorSecurityService parseVisitorSecurityService;
