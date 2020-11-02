@@ -1,6 +1,6 @@
 package com.drbsimon.apigateway.security.service;
 
-import com.drbsimon.apigateway.model.entity.Visitor;
+import com.drbsimon.apigateway.model.Visitor;
 import com.drbsimon.apigateway.service.dao.VisitorDao;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;

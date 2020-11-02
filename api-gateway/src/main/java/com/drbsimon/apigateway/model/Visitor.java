@@ -1,4 +1,4 @@
-package com.drbsimon.apigateway.model.entity;
+package com.drbsimon.apigateway.model;
 
 import com.drbsimon.apigateway.model.Gender;
 import com.drbsimon.apigateway.model.Role;

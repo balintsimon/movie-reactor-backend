@@ -2,7 +2,7 @@ package com.drbsimon.apigateway.service.dao;
 
 import com.drbsimon.apigateway.model.Role;
 import com.drbsimon.apigateway.model.dto.UserCredentialsDTO;
-import com.drbsimon.apigateway.model.entity.Visitor;
+import com.drbsimon.apigateway.model.Visitor;
 import com.drbsimon.apigateway.model.dto.VisitorsWrapperDTO;
 import com.drbsimon.apigateway.repository.VisitorRepository;
 import lombok.Data;

@@ -1,6 +1,6 @@
 package com.drbsimon.apigateway.controller.filter;
 
-import com.drbsimon.apigateway.model.entity.Visitor;
+import com.drbsimon.apigateway.model.Visitor;
 import com.drbsimon.apigateway.security.service.ParseVisitorSecurityService;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;

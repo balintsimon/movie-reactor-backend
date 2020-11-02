@@ -3,7 +3,7 @@ package com.drbsimon.apigateway.service;
 import com.drbsimon.apigateway.model.dto.UserCredentialsDTO;
 import com.drbsimon.apigateway.model.Role;
 import com.drbsimon.apigateway.model.dto.WatchListDTO;
-import com.drbsimon.apigateway.model.entity.Visitor;
+import com.drbsimon.apigateway.model.Visitor;
 import com.drbsimon.apigateway.security.service.ParseVisitorSecurityService;
 import com.drbsimon.apigateway.utils.PatternUtil;
 import com.drbsimon.apigateway.security.service.JwtTokenServices;

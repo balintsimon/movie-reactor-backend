@@ -1,7 +1,7 @@
 package com.drbsimon.apigateway;
 
 import com.drbsimon.apigateway.model.Gender;
-import com.drbsimon.apigateway.model.entity.Visitor;
+import com.drbsimon.apigateway.model.Visitor;
 import com.drbsimon.apigateway.model.Role;
 import com.drbsimon.apigateway.repository.VisitorRepository;
 import lombok.RequiredArgsConstructor;

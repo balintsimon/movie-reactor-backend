@@ -1,6 +1,6 @@
 package com.drbsimon.apigateway.controller;
 
-import com.drbsimon.apigateway.model.entity.Visitor;
+import com.drbsimon.apigateway.model.Visitor;
 import com.drbsimon.apigateway.model.dto.VisitorsWrapperDTO;
 import com.drbsimon.apigateway.service.VisitorService;
 import com.drbsimon.apigateway.service.dao.VisitorDao;
