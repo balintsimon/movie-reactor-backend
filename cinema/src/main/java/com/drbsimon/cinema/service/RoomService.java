@@ -2,7 +2,7 @@ package com.drbsimon.cinema.service;
 
 import com.drbsimon.cinema.model.Room;
 import com.drbsimon.cinema.model.wrapper.RoomListWrapper;
-import com.drbsimon.cinema.repository.RoomRepository;
+import com.drbsimon.cinema.service.dao.RoomDao;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,15 +13,15 @@ import java.util.List;
 @Data
 @RequiredArgsConstructor
 public class RoomService {
-    private final RoomRepository roomRepository;
+    private final RoomDao roomDao;
 
     public RoomListWrapper getAllRooms() {
         RoomListWrapper roomListWrapper = new RoomListWrapper();
-        List<Room> rooms = roomRepository.findAll();
+        List<Room> rooms = roomDao.findAll();
         roomListWrapper.setRooms(rooms);
         return roomListWrapper;
     }
     public Room getRoomById(Long id) {
-        return roomRepository.getById(id);
+        return roomDao.getById(id);
     }
 }
