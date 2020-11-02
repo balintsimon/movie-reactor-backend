@@ -22,7 +22,6 @@ import java.util.*;
 public class RegisterService {
     private final VisitorRepository visitorRepository;
     private final JwtTokenServices jwtTokenServices;
-    private final PatternUtil dataValidator;
     private final PasswordEncoder passwordEncoder;
     private final VisitorServiceDao visitorServiceDao;
 
@@ -51,31 +50,31 @@ public class RegisterService {
             return failedRegisterMessage("Username already exists! Please choose a different username!");
         }
 
-        if (!dataValidator.isValidUsername(username, errorList)) {
+        if (!PatternUtil.isValidUsername(username, errorList)) {
             String error = String.join(", ", errorList);
             String errorMessage = "Username should have " + error + "!";
             return failedRegisterMessage(errorMessage);
         }
 
-        if (!dataValidator.isValidPassword(password, errorList)) {
+        if (!PatternUtil.isValidPassword(password, errorList)) {
             String error = String.join(", ", errorList);
             String errorMessage = "Password should contain " + error + "!";
             return failedRegisterMessage(errorMessage);
         }
 
-        if (!dataValidator.isValidName(firstname, errorList)) {
+        if (!PatternUtil.isValidName(firstname, errorList)) {
             String error = String.join(", ", errorList);
             String errorMessage = "Firstname " + error + "!";
             return failedRegisterMessage(errorMessage);
         }
 
-        if (!dataValidator.isValidName(lastname, errorList)) {
+        if (!PatternUtil.isValidName(lastname, errorList)) {
             String error = String.join(", ", errorList);
             String errorMessage = "Lastname " + error + "!";
             return failedRegisterMessage(errorMessage);
         }
 
-        if (!dataValidator.isValidEmail(email, errorList)) {
+        if (!PatternUtil.isValidEmail(email, errorList)) {
             return failedRegisterMessage("Not valid email!");
         }
 

@@ -8,14 +8,14 @@ import java.util.regex.Pattern;
 @Service
 public class PatternUtil {
 
-    private final Pattern specialCharacters = Pattern.compile("[^A-Za-zÀ-ÖØ-öø-ÿ0-9 ,.'-]", Pattern.CASE_INSENSITIVE);
-    private final Pattern upperCaseLetters = Pattern.compile("[A-ZÀ-Ö ]");
-    private final Pattern lowerCaseLetters = Pattern.compile("[a-zØ-öø-ÿ ,.'-]");
-    private final Pattern digitsPattern = Pattern.compile("[0-9 ]");
+    private static final Pattern specialCharacters = Pattern.compile("[^A-Za-zÀ-ÖØ-öø-ÿ0-9 ,.'-]", Pattern.CASE_INSENSITIVE);
+    private static final Pattern upperCaseLetters = Pattern.compile("[A-ZÀ-Ö ]");
+    private static final Pattern lowerCaseLetters = Pattern.compile("[a-zØ-öø-ÿ ,.'-]");
+    private static final Pattern digitsPattern = Pattern.compile("[0-9 ]");
 
-    private final String emailPattern = "^(.+)@(.+)$";
+    private static final String emailPattern = "^(.+)@(.+)$";
 
-    public boolean isValidUsername(String username, List<String> errorList) {
+    public static boolean isValidUsername(String username, List<String> errorList) {
         errorList.clear();
         boolean valid = true;
         if (username.length() < 6) {
@@ -29,7 +29,7 @@ public class PatternUtil {
         return valid;
     }
 
-    public boolean isValidPassword(String password, List<String> errorList) {
+    public static boolean isValidPassword(String password, List<String> errorList) {
         errorList.clear();
         boolean valid = true;
         if (password.length() < 8) {
@@ -55,12 +55,12 @@ public class PatternUtil {
         return valid;
     }
 
-    public boolean isValidEmail(String email, List<String> errorList) {
+    public static boolean isValidEmail(String email, List<String> errorList) {
         errorList.clear();
         return email.matches(emailPattern);
     }
 
-    public boolean isValidName(String name, List<String> errorList) {
+    public static boolean isValidName(String name, List<String> errorList) {
         errorList.clear();
         boolean valid = true;
         if (name.length() < 2) {

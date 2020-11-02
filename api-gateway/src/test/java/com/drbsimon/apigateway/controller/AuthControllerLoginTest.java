@@ -5,7 +5,6 @@ import com.drbsimon.apigateway.model.dto.UserCredentialsDTO;
 import com.drbsimon.apigateway.security.service.AuthService;
 import com.drbsimon.apigateway.repository.VisitorRepository;
 import com.drbsimon.apigateway.security.CustomUserDetailsService;
-import com.drbsimon.apigateway.utils.PatternUtil;
 import com.drbsimon.apigateway.security.service.JwtTokenServices;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,9 +47,6 @@ class AuthControllerLoginTest {
 
     @MockBean
     private JwtTokenServices jwtTokenServices;
-
-    @MockBean
-    private PatternUtil dataValidator;
 
     @MockBean
     private HttpServletResponse httpResponse;
