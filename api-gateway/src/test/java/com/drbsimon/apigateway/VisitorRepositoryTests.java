@@ -3,7 +3,6 @@ package com.drbsimon.apigateway;
 import com.drbsimon.apigateway.model.Gender;
 import com.drbsimon.apigateway.model.entity.Visitor;
 import com.drbsimon.apigateway.model.Role;
-import com.drbsimon.apigateway.repository.VisitorManager;
 import com.drbsimon.apigateway.repository.VisitorRepository;
 import com.drbsimon.apigateway.security.CustomUserDetailsService;
 import org.junit.jupiter.api.Assertions;

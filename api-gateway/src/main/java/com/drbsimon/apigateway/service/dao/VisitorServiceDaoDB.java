@@ -1,4 +1,4 @@
-package com.drbsimon.apigateway.service;
+package com.drbsimon.apigateway.service.dao;
 
 import com.drbsimon.apigateway.model.Role;
 import com.drbsimon.apigateway.model.dto.UserCredentialsDTO;
@@ -12,13 +12,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
 import java.util.List;
 
 @Component
 @Data
 @RequiredArgsConstructor
-public class VisitorServiceDaoDB implements VisitorServiceDao{
+public class VisitorServiceDaoDB implements VisitorServiceDao {
     private final VisitorRepository visitorRepository;
     private final CustomUserDetailsService customUserDetailsService;
     private final PasswordEncoder passwordEncoder;
@@ -30,8 +29,12 @@ public class VisitorServiceDaoDB implements VisitorServiceDao{
         return visitorsWrapperDTO;
     }
 
-    public Visitor getVisitorById(Long visitorId) {
+    public Visitor getVisitorBy(Long visitorId) {
         return visitorRepository.getById(visitorId);
+    }
+
+    public Visitor getVisitorBy(String name) {
+        return visitorRepository.getByUsername(name);
     }
 
     public String getCurrentUserNameWithRoles(){

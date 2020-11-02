@@ -1,10 +1,11 @@
-package com.drbsimon.apigateway.service.dao;
+package com.drbsimon.apigateway.service;
 
 import com.drbsimon.apigateway.model.dto.UserCredentialsDTO;
 import com.drbsimon.apigateway.model.Role;
 import com.drbsimon.apigateway.repository.VisitorRepository;
-import com.drbsimon.apigateway.security.DataValidatorService;
+import com.drbsimon.apigateway.utils.PatternUtil;
 import com.drbsimon.apigateway.security.service.JwtTokenServices;
+import com.drbsimon.apigateway.service.dao.VisitorServiceDao;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +19,10 @@ import java.util.*;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public class RegisterService implements VisitorRegisterServiceDao {
+public class RegisterService {
     private final VisitorRepository visitorRepository;
     private final JwtTokenServices jwtTokenServices;
-    private final DataValidatorService dataValidator;
+    private final PatternUtil dataValidator;
     private final PasswordEncoder passwordEncoder;
     private final VisitorServiceDao visitorServiceDao;
 

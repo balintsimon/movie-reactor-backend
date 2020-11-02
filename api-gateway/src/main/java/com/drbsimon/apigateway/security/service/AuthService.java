@@ -4,8 +4,7 @@ import com.drbsimon.apigateway.model.Gender;
 import com.drbsimon.apigateway.model.dto.UserCredentialsDTO;
 import com.drbsimon.apigateway.model.entity.Visitor;
 import com.drbsimon.apigateway.repository.VisitorRepository;
-import com.drbsimon.apigateway.security.DataValidatorService;
-import com.drbsimon.apigateway.security.JwtTokenServices;
+import com.drbsimon.apigateway.utils.PatternUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +34,7 @@ public class AuthService {
     private final VisitorRepository visitorRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenServices jwtTokenServices;
-    private final DataValidatorService dataValidator;
+    private final PatternUtil dataValidator;
     private final PasswordEncoder passwordEncoder;
 
     public static final String TOKEN_COOKIE_NAME = "JWT";

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 @Service
-public class DataValidatorService {
+public class PatternUtil {
 
     private final Pattern specialCharacters = Pattern.compile("[^A-Za-zÀ-ÖØ-öø-ÿ0-9 ,.'-]", Pattern.CASE_INSENSITIVE);
     private final Pattern upperCaseLetters = Pattern.compile("[A-ZÀ-Ö ]");

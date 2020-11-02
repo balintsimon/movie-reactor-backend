@@ -1,38 +1,30 @@
 package com.drbsimon.apigateway.controller;
 
 import com.drbsimon.apigateway.model.Gender;
-import com.drbsimon.apigateway.model.Role;
 import com.drbsimon.apigateway.model.dto.UserCredentialsDTO;
 import com.drbsimon.apigateway.security.service.AuthService;
 import com.drbsimon.apigateway.repository.VisitorRepository;
 import com.drbsimon.apigateway.security.CustomUserDetailsService;
-import com.drbsimon.apigateway.security.DataValidatorService;
-import com.drbsimon.apigateway.security.JwtTokenServices;
+import com.drbsimon.apigateway.utils.PatternUtil;
+import com.drbsimon.apigateway.security.service.JwtTokenServices;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 @WebMvcTest(controllers = AuthService.class)
 @ActiveProfiles("test")
@@ -58,7 +50,7 @@ class AuthControllerLoginTest {
     private JwtTokenServices jwtTokenServices;
 
     @MockBean
-    private DataValidatorService dataValidator;
+    private PatternUtil dataValidator;
 
     @MockBean
     private HttpServletResponse httpResponse;

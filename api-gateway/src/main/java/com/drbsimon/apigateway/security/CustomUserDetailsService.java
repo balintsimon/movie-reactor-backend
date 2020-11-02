@@ -50,7 +50,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return visitor.getId();
     }
 
-    public Visitor getVisitorFromToken() {
+    public Visitor parseVisitorFromToken() {
         String userName = findLoggedInUsername();
         return visitors.getByUsername(userName);
     }

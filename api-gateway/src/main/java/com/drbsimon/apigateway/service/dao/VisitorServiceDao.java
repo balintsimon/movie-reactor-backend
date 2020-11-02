@@ -1,4 +1,4 @@
-package com.drbsimon.apigateway.service;
+package com.drbsimon.apigateway.service.dao;
 
 import com.drbsimon.apigateway.model.Role;
 import com.drbsimon.apigateway.model.dto.UserCredentialsDTO;
@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface VisitorServiceDao {
     VisitorsWrapperDTO getAllVisitors();
-    Visitor getVisitorById(Long visitorId);
+    Visitor getVisitorBy(Long visitorId);
+    Visitor getVisitorBy(String name);
     String getCurrentUserNameWithRoles();
     void save(Visitor visitor);
     void save(UserCredentialsDTO userCredentials, List<Role> roles);

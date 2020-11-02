@@ -1,7 +1,7 @@
 package com.drbsimon.apigateway.controller;
 
 import com.drbsimon.apigateway.model.dto.WatchListDTO;
-import com.drbsimon.apigateway.repository.WatchlistManager;
+import com.drbsimon.apigateway.service.WatchlistManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -16,16 +16,16 @@ public class WatchlistController {
 
     @GetMapping
     public WatchListDTO getWatchListByUser() {
-        return watchlistManager.getWatchlistByUsername();
+        return watchlistManager.getVisitorWatchlist();
     }
 
     @PostMapping("/{movie_db_id}")
     public boolean saveMovieIntoWatchList(@PathVariable Integer movie_db_id) {
-        return watchlistManager.saveNewWatchlistElement(movie_db_id);
+        return watchlistManager.addToWatchList(movie_db_id);
     }
 
     @DeleteMapping("/{movie_db_id}")
     public boolean deleteMovieFromWatchList(@PathVariable Integer movie_db_id) {
-        return watchlistManager.deleteMovieFromWatchListById(movie_db_id);
+        return watchlistManager.deleteFromWatchList(movie_db_id);
     }
 }
