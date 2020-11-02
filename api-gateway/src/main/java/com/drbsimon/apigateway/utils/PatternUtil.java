@@ -1,4 +1,4 @@
-package com.drbsimon.apigateway.security;
+package com.drbsimon.apigateway.utils;
 
 import org.springframework.stereotype.Service;
 

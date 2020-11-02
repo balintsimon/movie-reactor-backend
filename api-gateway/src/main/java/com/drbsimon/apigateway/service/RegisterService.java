@@ -1,10 +1,10 @@
-package com.drbsimon.apigateway.model.dto;
+package com.drbsimon.apigateway.service.dao;
 
-import com.drbsimon.apigateway.model.entity.Visitor;
+import com.drbsimon.apigateway.model.dto.UserCredentialsDTO;
 import com.drbsimon.apigateway.model.Role;
 import com.drbsimon.apigateway.repository.VisitorRepository;
 import com.drbsimon.apigateway.security.DataValidatorService;
-import com.drbsimon.apigateway.security.JwtTokenServices;
+import com.drbsimon.apigateway.security.service.JwtTokenServices;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,41 +18,24 @@ import java.util.*;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public class VisitorRegisterDTO {
+public class RegisterService implements VisitorRegisterServiceDao {
     private final VisitorRepository visitorRepository;
     private final JwtTokenServices jwtTokenServices;
     private final DataValidatorService dataValidator;
     private final PasswordEncoder passwordEncoder;
+    private final VisitorServiceDao visitorServiceDao;
 
     public ResponseEntity registerUser(UserCredentialsDTO userCredentials) {
 
         ResponseEntity failedRegistrationMessage = checkRegistrationForError(userCredentials);
         if (failedRegistrationMessage != null) return failedRegistrationMessage;
 
-        Visitor newVisitor = Visitor.builder()
-                .username(userCredentials.getUsername())
-                .password(passwordEncoder.encode(userCredentials.getPassword()))
-                .firstname(userCredentials.getFirstname())
-                .lastname(userCredentials.getLastname())
-                .email(userCredentials.getEmail())
-                .roles(Collections.singletonList(Role.ROLE_USER))
-                .gender(userCredentials.getGender())
-                .build();
-        visitorRepository.save(newVisitor);
-        return successfulRegistrationResponse(newVisitor.getUsername(), newVisitor.getRoles());
+        List<Role> roles = Collections.singletonList(Role.ROLE_USER);
+        visitorServiceDao.save(userCredentials, roles);
+        return successfulRegistrationResponse(userCredentials.getUsername(), roles);
     }
 
-    private ResponseEntity successfulRegistrationResponse(String username, List<Role> roles) {
-        Map<String, Object> responseMessage = new HashMap<>();
-
-        String token = jwtTokenServices.createToken(username, Collections.singletonList(roles.stream().toString()));
-        responseMessage.put("correct", true);
-        responseMessage.put("username", username);
-        responseMessage.put("roles", roles);
-        responseMessage.put("token", token);
-        return ResponseEntity.ok(responseMessage);
-    }
-
+    // TODO: check if e-mail is already taken in database
     // TODO: check if validation could generate error messages instead of registration service.
     // TODO: check if possible to modify to collect all possible errors in one message.
     public ResponseEntity checkRegistrationForError(UserCredentialsDTO userCredentials) {
@@ -96,6 +79,17 @@ public class VisitorRegisterDTO {
         }
 
         return null;
+    }
+
+    private ResponseEntity successfulRegistrationResponse(String username, List<Role> roles) {
+        Map<String, Object> responseMessage = new HashMap<>();
+
+        String token = jwtTokenServices.createToken(username, Collections.singletonList(roles.stream().toString()));
+        responseMessage.put("correct", true);
+        responseMessage.put("username", username);
+        responseMessage.put("roles", roles);
+        responseMessage.put("token", token);
+        return ResponseEntity.ok(responseMessage);
     }
 
     private ResponseEntity failedRegisterMessage(String message) {
