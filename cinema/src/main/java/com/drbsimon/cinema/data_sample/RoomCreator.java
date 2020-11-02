@@ -1,8 +1,8 @@
 package com.drbsimon.cinema.data_sample;
 
 import com.drbsimon.cinema.model.Room;
-import com.drbsimon.cinema.repository.SeatRepository;
 import com.drbsimon.cinema.service.dao.RoomDao;
+import com.drbsimon.cinema.service.dao.SeatDao;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -14,14 +14,12 @@ import java.util.Random;
 public class RoomCreator {
 
     private final RoomDao roomDao;
-    private final SeatRepository seatRepository;
 
     private final List<String> roomNames = Arrays.asList("Patkós Irma", "Huszárik Zoltán", "Uránia");
     Random random = new Random();
 
-    public RoomCreator(RoomDao roomDao, SeatRepository seatRepository) {
+    public RoomCreator(RoomDao roomDao) {
         this.roomDao = roomDao;
-        this.seatRepository = seatRepository;
     }
 
     public void createRooms(int numberOfRooms, int numberOfRows, int numberOfSeatPerRow) {
