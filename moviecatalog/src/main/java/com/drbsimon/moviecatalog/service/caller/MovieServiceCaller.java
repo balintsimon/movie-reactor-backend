@@ -1,4 +1,4 @@
-package com.drbsimon.moviecatalog.service;
+package com.drbsimon.moviecatalog.service.caller;
 
 import com.drbsimon.moviecatalog.model.dto.MovieDTO;
 import com.drbsimon.moviecatalog.model.wrapper.MovieListWrapper;

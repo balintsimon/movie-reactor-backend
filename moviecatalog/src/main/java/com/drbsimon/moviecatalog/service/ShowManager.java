@@ -5,7 +5,7 @@ import com.drbsimon.moviecatalog.model.dto.MovieDTO;
 import com.drbsimon.moviecatalog.model.wrapper.MovieListWrapper;
 import com.drbsimon.moviecatalog.model.wrapper.ShowListWrapper;
 import com.drbsimon.moviecatalog.repository.ShowRepository;
-import com.drbsimon.moviecatalog.service.MovieServiceCaller;
+import com.drbsimon.moviecatalog.service.caller.MovieServiceCaller;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

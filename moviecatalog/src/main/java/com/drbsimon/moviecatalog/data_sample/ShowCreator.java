@@ -4,8 +4,8 @@ import com.drbsimon.moviecatalog.model.Show;
 import com.drbsimon.moviecatalog.model.dto.MovieDTO;
 import com.drbsimon.moviecatalog.model.dto.RoomDTO;
 import com.drbsimon.moviecatalog.repository.ShowRepository;
-import com.drbsimon.moviecatalog.service.MovieServiceCaller;
-import com.drbsimon.moviecatalog.service.RoomServiceCaller;
+import com.drbsimon.moviecatalog.service.caller.MovieServiceCaller;
+import com.drbsimon.moviecatalog.service.caller.RoomServiceCaller;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
