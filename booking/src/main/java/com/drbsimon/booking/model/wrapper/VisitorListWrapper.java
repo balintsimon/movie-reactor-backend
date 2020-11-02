@@ -1,6 +1,6 @@
 package com.drbsimon.booking.model.wrapper;
 
-import com.drbsimon.booking.service.model.VisitorDTO;
+import com.drbsimon.booking.model.dto.VisitorDTO;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 

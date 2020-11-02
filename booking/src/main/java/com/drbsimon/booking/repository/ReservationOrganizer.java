@@ -2,12 +2,16 @@ package com.drbsimon.booking.repository;
 
 import com.drbsimon.booking.entity.Reservation;
 import com.drbsimon.booking.entity.SeatReservedWrapper;
+import com.drbsimon.booking.model.Role;
+import com.drbsimon.booking.model.dto.AllBookingInfoDTO;
+import com.drbsimon.booking.model.dto.SeatDTO;
+import com.drbsimon.booking.model.dto.ShowDTO;
+import com.drbsimon.booking.model.dto.VisitorDTO;
 import com.drbsimon.booking.model.wrapper.AllBookingInfoWrapper;
 import com.drbsimon.booking.model.wrapper.ReservationWrapper;
 import com.drbsimon.booking.service.caller.CatalogServiceCaller;
 import com.drbsimon.booking.service.caller.CinemaServiceCaller;
 import com.drbsimon.booking.service.caller.VisitorServiceCaller;
-import com.drbsimon.booking.service.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -100,12 +104,12 @@ public class ReservationOrganizer {
 
     private AllBookingInfoWrapper getAllReservationsWithExtraInfo() {
         List<Reservation> reservations = reservationRepository.findAll();
-        List<AllBookingInfo> allInformation = new ArrayList<>();
+        List<AllBookingInfoDTO> allInformation = new ArrayList<>();
         Map<Long, VisitorDTO> visitors = new HashMap<>();
-        Map<Long, Show> shows = new HashMap<>();
-        Map<Long, Seat> seats = new HashMap<>();
+        Map<Long, ShowDTO> shows = new HashMap<>();
+        Map<Long, SeatDTO> seats = new HashMap<>();
         for (Reservation reservation : reservations) {
-            Show show;
+            ShowDTO show;
             if (shows.containsKey(reservation.getShowId())) show = shows.get(reservation.getShowId());
             else {
                 show = catalogServiceCaller.getShowById(reservation.getShowId());
@@ -119,37 +123,37 @@ public class ReservationOrganizer {
                 visitors.put(reservation.getVisitorId(), visitor);
             }
 
-            Seat seat;
+            SeatDTO seat;
             if (seats.containsKey(reservation.getSeatId())) seat = seats.get(reservation.getSeatId());
             else {
                 seat = cinemaServiceCaller.getSeatById(reservation.getSeatId());
                 seats.put(reservation.getSeatId(), seat);
             }
-            allInformation.add(new AllBookingInfo(reservation.getId(), visitor, seat, show, show.getMovieDbId()));
+            allInformation.add(new AllBookingInfoDTO(reservation.getId(), visitor, seat, show, show.getMovieDbId()));
         }
         return new AllBookingInfoWrapper(allInformation);
     }
 
     private AllBookingInfoWrapper getAllReservationsOfUserWithExtraInfo(VisitorDTO visitor) {
         List<Reservation> reservations = reservationRepository.getAllByVisitorId(visitor.getId());
-        List<AllBookingInfo> allInformation = new ArrayList<>();
-        Map<Long, Show> shows = new HashMap<>();
-        Map<Long, Seat> seats = new HashMap<>();
+        List<AllBookingInfoDTO> allInformation = new ArrayList<>();
+        Map<Long, ShowDTO> shows = new HashMap<>();
+        Map<Long, SeatDTO> seats = new HashMap<>();
         for (Reservation reservation : reservations) {
-            Show show;
+            ShowDTO show;
             if (shows.containsKey(reservation.getShowId())) show = shows.get(reservation.getShowId());
             else {
                 show = catalogServiceCaller.getShowById(reservation.getShowId());
                 shows.put(reservation.getShowId(), show);
             }
 
-            Seat seat;
+            SeatDTO seat;
             if (seats.containsKey(reservation.getSeatId())) seat = seats.get(reservation.getSeatId());
             else {
                 seat = cinemaServiceCaller.getSeatById(reservation.getSeatId());
                 seats.put(reservation.getSeatId(), seat);
             }
-            allInformation.add(new AllBookingInfo(reservation.getId(), visitor, seat, show, show.getMovieDbId()));
+            allInformation.add(new AllBookingInfoDTO(reservation.getId(), visitor, seat, show, show.getMovieDbId()));
         }
         return new AllBookingInfoWrapper(allInformation);
     }
@@ -167,12 +171,12 @@ public class ReservationOrganizer {
 
     public AllBookingInfoWrapper getAllReservationsWithDetailsByShowId(Long showId) {
         List<Reservation> reservations = reservationRepository.getAllByShowId(showId);
-        List<AllBookingInfo> allInformation = new ArrayList<>();
+        List<AllBookingInfoDTO> allInformation = new ArrayList<>();
         Map<Long, VisitorDTO> visitors = new HashMap<>();
-        Map<Long, Show> shows = new HashMap<>();
-        Map<Long, Seat> seats = new HashMap<>();
+        Map<Long, ShowDTO> shows = new HashMap<>();
+        Map<Long, SeatDTO> seats = new HashMap<>();
         for (Reservation reservation : reservations) {
-            Show show;
+            ShowDTO show;
             if (shows.containsKey(reservation.getShowId())) show = shows.get(reservation.getShowId());
             else {
                 show = catalogServiceCaller.getShowById(reservation.getShowId());
@@ -186,24 +190,24 @@ public class ReservationOrganizer {
                 visitors.put(reservation.getVisitorId(), visitor);
             }
 
-            Seat seat;
+            SeatDTO seat;
             if (seats.containsKey(reservation.getSeatId())) seat = seats.get(reservation.getSeatId());
             else {
                 seat = cinemaServiceCaller.getSeatById(reservation.getSeatId());
                 seats.put(reservation.getSeatId(), seat);
             }
-            allInformation.add(new AllBookingInfo(reservation.getId(), visitor, seat, show, show.getMovieDbId()));
+            allInformation.add(new AllBookingInfoDTO(reservation.getId(), visitor, seat, show, show.getMovieDbId()));
         }
         return new AllBookingInfoWrapper(allInformation);
     }
 
     public AllBookingInfoWrapper getAllReservationsWithDetailsOfLoggedInUserByShowId(Long showId, VisitorDTO loggedInVisitor) {
         List<Reservation> reservations = reservationRepository.getAllByShowId(showId);
-        List<AllBookingInfo> allInformation = new ArrayList<>();
-        Map<Long, Show> shows = new HashMap<>();
-        Map<Long, Seat> seats = new HashMap<>();
+        List<AllBookingInfoDTO> allInformation = new ArrayList<>();
+        Map<Long, ShowDTO> shows = new HashMap<>();
+        Map<Long, SeatDTO> seats = new HashMap<>();
         for (Reservation reservation : reservations) {
-            Show show;
+            ShowDTO show;
             if (shows.containsKey(reservation.getShowId())) show = shows.get(reservation.getShowId());
             else {
                 show = catalogServiceCaller.getShowById(reservation.getShowId());
@@ -213,13 +217,13 @@ public class ReservationOrganizer {
             VisitorDTO visitor = (reservation.getVisitorId().equals(loggedInVisitor.getId())) ? loggedInVisitor
                     : new VisitorDTO();
 
-            Seat seat;
+            SeatDTO seat;
             if (seats.containsKey(reservation.getSeatId())) seat = seats.get(reservation.getSeatId());
             else {
                 seat = cinemaServiceCaller.getSeatById(reservation.getSeatId());
                 seats.put(reservation.getSeatId(), seat);
             }
-            allInformation.add(new AllBookingInfo(reservation.getId(), visitor, seat, show, show.getMovieDbId()));
+            allInformation.add(new AllBookingInfoDTO(reservation.getId(), visitor, seat, show, show.getMovieDbId()));
         }
         return new AllBookingInfoWrapper(allInformation);
     }
@@ -227,11 +231,11 @@ public class ReservationOrganizer {
 
     public AllBookingInfoWrapper getReservationsByShowIdWithoutUserInformation(Long showId) {
         List<Reservation> reservations = reservationRepository.getAllByShowId(showId);
-        List<AllBookingInfo> allInformation = new ArrayList<>();
-        Map<Long, Show> shows = new HashMap<>();
-        Map<Long, Seat> seats = new HashMap<>();
+        List<AllBookingInfoDTO> allInformation = new ArrayList<>();
+        Map<Long, ShowDTO> shows = new HashMap<>();
+        Map<Long, SeatDTO> seats = new HashMap<>();
         for (Reservation reservation : reservations) {
-            Show show;
+            ShowDTO show;
             if (shows.containsKey(reservation.getShowId())) show = shows.get(reservation.getShowId());
             else {
                 show = catalogServiceCaller.getShowById(reservation.getShowId());
@@ -240,13 +244,13 @@ public class ReservationOrganizer {
 
             VisitorDTO visitor = new VisitorDTO();
 
-            Seat seat;
+            SeatDTO seat;
             if (seats.containsKey(reservation.getSeatId())) seat = seats.get(reservation.getSeatId());
             else {
                 seat = cinemaServiceCaller.getSeatById(reservation.getSeatId());
                 seats.put(reservation.getSeatId(), seat);
             }
-            allInformation.add(new AllBookingInfo(reservation.getId(), visitor, seat, show, show.getMovieDbId()));
+            allInformation.add(new AllBookingInfoDTO(reservation.getId(), visitor, seat, show, show.getMovieDbId()));
         }
         return new AllBookingInfoWrapper(allInformation);
     }

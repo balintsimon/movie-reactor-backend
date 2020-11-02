@@ -1,4 +1,4 @@
-package com.drbsimon.booking.service.model;
+package com.drbsimon.booking.model.dto;
 
 import lombok.*;
 import java.util.List;
@@ -6,10 +6,10 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Room {
+public class RoomDTO {
     private Long id;
     private String name;
     private Integer numberOfRows;
     private Integer numberOfSeatsPerRow;
-    private List<Seat> seats;
+    private List<SeatDTO> seats;
 }

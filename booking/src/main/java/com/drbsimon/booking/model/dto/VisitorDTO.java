@@ -1,5 +1,7 @@
-package com.drbsimon.booking.service.model;
+package com.drbsimon.booking.model.dto;
 
+import com.drbsimon.booking.model.Gender;
+import com.drbsimon.booking.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

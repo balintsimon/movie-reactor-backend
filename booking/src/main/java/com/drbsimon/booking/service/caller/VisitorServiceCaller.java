@@ -1,6 +1,6 @@
 package com.drbsimon.booking.service.caller;
 
-import com.drbsimon.booking.service.model.VisitorDTO;
+import com.drbsimon.booking.model.dto.VisitorDTO;
 import com.drbsimon.booking.model.wrapper.VisitorListWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

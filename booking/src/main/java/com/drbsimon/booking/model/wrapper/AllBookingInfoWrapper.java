@@ -1,6 +1,6 @@
 package com.drbsimon.booking.model.wrapper;
 
-import com.drbsimon.booking.service.model.AllBookingInfo;
+import com.drbsimon.booking.model.dto.AllBookingInfoDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,5 +13,5 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AllBookingInfoWrapper {
-    List<AllBookingInfo> bookings;
+    List<AllBookingInfoDTO> bookings;
 }

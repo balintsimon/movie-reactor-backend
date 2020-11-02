@@ -1,4 +1,4 @@
-package com.drbsimon.booking.service.model;
+package com.drbsimon.booking.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +10,7 @@ import java.time.LocalTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Show {
+public class ShowDTO {
     private Long id;
     private LocalDate startingDate;
     private LocalTime startingTime;

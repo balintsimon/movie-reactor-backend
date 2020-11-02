@@ -2,7 +2,7 @@ package com.drbsimon.booking.controller;
 
 import com.drbsimon.booking.entity.SeatReservedWrapper;
 import com.drbsimon.booking.model.wrapper.AllBookingInfoWrapper;
-import com.drbsimon.booking.model.MessageDTO;
+import com.drbsimon.booking.model.dto.MessageDTO;
 import com.drbsimon.booking.model.wrapper.ReservationWrapper;
 import com.drbsimon.booking.repository.ReservationOrganizer;
 import lombok.RequiredArgsConstructor;

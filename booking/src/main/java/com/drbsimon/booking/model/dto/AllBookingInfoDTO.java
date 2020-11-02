@@ -1,4 +1,4 @@
-package com.drbsimon.booking.service.model;
+package com.drbsimon.booking.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AllBookingInfo {
+public class AllBookingInfoDTO {
     Long id;
     VisitorDTO visitor;
-    Seat seat;
-    Show show;
+    SeatDTO seat;
+    ShowDTO show;
     int movieId;
 }
