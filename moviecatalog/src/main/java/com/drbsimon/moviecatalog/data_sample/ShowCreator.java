@@ -3,9 +3,9 @@ package com.drbsimon.moviecatalog.data_sample;
 import com.drbsimon.moviecatalog.model.Show;
 import com.drbsimon.moviecatalog.model.dto.MovieDTO;
 import com.drbsimon.moviecatalog.model.dto.RoomDTO;
-import com.drbsimon.moviecatalog.repository.ShowRepository;
 import com.drbsimon.moviecatalog.service.caller.MovieServiceCaller;
 import com.drbsimon.moviecatalog.service.caller.RoomServiceCaller;
+import com.drbsimon.moviecatalog.service.dao.ShowDao;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -14,12 +14,12 @@ import java.util.List;
 
 @Component
 public class ShowCreator {
-    private final ShowRepository showRepository;
+    private final ShowDao showDao;
     private final MovieServiceCaller movieServiceCaller;
     private final RoomServiceCaller roomServiceCaller;
 
-    public ShowCreator(ShowRepository showRepository, MovieServiceCaller movieServiceCaller, RoomServiceCaller roomServiceCaller) {
-        this.showRepository = showRepository;
+    public ShowCreator(ShowDao showDao, MovieServiceCaller movieServiceCaller, RoomServiceCaller roomServiceCaller) {
+        this.showDao = showDao;
         this.movieServiceCaller = movieServiceCaller;
         this.roomServiceCaller = roomServiceCaller;
     }
@@ -41,7 +41,7 @@ public class ShowCreator {
                         .startingTime(startingTime)
                         .roomId(rooms.get(0).getId())
                         .build();
-                showRepository.save(currentShow);
+                showDao.save(currentShow);
 //                startingTime = startingTime.plusHours(2);
                 startingTime = startingTime.plusMinutes(runtime + 10);
             }
