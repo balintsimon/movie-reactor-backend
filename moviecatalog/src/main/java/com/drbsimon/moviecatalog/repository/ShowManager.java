@@ -1,9 +1,9 @@
 package com.drbsimon.moviecatalog.repository;
 
 import com.drbsimon.moviecatalog.entity.Show;
-import com.drbsimon.moviecatalog.model.Movie;
-import com.drbsimon.moviecatalog.model.MovieListWrapper;
-import com.drbsimon.moviecatalog.model.ShowListWrapper;
+import com.drbsimon.moviecatalog.model.dto.MovieDTO;
+import com.drbsimon.moviecatalog.model.wrapper.MovieListWrapper;
+import com.drbsimon.moviecatalog.model.wrapper.ShowListWrapper;
 import com.drbsimon.moviecatalog.service.MovieServiceCaller;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -49,9 +49,9 @@ public class ShowManager {
 
     public MovieListWrapper getAllMoviesOnShow() {
         List<Show> shows = showRepository.findAll();
-        List<Movie> movies = new ArrayList<>();
+        List<MovieDTO> movies = new ArrayList<>();
         for (Show show : shows) {
-            Movie movie = movieServiceCaller.getMovieByMovieId(show.getMovieId());
+            MovieDTO movie = movieServiceCaller.getMovieByMovieId(show.getMovieId());
             movies.add(movie);
         }
         return new MovieListWrapper(movies);

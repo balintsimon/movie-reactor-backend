@@ -1,10 +1,7 @@
 package com.drbsimon.moviecatalog.service;
 
-import com.drbsimon.moviecatalog.model.Room;
-import com.drbsimon.moviecatalog.model.RoomListWrapper;
-import com.drbsimon.moviecatalog.repository.ShowRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import com.drbsimon.moviecatalog.model.dto.RoomDTO;
+import com.drbsimon.moviecatalog.model.wrapper.RoomListWrapper;
 import org.springframework.beans.factory.annotation.Value;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +23,7 @@ public class RoomServiceCaller {
     @Value("${cinema.url}")
     private String cinemaBaseUrl;
 
-    public List<Room> getAllRooms() {
+    public List<RoomDTO> getAllRooms() {
         RoomListWrapper roomList = restTemplate.getForObject(cinemaBaseUrl + "/room", RoomListWrapper.class);
         return roomList.getRooms();
     }

@@ -1,14 +1,12 @@
 package com.drbsimon.moviecatalog.data_sample;
 
 import com.drbsimon.moviecatalog.entity.Show;
-import com.drbsimon.moviecatalog.model.Movie;
-import com.drbsimon.moviecatalog.model.Room;
+import com.drbsimon.moviecatalog.model.dto.MovieDTO;
+import com.drbsimon.moviecatalog.model.dto.RoomDTO;
 import com.drbsimon.moviecatalog.repository.ShowRepository;
 import com.drbsimon.moviecatalog.service.MovieServiceCaller;
 import com.drbsimon.moviecatalog.service.RoomServiceCaller;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -27,13 +25,13 @@ public class ShowCreator {
     }
 
     public void createWeeklyScheduleData(LocalDate fromDate) {
-        List<Movie> movies = movieServiceCaller.getAllMovies();
-        List<Room> rooms = roomServiceCaller.getAllRooms();
+        List<MovieDTO> movies = movieServiceCaller.getAllMovies();
+        List<RoomDTO> rooms = roomServiceCaller.getAllRooms();
 
         for (int i = 0; i < 7; i++) {
             LocalTime startingTime = LocalTime.of(12, 0);
 
-            for (Movie movie : movies) {
+            for (MovieDTO movie : movies) {
                 Integer runtime = movie.getRuntime() != null ? movie.getRuntime() : 130;
 
                 Show currentShow = Show.builder()

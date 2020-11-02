@@ -1,12 +1,9 @@
 package com.drbsimon.moviecatalog.service;
 
-import com.drbsimon.moviecatalog.model.Movie;
-import com.drbsimon.moviecatalog.model.MovieListWrapper;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import com.drbsimon.moviecatalog.model.dto.MovieDTO;
+import com.drbsimon.moviecatalog.model.wrapper.MovieListWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,12 +21,12 @@ public class MovieServiceCaller {
     @Value("${movieservice.url}")
     private String movieBaseUrl;
 
-    public List<Movie> getAllMovies() {
+    public List<MovieDTO> getAllMovies() {
         MovieListWrapper movieListWrapper = restTemplate.getForObject(movieBaseUrl + "/movie", MovieListWrapper.class);
         return movieListWrapper.getMovies();
     }
 
-    public Movie getMovieByMovieId(Long id) {
-        return restTemplate.getForObject(movieBaseUrl + "/movie/" + id, Movie.class);
+    public MovieDTO getMovieByMovieId(Long id) {
+        return restTemplate.getForObject(movieBaseUrl + "/movie/" + id, MovieDTO.class);
     }
 }

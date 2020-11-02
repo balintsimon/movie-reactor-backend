@@ -1,6 +1,5 @@
-package com.drbsimon.moviecatalog.model;
+package com.drbsimon.moviecatalog.model.dto;
 
-import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,11 +11,11 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Room {
+public class RoomDTO {
     private Long id;
     private String name;
     private Integer numberOfRows;
     private Integer numberOfSeatsPerRow;
     private Integer capacity;
-    private List<Seat> seats;
+    private List<SeatDTO> seats;
 }

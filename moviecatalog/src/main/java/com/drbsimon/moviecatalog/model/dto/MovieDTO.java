@@ -1,4 +1,4 @@
-package com.drbsimon.moviecatalog.model;
+package com.drbsimon.moviecatalog.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Movie {
+public class MovieDTO {
     private Long id;
     private Integer movieDbId;
     private Integer runtime;

@@ -1,4 +1,4 @@
-package com.drbsimon.moviecatalog.model;
+package com.drbsimon.moviecatalog.model.wrapper;
 
 import com.drbsimon.moviecatalog.entity.Show;
 import lombok.Data;

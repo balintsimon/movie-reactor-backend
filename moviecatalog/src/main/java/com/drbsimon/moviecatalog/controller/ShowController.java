@@ -1,16 +1,11 @@
 package com.drbsimon.moviecatalog.controller;
 
 import com.drbsimon.moviecatalog.entity.Show;
-import com.drbsimon.moviecatalog.model.MovieListWrapper;
-import com.drbsimon.moviecatalog.model.ShowListWrapper;
+import com.drbsimon.moviecatalog.model.wrapper.MovieListWrapper;
+import com.drbsimon.moviecatalog.model.wrapper.ShowListWrapper;
 import com.drbsimon.moviecatalog.repository.ShowManager;
-import com.drbsimon.moviecatalog.repository.ShowRepository;
-import com.drbsimon.moviecatalog.service.MovieServiceCaller;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 //@CrossOrigin("http://localhost:3000")
 @RestController

@@ -1,5 +1,6 @@
-package com.drbsimon.moviecatalog.model;
+package com.drbsimon.moviecatalog.model.wrapper;
 
+import com.drbsimon.moviecatalog.model.dto.MovieDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,5 +13,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MovieListWrapper {
-    List<Movie> movies;
+    List<MovieDTO> movies;
 }
