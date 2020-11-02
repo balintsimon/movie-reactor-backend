@@ -2,7 +2,7 @@ package com.drbsimon.cinema;
 
 import com.drbsimon.cinema.model.Room;
 import com.drbsimon.cinema.model.wrapper.RoomListWrapper;
-import com.drbsimon.cinema.repository.RoomManager;
+import com.drbsimon.cinema.service.RoomService;
 import com.drbsimon.cinema.repository.RoomRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ class RoomTests {
     private RoomRepository repository;
 
     @Autowired
-    private RoomManager manager;
+    private RoomService manager;
 
     @Test
     public void testRepositoryLoads() throws Exception {

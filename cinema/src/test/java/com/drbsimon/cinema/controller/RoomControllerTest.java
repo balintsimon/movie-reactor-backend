@@ -2,7 +2,7 @@ package com.drbsimon.cinema.controller;
 
 import com.drbsimon.cinema.model.Room;
 import com.drbsimon.cinema.model.wrapper.RoomListWrapper;
-import com.drbsimon.cinema.repository.RoomManager;
+import com.drbsimon.cinema.service.RoomService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ class RoomControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private RoomManager service;
+    private RoomService service;
 
     private List<Room> rooms;
     private RoomListWrapper roomListWrapper;

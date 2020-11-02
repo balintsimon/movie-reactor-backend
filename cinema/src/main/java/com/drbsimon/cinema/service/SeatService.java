@@ -1,7 +1,8 @@
-package com.drbsimon.cinema.repository;
+package com.drbsimon.cinema.service;
 
 import com.drbsimon.cinema.model.Seat;
 import com.drbsimon.cinema.model.wrapper.SeatListWrapper;
+import com.drbsimon.cinema.repository.SeatRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,7 +12,7 @@ import java.util.List;
 @Component
 @Data
 @RequiredArgsConstructor
-public class SeatManager {
+public class SeatService {
     private final SeatRepository seatRepository;
 
     public SeatListWrapper getAllSeats() {
